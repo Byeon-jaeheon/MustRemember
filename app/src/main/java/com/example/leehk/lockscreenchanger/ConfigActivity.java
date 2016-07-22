@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -33,6 +34,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,6 +47,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Random;
 
 /**
  * Created by leehk on 2016-07-12.
@@ -59,6 +68,7 @@ public class ConfigActivity extends FragmentActivity {
     private static String ret;
     public static int unlocked = 0;
     DBHelper helper;
+    phpDown task;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -146,6 +156,7 @@ public class ConfigActivity extends FragmentActivity {
                 help.show(fm, "aa");
             }
         });
+
 
 
     }
@@ -412,6 +423,9 @@ public class ConfigActivity extends FragmentActivity {
         else {
             line.setVisibility(View.INVISIBLE);
         }
+
+        task = new phpDown();
+        task.execute("http://app.mujogun.co.kr/?action=lockscreen");
     }
 
 
@@ -441,5 +455,61 @@ public class ConfigActivity extends FragmentActivity {
         }
 
     }
+    private class phpDown extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            StringBuilder jsonHtml = new StringBuilder();
+            try {
+                URL url = new URL(strings[0]);
+                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                if(conn != null){
+                    conn.setConnectTimeout(10000);
+                    conn.setUseCaches(false);
+                    // 연결되었음 코드가 리턴되면.
+                    if(conn.getResponseCode() == HttpURLConnection.HTTP_OK){
+                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+                        for(;;){
+                            // 웹상에 보여지는 텍스트를 라인단위로 읽어 저장.
+                            String line = br.readLine();
+                            if(line == null) break;
+                            // 저장된 텍스트 라인을 jsonHtml에 붙여넣음
+                            jsonHtml.append(line + "\n");
+                        }
+                        br.close();
+                    }
+                    conn.disconnect();
+                }
+
+            } catch(Exception ex){
+                ex.printStackTrace();
+            }
+            return jsonHtml.toString();
+        }
+        @Override
+        protected void onPostExecute(String str) {
+
+            try {
+                JSONObject root = new JSONObject(str);
+                String connection = root.getString("result");
+                if (connection.compareTo("success") == 0) {
+                    String  jname = root.getString("name");
+                    String jline = root.getString("content");
+                   String jlink = root.getString("link");
+                   TextView x = (TextView)findViewById(R.id.line);
+                    x.setText(jline + "\n" + jname);
+                   if (jlink.compareTo("") != 0)
+                       x.append("\n" + jlink);
+
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
 
 }

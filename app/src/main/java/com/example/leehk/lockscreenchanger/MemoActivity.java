@@ -3,6 +3,7 @@ package com.example.leehk.lockscreenchanger;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +16,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -131,5 +140,4 @@ public class MemoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
-
 }
