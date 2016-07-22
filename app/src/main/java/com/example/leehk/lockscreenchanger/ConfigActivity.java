@@ -21,6 +21,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -49,6 +50,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Random;
 
 /**
@@ -366,8 +369,19 @@ public class ConfigActivity extends FragmentActivity {
         watch = (DigitalClock)findViewById(R.id.clock);
         watch.bringToFront();
 
+        TextView date = (TextView)findViewById(R.id.date);
+        date.bringToFront();
+
         TextView line = (TextView) findViewById(R.id.line);
         line.bringToFront();
+
+        TextView link = (TextView) findViewById(R.id.link);
+        link.bringToFront();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM월 dd일");
+        String currentdate = sdf.format(Calendar.getInstance().getTime());
+        date.setText(currentdate);
+
         unlocked = 1;
 
 
@@ -419,9 +433,11 @@ public class ConfigActivity extends FragmentActivity {
         }
         if (prefs.getBoolean("line_visible", Boolean.parseBoolean(null))) {
             line.setVisibility(View.VISIBLE);
+            link.setVisibility(View.VISIBLE);
         }
         else {
-            line.setVisibility(View.INVISIBLE);
+            line.setVisibility(View.GONE);
+            link.setVisibility(View.GONE);
         }
 
         task = new phpDown();
@@ -498,8 +514,14 @@ public class ConfigActivity extends FragmentActivity {
                    String jlink = root.getString("link");
                    TextView x = (TextView)findViewById(R.id.line);
                     x.setText(jline + "\n" + jname);
-                   if (jlink.compareTo("") != 0)
-                       x.append("\n" + jlink);
+                    TextView y = (TextView)findViewById(R.id.link);
+                   if (jlink.compareTo("") != 0) {
+                       y.setText(jlink);
+                       Linkify.addLinks(y, Linkify.WEB_URLS);
+                   }
+
+                    else
+                       y.setText("");
 
 
                 }

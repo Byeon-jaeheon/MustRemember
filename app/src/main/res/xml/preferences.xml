@@ -23,6 +23,7 @@
         android:title = "메모 보이게 하기"
         android:defaultValue="true"
         />
+
     <CheckBoxPreference
         android:key= "line_visible"
         android:title = "명언 보이게 하기"

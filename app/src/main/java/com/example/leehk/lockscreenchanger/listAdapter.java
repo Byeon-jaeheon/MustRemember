@@ -2,6 +2,7 @@ package com.example.leehk.lockscreenchanger;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,7 +81,7 @@ public class listAdapter extends BaseAdapter{
         }
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.memo_list_item, parent, false);
-
+        convertView.setAlpha((float) 0.5);
         // TextView에 현재 position의 문자열 추가
         TextView text1 = (TextView) convertView.findViewById(R.id.textView1);
         text1.setText(m_list.get(position).getData1());
