@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+    <ListPreference
+        android:key = "memo_font_size"
+        android:title = "메모 글자 크기"
+        android:entries="@array/FontSize"
+        android:entryValues="@array/FontSize"
+        android:defaultValue="14"
+        >
+    </ListPreference>
+    <CheckBoxPreference
+        android:key= "clock_visible"
+        android:title = "시계 보이게 하기"
+        android:defaultValue="true"
+        />
+    <CheckBoxPreference
+        android:key= "memo_visible"
+        android:title = "메모 보이게 하기"
+        android:defaultValue="true"
+        />
+    <CheckBoxPreference
+        android:key= "line_visible"
+        android:title = "명언 보이게 하기"
+        android:defaultValue="true"
+        />
+
+</PreferenceScreen>
