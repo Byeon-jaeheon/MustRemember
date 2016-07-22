@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -21,6 +22,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -427,9 +429,11 @@ public class ConfigActivity extends FragmentActivity {
         }
         if (prefs.getBoolean("clock_visible", Boolean.parseBoolean(null))) {
             watch.setVisibility(View.VISIBLE);
+            date.setVisibility(View.VISIBLE);
         }
         else {
             watch.setVisibility(View.INVISIBLE);
+            date.setVisibility(View.INVISIBLE);
         }
         if (prefs.getBoolean("line_visible", Boolean.parseBoolean(null))) {
             line.setVisibility(View.VISIBLE);
@@ -511,13 +515,21 @@ public class ConfigActivity extends FragmentActivity {
                 if (connection.compareTo("success") == 0) {
                     String  jname = root.getString("name");
                     String jline = root.getString("content");
-                   String jlink = root.getString("link");
+                   final String jlink = root.getString("link");
                    TextView x = (TextView)findViewById(R.id.line);
                     x.setText(jline + "\n" + jname);
-                    TextView y = (TextView)findViewById(R.id.link);
+                    final TextView y = (TextView)findViewById(R.id.link);
                    if (jlink.compareTo("") != 0) {
-                       y.setText(jlink);
-                       Linkify.addLinks(y, Linkify.WEB_URLS);
+
+                       y.setText(Html.fromHtml("<u>" + "관련링크" + "</u" ));
+                       y.setTextColor(Color.BLUE);
+                       y.setOnClickListener(new View.OnClickListener() {
+                           @Override
+                           public void onClick(View view) {
+                               Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(jlink));
+                               startActivity(browserIntent);
+                           }
+                       });
                    }
 
                     else
