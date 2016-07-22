@@ -17,6 +17,24 @@
         <item>23</item>
     </string-array>
 
+    <string-array name="Colors">
+        <item>빨강</item>
+        <item>파랑</item>
+        <item>하양</item>
+        <item>검정</item>
+        <item>회색</item>
+        <item>초록</item>
+        <item>노랑</item>
+    </string-array>
+    <string-array name="ColorValues">
+        <item>Color.RED</item>
+        <item>Color.BLUE</item>
+        <item>Color.WHITE</item>
+        <item>Color.BLACK</item>
+        <item>Color.GRAY</item>
+        <item>Color.GREEN</item>
+        <item>Color.YELLOW</item>
+    </string-array>
 
 
 </resources>

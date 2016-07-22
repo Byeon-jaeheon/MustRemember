@@ -16,39 +16,7 @@
        />
 
 
-   <Button
-       android:id="@+id/btn1"
-       android:text = "배경설정"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
 
-       />
-   <Button
-       android:id="@+id/btn2"
-       android:text = "메모추가"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-       android:layout_toRightOf="@id/btn1"
-       />
-   <Button
-       android:id="@+id/btn3"
-       android:text = "글자설정"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-       android:layout_toRightOf="@id/btn2"
-       />
-   <Button
-       android:id="@+id/btn4"
-       android:text = "이용방법"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-       android:layout_toRightOf="@id/btn3"
-
-       />
    <DigitalClock
        android:id="@+id/clock"
        android:layout_width="wrap_content"
@@ -67,27 +35,75 @@
        android:scaleType="fitXY"
 
        />
+   <LinearLayout
+       android:id="@+id/relative1"
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       >
+      <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="30dp"
+          android:layout_marginRight="30dp"
+          android:gravity = "center"
+          >
+         <Button
+             android:id="@+id/btn1"
+             android:text = "배경설정"
+             android:gravity="center"
+             android:background="@drawable/circler"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+
+             />
+         <Button
+             android:id="@+id/btn2"
+             android:text = "메모추가"
+             android:layout_gravity="center_horizontal"
+             android:background="@drawable/circler"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             />
+         <Button
+             android:id="@+id/btn3"
+             android:text = "글자설정"
+             android:layout_gravity="center_horizontal"
+             android:background="@drawable/circler"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             />
+         <Button
+             android:id="@+id/btn4"
+             android:text = "이용방법"
+             android:gravity="center"
+             android:background="@drawable/circler"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             />
+      </LinearLayout>
+      <ImageView
+          android:id="@+id/lock"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:background="@drawable/lock"
+          />
    <TextView
        android:id="@+id/touchspace"
        android:text = "터치하여 잠금을 해제하세요"
-       android:gravity="top"
-       android:textAlignment="center"
-       android:layout_width="match_parent"
-       android:layout_height="110dp"
-       android:layout_marginTop="320dp"
-
-       />
-
-   <TextView
-       android:id="@+id/link"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:textAlignment="center"
        android:gravity="center"
-       android:text = "http://m.naver.com"
-       android:background="#ffffff"
-       android:layout_above="@id/btn1"
-       />
+       android:textAlignment="center"
+       android:layout_width="match_parent"
+       android:layout_height="110dp" />
+
+   </LinearLayout>
 
    <TextView
        android:id="@+id/line"
@@ -97,7 +113,7 @@
        android:gravity="center"
        android:text = "성공은 영원하지 않고, 실패는 치명적이지 않다 \n- 마이크 다트카-"
        android:background="#ffffff"
-       android:layout_above="@id/link"
+       android:layout_above="@id/relative1"
        />
    <TextView
        android:id="@+id/date"

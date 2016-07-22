@@ -13,6 +13,13 @@
         android:defaultValue="14"
         >
     </ListPreference>
+    <ListPreference
+        android:key="font_color"
+        android:title="글자 색깔 설정"
+        android:entries="@array/Colors"
+        android:entryValues="@array/ColorValues"
+        android:defaultValue="Color.BLACK"
+        ></ListPreference>
     <CheckBoxPreference
         android:key= "clock_visible"
         android:title = "시계 보이게 하기"

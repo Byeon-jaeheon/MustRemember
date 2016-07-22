@@ -33,7 +33,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DigitalClock;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -115,12 +117,32 @@ public class ConfigActivity extends FragmentActivity {
         Drawable alpha = line.getBackground();
         alpha.setAlpha(100);
 
+        TextView touchspace = (TextView) findViewById(R.id.touchspace);
+        touchspace.setTextColor(Color.WHITE);
+
+        LinearLayout relate1 = (LinearLayout) findViewById(R.id.relative1);
+        relate1.setBackgroundColor(Color.BLACK);
+        Drawable alpha3 = relate1.getBackground();
+        alpha3.setAlpha(150);
+        ImageView lock = (ImageView) findViewById(R.id.lock) ;
+        lock.getBackground().setAlpha(5);
+
+
         onBtn= (Button)findViewById(R.id.btn1);
         memoBtn = (Button)findViewById(R.id.btn2);
         fontBtn = (Button)findViewById(R.id.btn3);
         helpBtn = (Button)findViewById(R.id.btn4);
+        onBtn.setScaleX((float)0.8);
+        onBtn.setScaleY((float)0.8);
+        memoBtn.setScaleX((float)0.8);
+        memoBtn.setScaleY((float)0.8);
+        fontBtn.setScaleX((float)0.8);
+        fontBtn.setScaleY((float)0.8);
+        helpBtn.setScaleX((float)0.8);
+        helpBtn.setScaleY((float)0.8);
 
        ;
+
 
         watch = (DigitalClock)findViewById(R.id.clock);
 
@@ -191,7 +213,10 @@ public class ConfigActivity extends FragmentActivity {
     public boolean onTouchEvent(MotionEvent event) {
 
         if (COUNTER_FOR_SCREEN == 0) {
-            moveTaskToBack(true);
+           if (event.getY() > 1300)
+                moveTaskToBack(true);
+
+
 
             unlocked = 1;
 
@@ -377,8 +402,6 @@ public class ConfigActivity extends FragmentActivity {
         TextView line = (TextView) findViewById(R.id.line);
         line.bringToFront();
 
-        TextView link = (TextView) findViewById(R.id.link);
-        link.bringToFront();
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM월 dd일");
         String currentdate = sdf.format(Calendar.getInstance().getTime());
@@ -437,11 +460,11 @@ public class ConfigActivity extends FragmentActivity {
         }
         if (prefs.getBoolean("line_visible", Boolean.parseBoolean(null))) {
             line.setVisibility(View.VISIBLE);
-            link.setVisibility(View.VISIBLE);
+
         }
         else {
             line.setVisibility(View.GONE);
-            link.setVisibility(View.GONE);
+
         }
 
         task = new phpDown();
@@ -513,17 +536,16 @@ public class ConfigActivity extends FragmentActivity {
                 JSONObject root = new JSONObject(str);
                 String connection = root.getString("result");
                 if (connection.compareTo("success") == 0) {
-                    String  jname = root.getString("name");
                     String jline = root.getString("content");
                    final String jlink = root.getString("link");
                    TextView x = (TextView)findViewById(R.id.line);
-                    x.setText(jline + "\n" + jname);
-                    final TextView y = (TextView)findViewById(R.id.link);
-                   if (jlink.compareTo("") != 0) {
+                    x.setText(jline);
+                   if (jlink.compareTo("") != 0 && jlink.compareTo("null") != 0) {
 
-                       y.setText(Html.fromHtml("<u>" + "관련링크" + "</u" ));
-                       y.setTextColor(Color.BLUE);
-                       y.setOnClickListener(new View.OnClickListener() {
+                       x.setText(Html.fromHtml("<u>" + jline + "</u" ));
+                       x.setTextColor(Color.BLUE);
+                       x.setClickable(true);
+                       x.setOnClickListener(new View.OnClickListener() {
                            @Override
                            public void onClick(View view) {
                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(jlink));
@@ -532,9 +554,11 @@ public class ConfigActivity extends FragmentActivity {
                        });
                    }
 
-                    else
-                       y.setText("");
-
+                    else {
+                       x.setText(jline);
+                       x.setTextColor(Color.BLACK);
+                       x.setClickable(false);
+                   }
 
                 }
 
