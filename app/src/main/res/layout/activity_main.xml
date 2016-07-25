@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00ffffff"
-    tools:context="com.example.leehk.lockscreenchanger.ConfigActivity">
+    tools:context="com.mujogun.hyk.lockscreenchanger.ConfigActivity">
 
    <ListView
        android:layout_marginTop="80dp"

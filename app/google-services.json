@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "543047184506",
+    "project_id": "lockscreen-changer"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543047184506:android:be20961bb42c7332",
+        "android_client_info": {
+          "package_name": "com.mujogun.hyk.lockscreenchanger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHe7xFJVgr6huvx00HjNWl1NIMcPVzUb8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

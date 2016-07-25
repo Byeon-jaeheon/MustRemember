@@ -1,6 +1,5 @@
-package com.example.leehk.lockscreenchanger;
+package com.mujogun.hyk.lockscreenchanger;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 
@@ -10,8 +9,10 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.DialogFragment;
 
+import com.mujogun.hyk.lockscreenchanger.R;
+
 /**
- * Created by leehk on 2016-07-20.
+ * Created by hyk on 2016-07-20.
  */
 public class Help extends DialogFragment {
 

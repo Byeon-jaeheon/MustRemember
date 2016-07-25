@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.leehk.lockscreenchanger">
+    package="com.mujogun.hyk.lockscreenchanger">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <permission android:name="com.mujogun.hyk.lockscreenchanger.permission.C2D_MESSAGE"
+    android:protectionLevel="signature" />
+    <uses-permission android:name="com.mujogun.hyk.lockscreenchanger.permission.C2D_MESSAGE" />
 
 
     <application
@@ -46,6 +51,16 @@
             android:excludeFromRecents="true"
             />
 
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.example.gcm" />
+            </intent-filter>
+        </receiver>
+
         <receiver android:name=".ScreenReceiver" />
         <receiver
             android:name=".BootReiceiver"
@@ -55,6 +70,25 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <service
+            android:name="com.mujogun.hyk.lockscreenchanger.GcmListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.mujogun.hyk.lockscreenchanger.InstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.mujogun.hyk.lockscreenchanger.RegistrationIntentService"
+            android:exported="false"></service>
+
+
 
 
 

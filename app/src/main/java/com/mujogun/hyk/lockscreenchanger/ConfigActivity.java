@@ -1,10 +1,10 @@
-package com.example.leehk.lockscreenchanger;
+package com.mujogun.hyk.lockscreenchanger;
 
 import android.Manifest;
-import android.content.ComponentName;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -16,14 +16,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
+import android.telephony.TelephonyManager;
 import android.text.Html;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -35,16 +35,20 @@ import android.widget.DigitalClock;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.mujogun.hyk.lockscreenchanger.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
+import org.json.JSONStringer;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -52,14 +56,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Random;
 
 /**
- * Created by leehk on 2016-07-12.
+ * Created by hyk on 2016-07-12.
  */
 public class ConfigActivity extends FragmentActivity {
 
@@ -76,6 +82,9 @@ public class ConfigActivity extends FragmentActivity {
     public static int unlocked = 0;
     DBHelper helper;
     phpDown task;
+    register rl;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private static String regId;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -126,7 +135,7 @@ public class ConfigActivity extends FragmentActivity {
         alpha3.setAlpha(150);
         ImageView lock = (ImageView) findViewById(R.id.lock) ;
         lock.getBackground().setAlpha(5);
-
+        Toast.makeText(this, String.valueOf(lock.getWidth()), Toast.LENGTH_SHORT ).show();
 
         onBtn= (Button)findViewById(R.id.btn1);
         memoBtn = (Button)findViewById(R.id.btn2);
@@ -141,7 +150,7 @@ public class ConfigActivity extends FragmentActivity {
         helpBtn.setScaleX((float)0.8);
         helpBtn.setScaleY((float)0.8);
 
-       ;
+
 
 
         watch = (DigitalClock)findViewById(R.id.clock);
@@ -183,9 +192,54 @@ public class ConfigActivity extends FragmentActivity {
                 help.show(fm, "aa");
             }
         });
+        registBroadcastReceiver();
+
+        if (checkPlayServices())
+            getInstanceIdToken();
 
 
 
+
+
+    }
+
+    public void getInstanceIdToken() {
+        Intent intent = new Intent(this, RegistrationIntentService.class);
+        startService(intent);
+    }
+
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        1000).show();
+            } else {
+                Log.i("TAG", "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+    public void registBroadcastReceiver(){
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+
+                if(action.equals("registrationComplete")){
+
+                    String token = intent.getStringExtra("token");
+                    regId = token;
+                    rl = new register();
+                    rl.execute();
+
+
+
+                }
+            }
+        };
     }
 
     @Override
@@ -469,11 +523,17 @@ public class ConfigActivity extends FragmentActivity {
 
         task = new phpDown();
         task.execute("http://app.mujogun.co.kr/?action=lockscreen");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter("registrationComplete"));
+
+
+
     }
 
 
 
     protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         super.onPause();
 
     }
@@ -498,6 +558,107 @@ public class ConfigActivity extends FragmentActivity {
         }
 
     }
+
+    public String makeJsonData() throws JSONException {
+        TelephonyManager telephony = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("action", "login");
+        jsonObject1.put("actionType", null);
+        jsonObject1.put("country", "KR");
+        jsonObject1.put("deviceId", telephony.getDeviceId());
+        jsonObject1.put("carrier", telephony.getNetworkOperatorName());
+        jsonObject1.put("mobile", telephony.getLine1Number());
+        jsonObject1.put("device", telephony.getPhoneType());
+        jsonObject1.put("version", telephony.getDeviceSoftwareVersion());
+        jsonObject1.put("registId", regId );
+        jsonObject1.put("deleteYN", "N");
+
+        String str = jsonObject1.toString();
+        System.out.println(str);
+
+
+        return str;
+    }
+
+
+
+    private class register extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+           String postMsg = "";
+
+
+            try {
+                postMsg = makeJsonData();
+            }
+
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            OutputStream os = null;
+            InputStream is = null;
+            ByteArrayOutputStream baos = null;
+            HttpURLConnection conn = null;
+            try {
+                URL url = new URL("http://app.mujogun.co.kr/");
+                conn = (HttpURLConnection)url.openConnection();
+                conn.setConnectTimeout(5 * 1000);
+                conn.setReadTimeout(5 * 1000);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Cache-Control", "no-cache");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+                conn.setChunkedStreamingMode(0);
+
+
+                System.out.println(postMsg);
+
+
+
+
+                os = conn.getOutputStream();
+               os.write(postMsg.getBytes());
+                os.flush();
+                int responseCode = conn.getResponseCode();
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    is = conn.getInputStream();
+                    baos = new ByteArrayOutputStream();
+                    byte[] byteBuffer = new byte[1024];
+                    byte[] byteData = null;
+                    int nLength = 0;
+                    while((nLength = is.read(byteBuffer, 0, byteBuffer.length)) != -1) {
+                        baos.write(byteBuffer, 0, nLength);
+                    }
+                    byteData = baos.toByteArray();
+
+                }
+
+
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return postMsg;
+        }
+
+        @Override
+        protected void onPostExecute(String str) {
+
+
+        }
+    }
+
+
+
+
     private class phpDown extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -561,6 +722,9 @@ public class ConfigActivity extends FragmentActivity {
                    }
 
                 }
+
+
+
 
             } catch (JSONException e) {
                 e.printStackTrace();

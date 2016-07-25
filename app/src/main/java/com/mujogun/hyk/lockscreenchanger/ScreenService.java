@@ -1,25 +1,19 @@
-package com.example.leehk.lockscreenchanger;
+package com.mujogun.hyk.lockscreenchanger;
 
 import android.app.AlarmManager;
-import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.inputmethodservice.Keyboard;
-import android.os.Binder;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.widget.Toast;
+
+import com.mujogun.hyk.lockscreenchanger.R;
 
 /**
- * Created by leehk on 2016-07-12.
+ * Created by hyk on 2016-07-12.
  */
 public class ScreenService extends Service {
 

@@ -1,7 +1,7 @@
-package com.example.leehk.lockscreenchanger;
+package com.mujogun.hyk.lockscreenchanger;
 
 /**
- * Created by leehk on 2016-07-19.
+ * Created by hyk on 2016-07-19.
  */
 public class memo_item {
     String Data1;

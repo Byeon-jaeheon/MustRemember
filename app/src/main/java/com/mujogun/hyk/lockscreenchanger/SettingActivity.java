@@ -1,12 +1,12 @@
-package com.example.leehk.lockscreenchanger;
+package com.mujogun.hyk.lockscreenchanger;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.support.v7.widget.Toolbar;
+
+import com.mujogun.hyk.lockscreenchanger.R;
 
 /**
- * Created by leehk on 2016-07-20.
+ * Created by hyk on 2016-07-20.
  */
 public class SettingActivity extends PreferenceActivity {
 

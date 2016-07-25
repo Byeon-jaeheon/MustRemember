@@ -1,17 +1,12 @@
-package com.example.leehk.lockscreenchanger;
+package com.mujogun.hyk.lockscreenchanger;
 
-import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.widget.Toast;
 
 /**
- * Created by leehk on 2016-07-12.
+ * Created by hyk on 2016-07-12.
  */
 public class ScreenReceiver extends BroadcastReceiver{
 

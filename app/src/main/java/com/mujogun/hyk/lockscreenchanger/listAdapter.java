@@ -1,16 +1,15 @@
-package com.example.leehk.lockscreenchanger;
+package com.mujogun.hyk.lockscreenchanger;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.mujogun.hyk.lockscreenchanger.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,7 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by leehk on 2016-07-19.
+ * Created by hyk on 2016-07-19.
  */
 public class listAdapter extends BaseAdapter{
 

@@ -1,4 +1,4 @@
-package com.example.leehk.lockscreenchanger;
+package com.mujogun.hyk.lockscreenchanger;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,11 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
- * Created by leehk on 2016-07-19.
+ * Created by hyk on 2016-07-19.
  */
 public class DBHelper extends SQLiteOpenHelper {
 

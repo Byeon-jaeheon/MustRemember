@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context = "com.example.leehk.lockscreenchanger.MemoActivity"
+    tools:context = "com.mujogun.hyk.lockscreenchanger.MemoActivity"
     >
 
     <android.support.v7.widget.Toolbar
