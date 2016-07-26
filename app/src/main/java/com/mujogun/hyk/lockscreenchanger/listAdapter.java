@@ -73,7 +73,7 @@ public class listAdapter extends BaseAdapter{
             }
             Date realcurrentDate = Calendar.getInstance().getTime();
             long dday = daysBetween(realcurrentDate, realformatedDate);
-            text3.setText(String.valueOf(dday) + "일 남음");
+            text3.setText(String.valueOf(dday) + "\n일 남음");
 
 
 
@@ -99,10 +99,10 @@ public class listAdapter extends BaseAdapter{
         }
         Date realcurrentDate = Calendar.getInstance().getTime();
         long dday = daysBetween(realcurrentDate, realformatedDate);
-        text3.setText(String.valueOf(dday) + "일 남음");
+        text3.setText(String.valueOf(dday) + "일\n" + "남음");
         if (dday == 0) {
             long fday = daysBetween(realformatedDate, realcurrentDate);
-            text3.setText(String.valueOf(fday) + "일 지남");
+            text3.setText(String.valueOf(fday) + "일\n"+ "지남");
         }
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         int fontsize = Integer.parseInt(prefs.getString("memo_font_size", null));

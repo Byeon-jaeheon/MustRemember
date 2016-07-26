@@ -3,29 +3,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00ffffff"
+    android:background="#99c2c2"
     tools:context="com.mujogun.hyk.lockscreenchanger.ConfigActivity">
 
    <ListView
        android:layout_marginTop="80dp"
        android:layout_width="wrap_content"
-       android:layout_height="240dp"
+       android:layout_height="300dp"
+       android:foregroundGravity="fill_vertical"
        android:id="@+id/listView"
 
        android:divider = "#ffffff"
        />
 
 
-
-   <DigitalClock
-       android:id="@+id/clock"
+   <LinearLayout
+       android:id="@+id/linear1"
+       android:orientation="horizontal"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:textColor = "@android:color/black"
-       android:textSize="50dp"
-       android:layout_alignParentTop = "true"
+       android:layout_above = "@id/listView"
+       android:layout_marginBottom="-80dp"
+
+       >
+
+
+      <TextView
+          android:id="@+id/clock"
+          android:textSize="50dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor = "@android:color/white"
+          android:layout_weight="1"
+          android:layout_marginLeft="30dp"
+
+          />
+      <TextView
+          android:id="@+id/date"
+
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:layout_marginLeft="50dp"
+          android:layout_marginBottom="-80dp"
+          />
+
+
+
+   </LinearLayout>
+
+   <ImageView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:background="@drawable/app_icon"
+       android:layout_above="@id/linear1"
+       android:layout_marginBottom="-50dp"
        android:layout_alignParentRight="true"
-       android:layout_marginTop="20dp"
        />
 
    <ImageView
@@ -58,6 +91,7 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_weight="1"
+             android:layout_marginRight="-10dp"
 
              />
          <Button
@@ -68,6 +102,7 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_weight="1"
+             android:layout_marginRight="-10dp"
              />
          <Button
              android:id="@+id/btn3"
@@ -77,6 +112,7 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_weight="1"
+             android:layout_marginRight="-10dp"
              />
          <Button
              android:id="@+id/btn4"
@@ -93,7 +129,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
-          android:background="@drawable/lock"
+          android:background="@drawable/lock_icon"
+          android:alpha="200"
           />
    <TextView
        android:id="@+id/touchspace"
@@ -101,28 +138,20 @@
        android:gravity="center"
        android:textAlignment="center"
        android:layout_width="match_parent"
-       android:layout_height="110dp" />
+       android:layout_height="70dp" />
 
    </LinearLayout>
 
    <TextView
        android:id="@+id/line"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="100dp"
        android:textAlignment="center"
        android:gravity="center"
        android:text = "성공은 영원하지 않고, 실패는 치명적이지 않다 \n- 마이크 다트카-"
        android:background="#ffffff"
        android:layout_above="@id/relative1"
        />
-   <TextView
-       android:id="@+id/date"
-       android:text = "몇월 몇일"
-       android:textSize="30dp"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentLeft="true"
-       android:layout_alignBaseline="@id/clock"
-       />
+
 
 </RelativeLayout>

@@ -1,8 +1,12 @@
 package com.mujogun.hyk.lockscreenchanger;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -22,6 +26,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.util.Log;
@@ -41,6 +46,8 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.mujogun.hyk.lockscreenchanger.R;
+import com.njh89z.util.HttpConn;
+import com.njh89z.util.MCrypt;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,12 +77,14 @@ import java.util.Calendar;
 public class ConfigActivity extends FragmentActivity {
 
     private Button onBtn, memoBtn, fontBtn, helpBtn;
-    private DigitalClock watch;
+    private TextView watch;
     private static final int SELECT_PHOTO = 100;
     private static int COUNTER_FOR_SCREEN = 0;
 
+
     private static final String DB_NAME = "memo.db";
     private static final String DB_TABLE = "memo";
+    private static String TOKEN;
 
     private static Bitmap yourSelectedImage;
     private static String ret;
@@ -134,7 +143,9 @@ public class ConfigActivity extends FragmentActivity {
         Drawable alpha3 = relate1.getBackground();
         alpha3.setAlpha(150);
         ImageView lock = (ImageView) findViewById(R.id.lock) ;
-        lock.getBackground().setAlpha(5);
+        lock.setScaleX((float)0.5);
+        lock.setScaleY((float)0.5);
+
         Toast.makeText(this, String.valueOf(lock.getWidth()), Toast.LENGTH_SHORT ).show();
 
         onBtn= (Button)findViewById(R.id.btn1);
@@ -142,18 +153,19 @@ public class ConfigActivity extends FragmentActivity {
         fontBtn = (Button)findViewById(R.id.btn3);
         helpBtn = (Button)findViewById(R.id.btn4);
         onBtn.setScaleX((float)0.8);
-        onBtn.setScaleY((float)0.8);
+        onBtn.setScaleY((float)0.7);
         memoBtn.setScaleX((float)0.8);
-        memoBtn.setScaleY((float)0.8);
+        memoBtn.setScaleY((float)0.7);
         fontBtn.setScaleX((float)0.8);
-        fontBtn.setScaleY((float)0.8);
+        fontBtn.setScaleY((float)0.7);
         helpBtn.setScaleX((float)0.8);
-        helpBtn.setScaleY((float)0.8);
+        helpBtn.setScaleY((float)0.7);
+        helpBtn.setTextSize((float)18);
+        memoBtn.setTextSize((float)18);
+        fontBtn.setTextSize((float)18);
+        onBtn.setTextSize((float)18);
 
-
-
-
-        watch = (DigitalClock)findViewById(R.id.clock);
+        watch = (TextView)findViewById(R.id.clock);
 
         Intent intent = new Intent(this, ScreenService.class);
         startService(intent);
@@ -192,6 +204,54 @@ public class ConfigActivity extends FragmentActivity {
                 help.show(fm, "aa");
             }
         });
+
+        watch = (TextView)findViewById(R.id.clock);
+        watch.bringToFront();
+
+        TextView date = (TextView)findViewById(R.id.date);
+        date.bringToFront();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        String currentdate = sdf.format(Calendar.getInstance().getTime());
+        watch.setText(currentdate);
+
+
+        SimpleDateFormat sdf2 = new SimpleDateFormat("MM월 dd일");
+        String currenttime = sdf2.format(Calendar.getInstance().getTime());
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, Calendar.getInstance().getTime().getYear());
+        cal.set(Calendar.MONTH, Calendar.getInstance().getTime().getMonth()+1);
+        cal.set(Calendar.DATE, Calendar.getInstance().getTime().getDay());
+
+        switch(cal.get(Calendar.DAY_OF_WEEK)) {
+            case 1:
+                currenttime = currenttime.concat(" 수요일");
+                break;
+            case 2:
+                currenttime =currenttime.concat(" 목요일");
+                break;
+            case 3:
+                currenttime = currenttime.concat(" 금요일");
+                break;
+            case 4:
+                currenttime =currenttime.concat(" 토요일");
+                break;
+            case 5:
+                currenttime =currenttime.concat(" 일요일");
+                break;
+            case 6:
+                currenttime =currenttime.concat(" 월요일");
+                break;
+            case 7:
+                currenttime =currenttime.concat(" 화요일");
+                break;
+        }
+
+
+        date.setText(currenttime);
+
+        line.bringToFront();
+
         registBroadcastReceiver();
 
         if (checkPlayServices())
@@ -232,8 +292,9 @@ public class ConfigActivity extends FragmentActivity {
 
                     String token = intent.getStringExtra("token");
                     regId = token;
-                    rl = new register();
-                    rl.execute();
+                    SetupTask setup= new SetupTask(getApplicationContext());
+                    setup.execute();
+
 
 
 
@@ -447,7 +508,7 @@ public class ConfigActivity extends FragmentActivity {
         helpBtn= (Button)findViewById(R.id.btn4);
         helpBtn.bringToFront();
 
-        watch = (DigitalClock)findViewById(R.id.clock);
+        watch = (TextView)findViewById(R.id.clock);
         watch.bringToFront();
 
         TextView date = (TextView)findViewById(R.id.date);
@@ -457,10 +518,43 @@ public class ConfigActivity extends FragmentActivity {
         line.bringToFront();
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MM월 dd일");
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
         String currentdate = sdf.format(Calendar.getInstance().getTime());
-        date.setText(currentdate);
+        watch.setText(currentdate);
 
+        SimpleDateFormat sdf2 = new SimpleDateFormat("MM월 dd일");
+        String currenttime = sdf2.format(Calendar.getInstance().getTime());
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, Calendar.getInstance().getTime().getYear());
+        cal.set(Calendar.MONTH, Calendar.getInstance().getTime().getMonth()+1);
+        cal.set(Calendar.DATE, Calendar.getInstance().getTime().getDay());
+
+        switch(cal.get(Calendar.DAY_OF_WEEK)) {
+            case 1:
+                currenttime = currenttime.concat(" 수요일");
+                break;
+            case 2:
+                currenttime =currenttime.concat(" 목요일");
+                break;
+            case 3:
+                currenttime = currenttime.concat(" 금요일");
+                break;
+            case 4:
+                currenttime =currenttime.concat(" 토요일");
+                break;
+            case 5:
+                currenttime =currenttime.concat(" 일요일");
+                break;
+            case 6:
+                currenttime =currenttime.concat(" 월요일");
+                break;
+            case 7:
+                currenttime =currenttime.concat(" 화요일");
+                break;
+        }
+
+
+        date.setText(currenttime);
         unlocked = 1;
 
 
@@ -548,11 +642,7 @@ public class ConfigActivity extends FragmentActivity {
                 yourSelectedImage = BitmapFactory.decodeFile(ret);
                 ImageView x = (ImageView) findViewById(R.id.imageView);
                 x.setImageBitmap(yourSelectedImage);
-                onBtn= (Button)findViewById(R.id.btn1);
-                onBtn.bringToFront();
 
-                watch = (DigitalClock)findViewById(R.id.clock);
-                watch.bringToFront();
                 return;
 
         }
@@ -563,15 +653,11 @@ public class ConfigActivity extends FragmentActivity {
         TelephonyManager telephony = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
         JSONObject jsonObject1 = new JSONObject();
         jsonObject1.put("action", "login");
-        jsonObject1.put("actionType", null);
-        jsonObject1.put("country", "KR");
         jsonObject1.put("deviceId", telephony.getDeviceId());
         jsonObject1.put("carrier", telephony.getNetworkOperatorName());
         jsonObject1.put("mobile", telephony.getLine1Number());
         jsonObject1.put("device", telephony.getPhoneType());
         jsonObject1.put("version", telephony.getDeviceSoftwareVersion());
-        jsonObject1.put("registId", regId );
-        jsonObject1.put("deleteYN", "N");
 
         String str = jsonObject1.toString();
         System.out.println(str);
@@ -600,26 +686,39 @@ public class ConfigActivity extends FragmentActivity {
             OutputStream os = null;
             InputStream is = null;
             ByteArrayOutputStream baos = null;
-            HttpURLConnection conn = null;
+
             try {
                 URL url = new URL("http://app.mujogun.co.kr/");
-                conn = (HttpURLConnection)url.openConnection();
-                conn.setConnectTimeout(5 * 1000);
-                conn.setReadTimeout(5 * 1000);
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Cache-Control", "no-cache");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setRequestProperty("Accept", "application/json");
-                conn.setDoOutput(true);
-                conn.setDoInput(true);
-                conn.setChunkedStreamingMode(0);
 
 
-                System.out.println(postMsg);
+                Log.i("으아아아", TOKEN);
+                MCrypt mcrypt = new MCrypt(TOKEN);
+                String value = null;
+                try {
+                    value = MCrypt.bytesToHex(mcrypt.encrypt(postMsg));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Connection
+                HttpConn conn = new HttpConn(getApplicationContext());
+                conn.setUrl(url.toString());
+                conn.setCookieSync(".mujogun.co.kr");
+                conn.setGZip(true);
+                conn.setDebuggable(true);
+
+                conn.addPost("v", value);
+                Log.i("value값", value);
+                conn.addPost("registId", regId);
+
+                conn.run();
+
+                Log.i("결과", "실행됐나?");
+                return conn.getResultHtml();
 
 
 
-
+/*
                 os = conn.getOutputStream();
                os.write(postMsg.getBytes());
                 os.flush();
@@ -637,25 +736,208 @@ public class ConfigActivity extends FragmentActivity {
                     byteData = baos.toByteArray();
 
                 }
+*/
 
+/*
+                StringBuilder jsonHtml = new StringBuilder();
+                try {
+                    URL url2 = new URL("http://app.mujogun.co.kr/?action=login");
+                    HttpURLConnection conn2 = (HttpURLConnection)url.openConnection();
+                    if(conn != null){
+                        conn2.setConnectTimeout(10000);
+                        conn2.setUseCaches(false);
+                        // 연결되었음 코드가 리턴되면.
+                        if(conn2.getResponseCode() == HttpURLConnection.HTTP_OK){
+                            BufferedReader br = new BufferedReader(new InputStreamReader(conn2.getInputStream(), "UTF-8"));
+                            for(;;){
+                                // 웹상에 보여지는 텍스트를 라인단위로 읽어 저장.
+                                String line = br.readLine();
+                                if(line == null) break;
+                                // 저장된 텍스트 라인을 jsonHtml에 붙여넣음
+                                jsonHtml.append(line + "\n");
+                            }
+                            br.close();
+                        }
+                        conn2.disconnect();
+                    }
 
-            } catch (ProtocolException e) {
-                e.printStackTrace();
+                } catch(Exception ex){
+                    ex.printStackTrace();
+                }
+                return jsonHtml.toString();
+                */
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             return postMsg;
+
         }
 
         @Override
         protected void onPostExecute(String str) {
 
+            Log.e("resultHtml", "resultHtml: " + str);
+            Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
 
         }
     }
 
+    private class SetupTask extends AsyncTask<Void, Void, String>
+    {
+        private Context context;
+
+        private boolean isSuccess = false;
+
+        public SetupTask(Context context)
+        {
+            this.context = context;
+
+        }
+
+
+        public boolean isSuccess()
+        {
+            return isSuccess;
+        }
+
+        private void saveToken(String token)
+        {
+           TOKEN = token;
+
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences.Editor editor = pref.edit();
+
+            editor.putString("TOKEN", token);
+            editor.commit();
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected void onCancelled()
+        {
+            super.onCancelled();
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params)
+        {
+/*
+            StringBuilder jsonHtml = new StringBuilder();
+            try {
+                URL url = new URL("http://app.mujogun.co.kr/?action=setup");
+                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                if(conn != null){
+                    conn.setConnectTimeout(10000);
+                    conn.setUseCaches(false);
+                    // 연결되었음 코드가 리턴되면.
+                    if(conn.getResponseCode() == HttpURLConnection.HTTP_OK){
+                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+                        for(;;){
+                            // 웹상에 보여지는 텍스트를 라인단위로 읽어 저장.
+                            String line = br.readLine();
+                            if(line == null) break;
+                            // 저장된 텍스트 라인을 jsonHtml에 붙여넣음
+                            jsonHtml.append(line + "\n");
+                        }
+                        br.close();
+                    }
+                    conn.disconnect();
+                }
+
+            } catch(Exception ex){
+                ex.printStackTrace();
+            }
+            return jsonHtml.toString();
+            */
+
+            HttpConn conn = new HttpConn(context);
+            conn.setUrl("http://app.mujogun.co.kr/");
+            conn.setCookieSync(".mujogun.co.kr");
+            conn.setGZip(true);
+
+            conn.addPost("action", "setup");
+
+            conn.run();
+
+            return conn.getResultHtml();
+
+        }
+
+        @Override
+        protected void onPostExecute(String result)
+        {
+            super.onPostExecute(result);
+
+            try
+            {
+                JSONObject jObj = new JSONObject(result);
+                saveToken(jObj.optString("token", ""));
+
+                if(jObj.has("toast"))
+                {
+                    Toast.makeText(context, jObj.getString("toast"), Toast.LENGTH_SHORT).show();
+                }
+
+                if(jObj.has("notice"))
+                {
+                    final boolean isFinish = jObj.getBoolean("isFinish");
+                    new AlertDialog.Builder(context).setCancelable(false).setMessage(jObj.getString("notice")).setPositiveButton("확인", new Dialog.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1)
+                        {
+                            if(isFinish == true)
+                            {
+                                ((Activity) context).finish();
+                            }
+                        }
+                    }).create().show();
+                }
+                else if(jObj.has("version"))
+                {
+                    int latestVersion = jObj.getInt("version");
+                    TelephonyManager telephony = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+                    if(Integer.parseInt(telephony.getDeviceSoftwareVersion()) < latestVersion)
+                    {
+                        new AlertDialog.Builder(context).setCancelable(false).setTitle("업데이트 알림").setMessage("업데이트 버전이 있습니다.").setPositiveButton("확인", new Dialog.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1)
+                            {
+                                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + context.getPackageName())));
+                            }
+                        }).setNegativeButton("취소", null).create().show();
+                    }
+                }
+
+                isSuccess = true;
+
+            }
+
+            catch (Exception e)
+            {
+                e.printStackTrace();
+
+                Toast.makeText(context, "접속 중 오류가 발생하였습니다.", Toast.LENGTH_SHORT).show();
+            }
+
+            register rl2 = new register();
+            rl2.execute();
+
+
+        }
+    }
 
 
 
