@@ -40,7 +40,7 @@ public class ScreenService extends Service {
         super.onStartCommand(intent, flags, startId);
 
         Notification.Builder builder = new Notification.Builder(getApplicationContext()).setSmallIcon(R.drawable.ic_launcher)
-                .setContentTitle("lockscreen changer")
+                .setContentTitle("무조건 기억")
                 .setContentText("잠금화면 실행중")
                 .setContentIntent(null);
        Notification notification = builder.getNotification();

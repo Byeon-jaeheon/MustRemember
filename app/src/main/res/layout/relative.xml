@@ -18,18 +18,55 @@
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 
+    <LinearLayout
+        android:id="@+id/linear3"
+        android:layout_below="@id/toolbar"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text = "일시"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:paddingLeft="15dp"
+            />
+        <TextView
+            android:id="@+id/datepick"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text = "2016년 9월 25일 일요일 오후 1시 0분"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/back"
+            android:layout_gravity="center"
+            android:paddingTop="5dp"
+            android:textAlignment="center"
+            android:layout_marginRight="15dp"
+
+
+            />
+
+
+
+    </LinearLayout>
+
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/editText"
-        android:layout_below="@id/toolbar"
-
+        android:layout_below="@id/linear3"
+        android:background="@drawable/back"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
         />
 
     <DatePicker
+        android:datePickerMode="spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/datePicker"

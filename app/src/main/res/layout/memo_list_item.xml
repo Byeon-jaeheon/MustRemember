@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@android:color/transparent"
     >
 
     <TextView
@@ -17,17 +17,23 @@
         android:id="@+id/textView2"
 
         android:layout_width="wrap_content"
-        android:layout_height="170px"
+        android:layout_height="220px"
         android:layout_toLeftOf="@+id/textView3"
         android:layout_toRightOf="@+id/textView1"
-        android:gravity="fill_horizontal" />
+        android:gravity="fill_horizontal"
+        android:layout_marginTop="18dp"
+        />
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="200px"
-        android:layout_height="200px"
+        android:textColor="@android:color/white"
+        android:layout_width="180px"
+        android:layout_height="180px"
         android:textAlignment="center"
+        android:gravity="center"
         android:layout_alignParentRight="true"
         android:background = "@drawable/textview_circle"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="5dp"
         />
 
 </RelativeLayout>

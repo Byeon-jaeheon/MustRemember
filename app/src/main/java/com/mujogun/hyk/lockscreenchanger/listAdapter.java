@@ -80,7 +80,7 @@ public class listAdapter extends BaseAdapter{
         }
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.memo_list_item, parent, false);
-        convertView.setAlpha((float) 0.5);
+        convertView.setAlpha((float) 1.0);
         // TextView에 현재 position의 문자열 추가
         TextView text1 = (TextView) convertView.findViewById(R.id.textView1);
         text1.setText(m_list.get(position).getData1());
@@ -105,10 +105,10 @@ public class listAdapter extends BaseAdapter{
             text3.setText(String.valueOf(fday) + "일\n"+ "지남");
         }
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        int fontsize = Integer.parseInt(prefs.getString("memo_font_size", null));
+        int fontsize = Integer.parseInt(prefs.getString("memo_font_size", "17"));
         text1.setTextSize(fontsize);
         text2.setTextSize(fontsize);
-        text3.setTextSize(fontsize);
+        text3.setTextSize(16);
 
         return convertView;
     }

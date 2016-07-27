@@ -40,6 +40,7 @@ import android.widget.DigitalClock;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,6 +86,7 @@ public class ConfigActivity extends FragmentActivity {
     private static final String DB_NAME = "memo.db";
     private static final String DB_TABLE = "memo";
     private static String TOKEN;
+    private static String jlink;
 
     private static Bitmap yourSelectedImage;
     private static String ret;
@@ -205,52 +207,9 @@ public class ConfigActivity extends FragmentActivity {
             }
         });
 
-        watch = (TextView)findViewById(R.id.clock);
-        watch.bringToFront();
-
-        TextView date = (TextView)findViewById(R.id.date);
-        date.bringToFront();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
-        String currentdate = sdf.format(Calendar.getInstance().getTime());
-        watch.setText(currentdate);
 
 
-        SimpleDateFormat sdf2 = new SimpleDateFormat("MM월 dd일");
-        String currenttime = sdf2.format(Calendar.getInstance().getTime());
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, Calendar.getInstance().getTime().getYear());
-        cal.set(Calendar.MONTH, Calendar.getInstance().getTime().getMonth()+1);
-        cal.set(Calendar.DATE, Calendar.getInstance().getTime().getDay());
 
-        switch(cal.get(Calendar.DAY_OF_WEEK)) {
-            case 1:
-                currenttime = currenttime.concat(" 수요일");
-                break;
-            case 2:
-                currenttime =currenttime.concat(" 목요일");
-                break;
-            case 3:
-                currenttime = currenttime.concat(" 금요일");
-                break;
-            case 4:
-                currenttime =currenttime.concat(" 토요일");
-                break;
-            case 5:
-                currenttime =currenttime.concat(" 일요일");
-                break;
-            case 6:
-                currenttime =currenttime.concat(" 월요일");
-                break;
-            case 7:
-                currenttime =currenttime.concat(" 화요일");
-                break;
-        }
-
-
-        date.setText(currenttime);
-
-        line.bringToFront();
 
         registBroadcastReceiver();
 
@@ -328,7 +287,9 @@ public class ConfigActivity extends FragmentActivity {
     public boolean onTouchEvent(MotionEvent event) {
 
         if (COUNTER_FOR_SCREEN == 0) {
-           if (event.getY() > 1300)
+
+
+           if (event.getY() > 1525)
                 moveTaskToBack(true);
 
 
@@ -403,6 +364,7 @@ public class ConfigActivity extends FragmentActivity {
 
                     ImageView x = (ImageView) findViewById(R.id.imageView);
                     x.setImageBitmap(yourSelectedImage);
+
 
                     Drawable alpha =  ((ImageView) findViewById(R.id.imageView)).getDrawable();
                 }
@@ -497,32 +459,44 @@ public class ConfigActivity extends FragmentActivity {
         }
 
         onBtn= (Button)findViewById(R.id.btn1);
-        onBtn.bringToFront();
+
 
         memoBtn= (Button)findViewById(R.id.btn2);
-        memoBtn.bringToFront();
+
 
         fontBtn= (Button)findViewById(R.id.btn3);
-        fontBtn.bringToFront();
+
 
         helpBtn= (Button)findViewById(R.id.btn4);
-        helpBtn.bringToFront();
+
 
         watch = (TextView)findViewById(R.id.clock);
-        watch.bringToFront();
+
+
 
         TextView date = (TextView)findViewById(R.id.date);
-        date.bringToFront();
+
 
         TextView line = (TextView) findViewById(R.id.line);
-        line.bringToFront();
+
+        ImageView icon = (ImageView) findViewById(R.id.app_icon);
+        icon.setScaleX((float)0.8);
+        icon.setScaleY((float)0.8);
+
+        LinearLayout linear1 = (LinearLayout) findViewById(R.id.linear1);
+        linear1.setBackgroundColor(Color.BLACK);
+        Drawable alpha3 = linear1.getBackground();
+        alpha3.setAlpha(150);
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("kk:mm");
         String currentdate = sdf.format(Calendar.getInstance().getTime());
         watch.setText(currentdate);
+        RelativeLayout relativeParent = (RelativeLayout) findViewById(R.id.relativep);
+        relativeParent.bringChildToFront(linear1);
 
-        SimpleDateFormat sdf2 = new SimpleDateFormat("MM월 dd일");
+
+        SimpleDateFormat sdf2 = new SimpleDateFormat("M월 d일");
         String currenttime = sdf2.format(Calendar.getInstance().getTime());
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, Calendar.getInstance().getTime().getYear());
@@ -564,8 +538,8 @@ public class ConfigActivity extends FragmentActivity {
         ListView listView = (ListView) findViewById(R.id.listView);
         listAdapter customadapter = new listAdapter();
         listView.setAdapter(customadapter);
+        relativeParent.bringChildToFront(listView);
 
-        listView.bringToFront();
 
 
        while(!cursor.isAfterLast()) {
@@ -591,6 +565,8 @@ public class ConfigActivity extends FragmentActivity {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+        /*
+
         if (prefs.getBoolean("memo_visible", Boolean.parseBoolean(null))) {
            listView.setVisibility(View.VISIBLE);
         }
@@ -614,6 +590,7 @@ public class ConfigActivity extends FragmentActivity {
             line.setVisibility(View.GONE);
 
         }
+        */
 
         task = new phpDown();
         task.execute("http://app.mujogun.co.kr/?action=lockscreen");
@@ -980,13 +957,15 @@ public class ConfigActivity extends FragmentActivity {
                 String connection = root.getString("result");
                 if (connection.compareTo("success") == 0) {
                     String jline = root.getString("content");
-                   final String jlink = root.getString("link");
+                    if (jline.compareTo("null") == 0)
+                        jline = "성공은 영원하지 않고, 실패는 치명적이지 않다. - 마이크 다트카";
+                   jlink = root.getString("link");
                    TextView x = (TextView)findViewById(R.id.line);
-                    x.setText(jline);
+
                    if (jlink.compareTo("") != 0 && jlink.compareTo("null") != 0) {
 
-                       x.setText(Html.fromHtml("<u>" + jline + "</u" ));
-                       x.setTextColor(Color.BLUE);
+                       x.setText(Html.fromHtml( jline ));
+                       x.setTextColor(Color.BLACK);
                        x.setClickable(true);
                        x.setOnClickListener(new View.OnClickListener() {
                            @Override

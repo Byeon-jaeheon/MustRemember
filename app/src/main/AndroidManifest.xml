@@ -50,6 +50,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:excludeFromRecents="true"
             />
+        <activity android:name=".FontSettingActivity" />
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

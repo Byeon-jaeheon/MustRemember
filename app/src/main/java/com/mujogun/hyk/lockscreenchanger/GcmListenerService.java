@@ -19,13 +19,13 @@ public class GcmListenerService extends com.google.android.gms.gcm.GcmListenerSe
     //메세지를 받았을 때 동작하는 함수입니다.
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        String title = data.getString("title");
-        String message = data.getString("message");
+        String title = data.getString("nickname");
+        String message = data.getString("msg");
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Title: " + title);
         Log.d(TAG, "Message: " + message);
 
-        sendNotification(title, message);
+        sendNotification("무조건 기억", message);
     }
 
     //메세지를 알림으로 보여주는 함수입니다.
