@@ -3,11 +3,13 @@ package com.mujogun.hyk.lockscreenchanger;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mujogun.hyk.lockscreenchanger.R;
 
@@ -63,17 +65,32 @@ public class listAdapter extends BaseAdapter{
 
             TextView text3 = (TextView) convertView.findViewById(R.id.textView3);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy:MM:dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 d일 H시 mm분");
             String currentdate = sdf.format(Calendar.getInstance().getTime());
             Date realformatedDate = null;
-            try {
-                realformatedDate = sdf.parse(m_list.get(position).getData3());
-            } catch (ParseException e) {
-                e.printStackTrace();
+
+            if (m_list.get(position).getData3().compareTo("") == 0) {
+                text3.setVisibility(View.GONE);
+
             }
-            Date realcurrentDate = Calendar.getInstance().getTime();
-            long dday = daysBetween(realcurrentDate, realformatedDate);
-            text3.setText(String.valueOf(dday) + "\n일 남음");
+            else {
+                try {
+                    realformatedDate = sdf.parse(m_list.get(position).getData3());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+                Date realcurrentDate = Calendar.getInstance().getTime();
+                if (realcurrentDate.before(realformatedDate)) {
+                    String dday = daysBetween(realcurrentDate, realformatedDate);
+                    text3.setText(String.valueOf(dday) + "일\n" + "남음");
+                }
+                else {
+                    String fday = daysBetween(realformatedDate, realcurrentDate);
+                    text3.setText(String.valueOf(fday) + "일\n" + "지남");
+                }
+            }
 
 
 
@@ -89,20 +106,31 @@ public class listAdapter extends BaseAdapter{
         text2.setText(m_list.get(position).getData2());
 
         TextView text3 = (TextView) convertView.findViewById(R.id.textView3);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy:MM:dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 d일 H시 mm분");
         String currentdate = sdf.format(Calendar.getInstance().getTime());
         Date realformatedDate = null;
-        try {
-            realformatedDate = sdf.parse(m_list.get(position).getData3());
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (m_list.get(position).getData3().compareTo("") == 0) {
+            text3.setVisibility(View.GONE);
+
         }
-        Date realcurrentDate = Calendar.getInstance().getTime();
-        long dday = daysBetween(realcurrentDate, realformatedDate);
-        text3.setText(String.valueOf(dday) + "일\n" + "남음");
-        if (dday == 0) {
-            long fday = daysBetween(realformatedDate, realcurrentDate);
-            text3.setText(String.valueOf(fday) + "일\n"+ "지남");
+        else {
+            try {
+                realformatedDate = sdf.parse(m_list.get(position).getData3());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+            Date realcurrentDate = Calendar.getInstance().getTime();
+
+            if (realcurrentDate.before(realformatedDate)) {
+                String dday = daysBetween(realcurrentDate, realformatedDate);
+                text3.setText(String.valueOf(dday) + "\n" + "남음");
+            }
+            else {
+                String fday = daysBetween(realformatedDate, realcurrentDate);
+                text3.setText(String.valueOf(fday) + "\n" + "지남");
+            }
         }
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         int fontsize = Integer.parseInt(prefs.getString("memo_font_size", "17"));
@@ -115,6 +143,7 @@ public class listAdapter extends BaseAdapter{
     public static Calendar getDatePart(Date date){
         Calendar cal = Calendar.getInstance();       // get calendar instance
         cal.setTime(date);
+
         cal.set(Calendar.HOUR_OF_DAY, 0);            // set hour to midnight
         cal.set(Calendar.MINUTE, 0);                 // set minute in hour
         cal.set(Calendar.SECOND, 0);                 // set second in minute
@@ -122,17 +151,42 @@ public class listAdapter extends BaseAdapter{
 
         return cal;                                  // return the date part
     }
-    public static long daysBetween(Date startDate, Date endDate) {
+    public static String daysBetween(Date startDate, Date endDate) {
         Calendar sDate = getDatePart(startDate);
         Calendar eDate = getDatePart(endDate);
 
+        String dday = "";
+
+
         long daysBetween = 0;
+        long hoursBetween = ((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60));
+
+        long minutesBetween = ((endDate.getTime() - startDate.getTime()) / (1000 * 60)) % 60;
+
         while (sDate.before(eDate)) {
             sDate.add(Calendar.DAY_OF_MONTH, 1);
             daysBetween++;
         }
-        return daysBetween;
+
+        dday = dday.concat(String.valueOf(daysBetween)).concat("일 ").concat(String.valueOf(hoursBetween)).concat("시간 ").concat(String.valueOf(minutesBetween)).concat("분");
+        Log.i("으아아아아", dday);
+
+        if ((hoursBetween < 24) && (hoursBetween >=1) ) {
+
+            return String.valueOf(hoursBetween) + "시간";
+        }
+        if (hoursBetween < 1) {
+
+            return String.valueOf(minutesBetween) + "분";
+        }
+        if (hoursBetween > 24)
+            return String.valueOf(daysBetween) + "일";
+
+
+        return String.valueOf("오류");
     }
+
+
 
     public void add(memo_item msg) {
         m_list.add(msg);

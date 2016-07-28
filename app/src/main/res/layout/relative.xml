@@ -7,20 +7,85 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context = "com.mujogun.hyk.lockscreenchanger.MemoActivity"
+    android:background="@android:color/white"
     >
 
     <android.support.v7.widget.Toolbar
+        app:titleTextColor="@android:color/white"
+        android:titleTextColor="@android:color/white"
+        android:title="메모쓰기"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="#f74567"
         android:theme = "@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inputType="textMultiLine"
+
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_below="@id/toolbar"
+        android:background="@drawable/back"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop = "15dp"
+        android:layout_marginBottom="120dp"
+        />
+
+
+<LinearLayout
+    android:id="@+id/linear4"
+    android:orientation="horizontal"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@android:color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text = "메모저장"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:id="@+id/save"
+        android:layout_weight="1"
+        android:background="@drawable/memobutton"
+        />
+    <Button
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@android:color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text = "메모삭제"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:id="@+id/delete"
+        android:layout_weight="1"
+        android:background="@drawable/memobutton"
+
+        />
+
+
+</LinearLayout>
+
+
     <LinearLayout
         android:id="@+id/linear3"
-        android:layout_below="@id/toolbar"
+        android:layout_above="@id/linear4"
+        android:layout_marginBottom="15dp"
+
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="40dp">
@@ -37,7 +102,7 @@
             android:id="@+id/datepick"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text = "2016년 9월 25일 일요일 오후 1시 0분"
+            android:text = ""
             android:layout_marginLeft="40dp"
             android:background="@drawable/back"
             android:layout_gravity="center"
@@ -52,28 +117,6 @@
 
     </LinearLayout>
 
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_below="@id/linear3"
-        android:background="@drawable/back"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        />
-
-    <DatePicker
-        android:datePickerMode="spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/datePicker"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editText"
-        />
 
 
 </RelativeLayout>

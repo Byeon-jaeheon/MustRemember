@@ -41,7 +41,7 @@
 
         <service android:name=".ScreenService" />
         <activity android:name=".MemoActivity"
-            android:label = "Memo"
+            android:label="메모쓰기"
             android:theme="@style/AppTheme.NoActionBar"
             android:excludeFromRecents="true"
             />

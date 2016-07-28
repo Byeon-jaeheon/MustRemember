@@ -5,12 +5,12 @@
     tools:context = "com.mujogun.hyk.lockscreenchanger.MemoActivity"
     >
 
-    <item
+    <Item
         android:id="@+id/menu_add"
         android:orderInCategory="100"
         android:title="메모추가"
         app:showAsAction="never" />
-    <item
+    <Item
         android:id="@+id/menu_add2"
         android:orderInCategory="101"
         android:title="메모삭제"

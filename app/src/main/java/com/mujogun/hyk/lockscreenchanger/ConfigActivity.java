@@ -556,6 +556,7 @@ public class ConfigActivity extends FragmentActivity {
                 Intent memoIntent = new Intent(ConfigActivity.this, MemoActivity.class);
                 memoIntent.putExtra("id", mycursor.getString(0));
                 memoIntent.putExtra("memos", mycursor.getString(1));
+                memoIntent.putExtra("time", mycursor.getString(2));
                 startActivity(memoIntent);
 
             }
@@ -667,8 +668,9 @@ public class ConfigActivity extends FragmentActivity {
             try {
                 URL url = new URL("http://app.mujogun.co.kr/");
 
+                if (TOKEN == null)
+                    return postMsg;
 
-                Log.i("으아아아", TOKEN);
                 MCrypt mcrypt = new MCrypt(TOKEN);
                 String value = null;
                 try {
