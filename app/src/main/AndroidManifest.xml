@@ -51,6 +51,11 @@
             android:excludeFromRecents="true"
             />
         <activity android:name=".FontSettingActivity" />
+        <activity android:name=".PhotoSettingActivity"
+            android:label="배경설정"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:excludeFromRecents="true"
+            />
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

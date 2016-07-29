@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -23,6 +24,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
@@ -30,6 +32,7 @@ import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -96,13 +99,14 @@ public class ConfigActivity extends FragmentActivity {
     register rl;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private static String regId;
+    Bitmap b;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        String[] perms = {"android.permission. WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
+        String[] perms = {"android.permission.READ_EXTERNAL_STORAGE", "android.permission.READ_PHONE_STATE"};
         helper = new DBHelper(getApplicationContext(), "memo.db", null, 1);
         helper.open();
         int permsRequestCode = 200;
@@ -112,12 +116,11 @@ public class ConfigActivity extends FragmentActivity {
                 requestPermissions(perms, permsRequestCode);
 */
 
-        if (ContextCompat.checkSelfPermission((this), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission((this), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED  ) {
 
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                if (Build.VERSION.SDK_INT >= 23)
-                    requestPermissions(perms, permsRequestCode);
+
             }
             else {
                 if (Build.VERSION.SDK_INT >= 23)
@@ -127,6 +130,21 @@ public class ConfigActivity extends FragmentActivity {
         }else {
 
         }
+        if (ContextCompat.checkSelfPermission((this), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED  ) {
+
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
+
+            }
+            else {
+                if (Build.VERSION.SDK_INT >= 23)
+                    requestPermissions(perms, permsRequestCode);
+            }
+
+        }else {
+
+        }
+
 
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -148,7 +166,7 @@ public class ConfigActivity extends FragmentActivity {
         lock.setScaleX((float)0.5);
         lock.setScaleY((float)0.5);
 
-        Toast.makeText(this, String.valueOf(lock.getWidth()), Toast.LENGTH_SHORT ).show();
+
 
         onBtn= (Button)findViewById(R.id.btn1);
         memoBtn = (Button)findViewById(R.id.btn2);
@@ -177,9 +195,8 @@ public class ConfigActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 COUNTER_FOR_SCREEN +=1;
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
-                startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+                Intent testIntent = new Intent(ConfigActivity.this, PhotoSettingActivity.class);
+                startActivity(testIntent);
             }
         });
         memoBtn.setOnClickListener(new View.OnClickListener() {
@@ -200,10 +217,15 @@ public class ConfigActivity extends FragmentActivity {
         helpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Help help = new Help();
 
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
                 help.show(fm, "aa");
+
+
+
             }
         });
 
@@ -215,6 +237,94 @@ public class ConfigActivity extends FragmentActivity {
 
         if (checkPlayServices())
             getInstanceIdToken();
+
+
+        Intent settedintent = getIntent();
+        if (settedintent.getAction() == "set_background") {
+            ImageView imageView = (ImageView) findViewById(R.id.imageView);
+            int id = (int) settedintent.getExtras().get("id");
+            if (id == R.id.default1) {
+                //imagepath.txt 에 써야됨
+                String filename = "imagepath.txt";
+                FileOutputStream output;
+                try {
+                    output = openFileOutput(filename, Context.MODE_WORLD_READABLE);
+                    String out = String.valueOf(id);
+                    output.write(out.getBytes());
+                    output.close();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            if (id == R.id.default2) {
+                //imagepath.txt 에 써야됨
+                String filename = "imagepath.txt";
+                FileOutputStream output;
+                try {
+                    output = openFileOutput(filename, Context.MODE_WORLD_READABLE);
+                    String out = String.valueOf(id);
+                    output.write(out.getBytes());
+                    output.close();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            if (id == (R.id.default3)) {
+                //imagepath.txt 에 써야됨
+                String filename = "imagepath.txt";
+                FileOutputStream output;
+                try {
+                    output = openFileOutput(filename, Context.MODE_WORLD_READABLE);
+                    String out = String.valueOf(id);
+                    output.write(out.getBytes());
+                    output.close();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            if (id == R.id.default4) {
+                //imagepath.txt 에 써야됨
+                String filename = "imagepath.txt";
+                FileOutputStream output;
+                try {
+                    output = openFileOutput(filename, Context.MODE_WORLD_READABLE);
+                    String out = String.valueOf(id);
+                    output.write(out.getBytes());
+                    output.close();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            if (id == R.id.default5) {
+                //imagepath.txt 에 써야됨
+                String filename = "imagepath.txt";
+                FileOutputStream output;
+                try {
+                    output = openFileOutput(filename, Context.MODE_WORLD_READABLE);
+                    String out = String.valueOf(id);
+                    output.write(out.getBytes());
+                    output.close();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
 
 
 
@@ -288,8 +398,18 @@ public class ConfigActivity extends FragmentActivity {
 
         if (COUNTER_FOR_SCREEN == 0) {
 
+            int height;
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            try {
+                display.getRealSize(size);
+                height = size.y;
+            } catch (NoSuchMethodError e) {
+                height = display.getHeight();
+            }
+            RelativeLayout relativep = (RelativeLayout) findViewById(R.id.relativep);
 
-           if (event.getY() > 1525)
+           if (event.getY() > (0.75 * height))
                 moveTaskToBack(true);
 
 
@@ -368,6 +488,12 @@ public class ConfigActivity extends FragmentActivity {
 
                     Drawable alpha =  ((ImageView) findViewById(R.id.imageView)).getDrawable();
                 }
+            case 0:
+               select ll = new select();
+                ll.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+
+
         }
     }
 
@@ -450,6 +576,25 @@ public class ConfigActivity extends FragmentActivity {
 
         if (yourSelectedImage == null) {
 
+
+
+            if (ret != null) {
+                ImageView x = (ImageView) findViewById(R.id.imageView);
+                x.setImageBitmap(yourSelectedImage);
+
+                if (ret.compareTo(String.valueOf(R.id.default1)) == 0) {
+
+                    x.setBackgroundColor(Color.parseColor("#99c2c2"));
+                }
+                if (ret.compareTo(String.valueOf(R.id.default2)) == 0)
+                    x.setBackgroundColor(Color.parseColor("#aaaaaa"));
+                if (ret.compareTo(String.valueOf(R.id.default3)) == 0)
+                    x.setBackgroundColor(Color.parseColor("#aa66cc"));
+                if (ret.compareTo(String.valueOf(R.id.default4)) == 0)
+                    x.setBackgroundColor(Color.parseColor("#0099cc"));
+                if (ret.compareTo(String.valueOf(R.id.default5)) == 0)
+                    x.setBackgroundColor(Color.parseColor("#ff4444"));
+            }
 
         }
 
@@ -598,6 +743,12 @@ public class ConfigActivity extends FragmentActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter("registrationComplete"));
 
+/*
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        imageView.setImageBitmap(b);
+
+*/
+
 
 
     }
@@ -616,10 +767,12 @@ public class ConfigActivity extends FragmentActivity {
         switch(permsRequestCode){
 
             case 200:
-                boolean writeAccepted = grantResults[0]== PackageManager.PERMISSION_GRANTED;
+
+                /*
                 yourSelectedImage = BitmapFactory.decodeFile(ret);
                 ImageView x = (ImageView) findViewById(R.id.imageView);
                 x.setImageBitmap(yourSelectedImage);
+                */
 
                 return;
 
@@ -643,6 +796,7 @@ public class ConfigActivity extends FragmentActivity {
 
         return str;
     }
+
 
 
 
@@ -760,7 +914,6 @@ public class ConfigActivity extends FragmentActivity {
         protected void onPostExecute(String str) {
 
             Log.e("resultHtml", "resultHtml: " + str);
-            Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
 
         }
     }
