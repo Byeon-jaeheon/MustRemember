@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,6 +36,7 @@ import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.Display;
+import android.view.DragEvent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -707,6 +709,8 @@ public class ConfigActivity extends FragmentActivity {
             }
         });
 
+        listView.setOnItemLongClickListener(new DragandDrop());
+        listView.setOnDragListener(new Droplistener());
 
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -787,6 +791,61 @@ public class ConfigActivity extends FragmentActivity {
 
 
 
+    }
+
+    public class DragandDrop implements ListView.OnItemLongClickListener {
+
+
+        @Override
+        public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            View.DragShadowBuilder dragShadow = new View.DragShadowBuilder(view);
+
+            ClipData data = ClipData.newPlainText("", "");
+
+           view.startDrag(data, dragShadow, view, 0);
+            RelativeLayout x = (RelativeLayout) findViewById(view.getId());
+            TextView k = (TextView)x.findViewById(R.id.textView2);
+            Toast.makeText(getApplicationContext(), k.toString(), Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+
+            return true;
+        }
+    }
+    public class Droplistener implements View.OnDragListener {
+        listAdapter customadapter;
+        int from;
+        int to;
+
+        public float DropSpot(View view, DragEvent dragEvent) {
+            if (dragEvent.getAction() == DragEvent.ACTION_DROP)
+                return dragEvent.getY();
+            return -1;
+        }
+
+        @Override
+        public boolean onDrag(View view, DragEvent dragEvent) {
+            ListView listView = (ListView) findViewById(view.getId());
+            listAdapter customadapter = (listAdapter) listView.getAdapter();
+
+
+
+           if (dragEvent.getAction() == DragEvent.ACTION_DROP) {
+
+
+
+
+
+
+
+               Log.i("dragevent getY", String.valueOf(dragEvent.getY()));
+           }
+            return true;
+        }
     }
 
 

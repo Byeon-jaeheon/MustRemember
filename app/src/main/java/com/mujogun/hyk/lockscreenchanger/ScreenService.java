@@ -47,7 +47,7 @@ public class ScreenService extends Service {
 
 
         Notification.Builder builder = new Notification.Builder(getApplicationContext()).setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.app_icon))
-                .setSmallIcon(R.drawable.app_icon)
+                .setSmallIcon(R.drawable.small_icon)
                 .setContentTitle("무조건 기억")
                 .setContentText(ShowFirstMemo())
                 .setContentIntent(contentIntent);

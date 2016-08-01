@@ -227,4 +227,5 @@ public class listAdapter extends BaseAdapter{
         m_list.remove(_position);
         notifyDataSetChanged();
     }
+
 }
