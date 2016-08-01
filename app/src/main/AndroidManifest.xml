@@ -14,7 +14,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:supportsRtl="true"
@@ -50,7 +50,11 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:excludeFromRecents="true"
             />
-        <activity android:name=".FontSettingActivity" />
+        <activity android:name=".FontSettingActivity"
+            android:label="글 및 버튼 색 설정"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:excludeFromRecents="true"
+            />
         <activity android:name=".PhotoSettingActivity"
             android:label="배경설정"
             android:theme="@style/AppTheme.NoActionBar"

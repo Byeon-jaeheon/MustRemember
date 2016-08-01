@@ -2,6 +2,7 @@ package com.mujogun.hyk.lockscreenchanger;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -137,9 +138,39 @@ public class listAdapter extends BaseAdapter{
         text1.setTextSize(fontsize);
         text2.setTextSize(fontsize);
         text3.setTextSize(16);
-
+        setColor(context, convertView);
         return convertView;
     }
+
+
+    public void setColor(Context context, View convertView) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        TextView text2 = (TextView) convertView.findViewById(R.id.textView2);
+        if (prefs.getString("FontColor", "Color.BLACK").compareTo("Color.RED") == 0) {
+            text2.setTextColor(Color.RED);
+        }
+        else if (prefs.getString("FontColor", "Color.BLACK").compareTo("Color.BLUE") == 0) {
+            text2.setTextColor(Color.BLUE);
+        }
+        else if (prefs.getString("FontColor", "Color.BLACK").compareTo("Color.WHITE") == 0) {
+            text2.setTextColor(Color.WHITE);
+        }
+        else if (prefs.getString("FontColor", "Color.BLACK").compareTo("Color.GRAY") == 0) {
+            text2.setTextColor(Color.GRAY);
+        }
+        else if (prefs.getString("FontColor", "Color.BLACK").compareTo("Color.ORANGE") == 0) {
+            text2.setTextColor(Color.parseColor("#ff8800"));
+        }
+        else if (prefs.getString("FontColor", "Color.BLACK").compareTo("Color.BLACK") == 0) {
+            text2.setTextColor(Color.BLACK);
+        }
+    }
+
+
+
+
+
+
     public static Calendar getDatePart(Date date){
         Calendar cal = Calendar.getInstance();       // get calendar instance
         cal.setTime(date);

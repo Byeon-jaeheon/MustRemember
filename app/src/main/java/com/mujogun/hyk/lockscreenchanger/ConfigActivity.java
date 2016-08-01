@@ -17,6 +17,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.shapes.Shape;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -624,9 +626,7 @@ public class ConfigActivity extends FragmentActivity {
 
         TextView line = (TextView) findViewById(R.id.line);
 
-        ImageView icon = (ImageView) findViewById(R.id.app_icon);
-        icon.setScaleX((float)0.8);
-        icon.setScaleY((float)0.8);
+
 
         LinearLayout linear1 = (LinearLayout) findViewById(R.id.linear1);
         linear1.setBackgroundColor(Color.BLACK);
@@ -634,7 +634,7 @@ public class ConfigActivity extends FragmentActivity {
         alpha3.setAlpha(150);
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("kk:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
         String currentdate = sdf.format(Calendar.getInstance().getTime());
         watch.setText(currentdate);
         RelativeLayout relativeParent = (RelativeLayout) findViewById(R.id.relativep);
@@ -650,25 +650,25 @@ public class ConfigActivity extends FragmentActivity {
 
         switch(cal.get(Calendar.DAY_OF_WEEK)) {
             case 1:
-                currenttime = currenttime.concat(" 수요일");
+                currenttime = currenttime.concat(" 일요일");
                 break;
             case 2:
-                currenttime =currenttime.concat(" 목요일");
-                break;
-            case 3:
-                currenttime = currenttime.concat(" 금요일");
-                break;
-            case 4:
-                currenttime =currenttime.concat(" 토요일");
-                break;
-            case 5:
-                currenttime =currenttime.concat(" 일요일");
-                break;
-            case 6:
                 currenttime =currenttime.concat(" 월요일");
                 break;
+            case 3:
+                currenttime = currenttime.concat(" 화요일");
+                break;
+            case 4:
+                currenttime =currenttime.concat(" 수요일");
+                break;
+            case 5:
+                currenttime =currenttime.concat(" 목요일");
+                break;
+            case 6:
+                currenttime =currenttime.concat(" 금요일");
+                break;
             case 7:
-                currenttime =currenttime.concat(" 화요일");
+                currenttime =currenttime.concat(" 토요일");
                 break;
         }
 
@@ -710,6 +710,42 @@ public class ConfigActivity extends FragmentActivity {
 
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        GradientDrawable buttonBack[] = new GradientDrawable[4];
+        for (int i = 0; i < 4; i++)
+            buttonBack[i] = new GradientDrawable();
+        buttonBack[0] = (GradientDrawable) fontBtn.getBackground();
+        buttonBack[1] = (GradientDrawable) memoBtn.getBackground();
+        buttonBack[2] = (GradientDrawable) onBtn.getBackground();
+        buttonBack[3] = (GradientDrawable) helpBtn.getBackground();
+
+
+        if (prefs.getString("ButtonColor", "Color.BLUE").compareTo("Color.GREEN") == 0) {
+            for (int i = 0; i < 4; i++)
+                buttonBack[i].setColor(Color.GREEN);
+        }
+        else if (prefs.getString("ButtonColor", "Color.BLUE").compareTo("Color.BLUE") == 0) {
+            for (int i = 0; i < 4; i++)
+                buttonBack[i].setColor(Color.parseColor("#B0E0E6"));
+        }
+        else if (prefs.getString("ButtonColor", "Color.BLUE").compareTo("Color.WHITE") == 0) {
+            for (int i = 0; i < 4; i++)
+                buttonBack[i].setColor(Color.WHITE);
+        }
+        else if (prefs.getString("ButtonColor", "Color.BLUE").compareTo("Color.PURPLE") == 0) {
+            for (int i = 0; i < 4; i++)
+                buttonBack[i].setColor(Color.parseColor("#aa66cc"));
+        }
+        else if (prefs.getString("ButtonColor", "Color.BLUE").compareTo("Color.ORANGE") == 0) {
+            for (int i = 0; i < 4; i++)
+                buttonBack[i].setColor(Color.parseColor("#ffbb33"));
+        }
+        else if (prefs.getString("ButtonColor", "Color.BLUE").compareTo("Color.GRAY") == 0) {
+            for (int i = 0; i < 4; i++)
+                buttonBack[i].setColor(Color.GRAY);
+        }
+
+
+
 
         /*
 

@@ -8,7 +8,7 @@
 
     <ListPreference
         android:key = "memo_font_size"
-        android:title = "글자 설정"
+        android:title = "메모 글자 크기 설정"
         android:entries="@array/FontSize"
         android:entryValues="@array/FontSize"
         android:defaultValue="17"
@@ -17,7 +17,7 @@
 
     <Preference
         android:key = "memo_font"
-        android:title = "폰트 디자인 선택">
+        android:title = "글자 및 버튼 색 설정">
         <intent
             android:targetPackage="com.mujogun.hyk.lockscreenchanger"
             android:targetClass ="com.mujogun.hyk.lockscreenchanger.FontSettingActivity"

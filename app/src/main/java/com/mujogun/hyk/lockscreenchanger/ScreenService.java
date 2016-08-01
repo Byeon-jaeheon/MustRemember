@@ -7,6 +7,9 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.os.SystemClock;
 
@@ -38,12 +41,18 @@ public class ScreenService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
         super.onStartCommand(intent, flags, startId);
+        Resources res = getResources();
+        Intent pendingintent = new Intent(this, ConfigActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 1, pendingintent, 0);
 
-        Notification.Builder builder = new Notification.Builder(getApplicationContext()).setSmallIcon(R.drawable.ic_launcher)
+
+        Notification.Builder builder = new Notification.Builder(getApplicationContext()).setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.app_icon))
+                .setSmallIcon(R.drawable.app_icon)
                 .setContentTitle("무조건 기억")
-                .setContentText("잠금화면 실행중")
-                .setContentIntent(null);
+                .setContentText(ShowFirstMemo())
+                .setContentIntent(contentIntent);
        Notification notification = builder.getNotification();
+        notification.priority = Notification.PRIORITY_MIN;
         startForeground(1, notification);
         if(intent != null){
             if(intent.getAction()==null){
@@ -83,6 +92,28 @@ public class ScreenService extends Service {
         if(mReceiver != null){
             unregisterReceiver(mReceiver);
         }
+    }
+
+
+
+
+    public String ShowFirstMemo() {
+
+        DBHelper helper = new DBHelper(getApplicationContext(), "memo.db", null, 1);
+        helper.open();
+        Cursor cursor = helper.selectAll();
+        cursor.moveToFirst();
+        String thememo = "";
+        if (cursor.getCount() < 1)
+            thememo = "메모를 등록해주세요";
+        else
+            thememo = cursor.getString(1);
+        helper.close();
+
+
+
+        return thememo;
+
     }
 
 }

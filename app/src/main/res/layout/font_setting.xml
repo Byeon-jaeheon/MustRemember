@@ -2,14 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        app:titleTextColor="@android:color/white"
+        android:titleTextColor="@android:color/white"
+        android:title="메모쓰기"
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#f74567"
+        android:theme = "@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:id="@+id/FONT_SETTING1"
+        android:layout_weight="1"
 
         >
         <TextView
@@ -17,11 +29,13 @@
             android:layout_gravity="center"
             android:text = "글자색 : "
             android:textSize = "20dp"
+
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_weight="1"
             />
         <ImageView
+            android:id="@+id/fontblack"
             android:layout_gravity="center"
             android:layout_width="90dp"
             android:layout_height="30dp"
@@ -41,6 +55,7 @@
             android:layout_gravity="center"
             android:layout_width="90dp"
             android:layout_height="30dp"
+            android:id="@+id/buttonblue"
             android:background = "@android:color/holo_blue_bright"
             android:layout_weight="1"
             />
@@ -49,7 +64,10 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:id="@+id/FONT_SETTING2"
+        android:layout_weight="1"
+        >
         <TextView
             android:textAlignment="center"
             android:layout_gravity="center"
@@ -63,6 +81,7 @@
             android:layout_gravity="center"
             android:layout_width="90dp"
             android:layout_height="30dp"
+            android:id="@+id/fontwhite"
             android:background = "@android:color/white"
             android:layout_weight="1"
             />
@@ -79,6 +98,7 @@
             android:layout_gravity="center"
             android:layout_width="90dp"
             android:layout_height="30dp"
+            android:id="@+id/buttonorange"
             android:background = "@android:color/holo_orange_light"
             android:layout_weight="1"
             />
@@ -88,6 +108,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_weight="1"
 
         >
         <TextView
@@ -104,6 +125,7 @@
             android:layout_gravity="center"
             android:layout_width="90dp"
             android:layout_height="30dp"
+            android:id="@+id/fontgray"
             android:background = "@android:color/darker_gray"
             android:layout_weight="1"
             />
@@ -120,7 +142,144 @@
             android:layout_gravity="center"
             android:layout_width="90dp"
             android:layout_height="30dp"
+            android:id="@+id/buttongreen"
             android:background = "@android:color/holo_green_light"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+
+        >
+        <TextView
+
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:text = "글자색 : "
+            android:textSize = "20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:id="@+id/fontred"
+            android:background = "@android:color/holo_red_dark"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:text = "버튼색 : "
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:id="@+id/buttonpurple"
+            android:background = "@android:color/holo_purple"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+
+        >
+        <TextView
+
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:text = "글자색 : "
+            android:textSize = "20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:id="@+id/fontblue"
+            android:background = "@android:color/holo_blue_dark"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:text = "버튼색 : "
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:id="@+id/buttonwhite"
+            android:background = "@android:color/background_light"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+
+        >
+        <TextView
+
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:text = "글자색 : "
+            android:textSize = "20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:id="@+id/fontorange"
+            android:background = "@android:color/holo_orange_dark"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:text = "버튼색 : "
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:id="@+id/buttongray"
+            android:background = "@android:color/darker_gray"
             android:layout_weight="1"
             />
 
