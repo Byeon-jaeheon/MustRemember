@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -244,6 +245,8 @@ public class ConfigActivity extends FragmentActivity {
         if (checkPlayServices())
             getInstanceIdToken();
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
         Intent settedintent = getIntent();
         if (settedintent.getAction() == "set_background") {
@@ -315,6 +318,70 @@ public class ConfigActivity extends FragmentActivity {
 
             }
             if (id == R.id.default5) {
+                //imagepath.txt 에 써야됨
+                String filename = "imagepath.txt";
+                FileOutputStream output;
+                try {
+                    output = openFileOutput(filename, Context.MODE_WORLD_READABLE);
+                    String out = String.valueOf(id);
+                    output.write(out.getBytes());
+                    output.close();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            if (id == R.id.default9) {
+                //imagepath.txt 에 써야됨
+                String filename = "imagepath.txt";
+                FileOutputStream output;
+                try {
+                    output = openFileOutput(filename, Context.MODE_WORLD_READABLE);
+                    String out = String.valueOf(id);
+                    output.write(out.getBytes());
+                    output.close();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            if (id == R.id.default6) {
+                //imagepath.txt 에 써야됨
+                String filename = "imagepath.txt";
+                FileOutputStream output;
+                try {
+                    output = openFileOutput(filename, Context.MODE_WORLD_READABLE);
+                    String out = String.valueOf(id);
+                    output.write(out.getBytes());
+                    output.close();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            if (id == R.id.default7) {
+                //imagepath.txt 에 써야됨
+                String filename = "imagepath.txt";
+                FileOutputStream output;
+                try {
+                    output = openFileOutput(filename, Context.MODE_WORLD_READABLE);
+                    String out = String.valueOf(id);
+                    output.write(out.getBytes());
+                    output.close();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            if (id == R.id.default8) {
                 //imagepath.txt 에 써야됨
                 String filename = "imagepath.txt";
                 FileOutputStream output;
@@ -594,16 +661,24 @@ public class ConfigActivity extends FragmentActivity {
 
                 if (ret.compareTo(String.valueOf(R.id.default1)) == 0) {
 
-                    x.setBackgroundColor(Color.parseColor("#99c2c2"));
+                    x.setBackgroundColor(Color.parseColor("#aaaaaa"));
                 }
                 if (ret.compareTo(String.valueOf(R.id.default2)) == 0)
-                    x.setBackgroundColor(Color.parseColor("#aaaaaa"));
+                    x.setBackgroundColor(Color.parseColor("#ff90be"));
                 if (ret.compareTo(String.valueOf(R.id.default3)) == 0)
-                    x.setBackgroundColor(Color.parseColor("#aa66cc"));
+                    x.setBackgroundColor(Color.parseColor("#660099"));
                 if (ret.compareTo(String.valueOf(R.id.default4)) == 0)
-                    x.setBackgroundColor(Color.parseColor("#0099cc"));
+                    x.setBackgroundColor(Color.parseColor("#000000"));
                 if (ret.compareTo(String.valueOf(R.id.default5)) == 0)
-                    x.setBackgroundColor(Color.parseColor("#ff4444"));
+                    x.setBackgroundColor(Color.parseColor("#4b0082"));
+                if (ret.compareTo(String.valueOf(R.id.default6)) == 0)
+                    x.setBackgroundColor(Color.parseColor("#0000ff"));
+                if (ret.compareTo(String.valueOf(R.id.default7)) == 0)
+                    x.setBackgroundColor(Color.parseColor("#87cefa"));
+                if (ret.compareTo(String.valueOf(R.id.default8)) == 0)
+                    x.setBackgroundColor(Color.parseColor("#66cdaa"));
+                if (ret.compareTo(String.valueOf(R.id.default9)) == 0)
+                    x.setBackgroundColor(Color.parseColor("#006400"));
             }
 
         }
@@ -938,7 +1013,7 @@ public class ConfigActivity extends FragmentActivity {
     }
     public boolean isInsideView( View view,float x, float y){
         int location[] = new int[2];
-        view.getLocationOnScreen(location);
+        view.getLocationInWindow(location);
         int viewX = location[0];
         int viewY = location[1];
 
@@ -949,21 +1024,6 @@ public class ConfigActivity extends FragmentActivity {
         }
     }
 
-    private View findViewAt(ViewGroup viewGroup, float x, float y) {
-        for(int i = 0; i < viewGroup.getChildCount(); i++) {
-            View child = viewGroup.getChildAt(i);
-            if (child instanceof ViewGroup) {
-                View foundView = findViewAt((ViewGroup) child, x, y);
-                if (foundView != null) {
-                    return foundView;
-                }
-            } else {
-                return null;
-            }
-        }
-
-        return null;
-    }
 
     protected void onPause() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
@@ -1327,9 +1387,13 @@ public class ConfigActivity extends FragmentActivity {
                    jlink = root.getString("link");
                    TextView x = (TextView)findViewById(R.id.line);
 
+
+                    jline = jline.replace("<br>", "\n");
+                    Toast.makeText(getApplicationContext(), jline, Toast.LENGTH_SHORT).show();
                    if (jlink.compareTo("") != 0 && jlink.compareTo("null") != 0) {
 
                        x.setText(Html.fromHtml( jline ));
+
                        x.setTextColor(Color.BLACK);
                        x.setClickable(true);
                        x.setOnClickListener(new View.OnClickListener() {

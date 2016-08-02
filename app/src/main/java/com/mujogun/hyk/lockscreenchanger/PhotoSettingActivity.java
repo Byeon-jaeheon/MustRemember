@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -48,13 +49,22 @@ public class PhotoSettingActivity extends AppCompatActivity implements select.Te
         ImageView default3 = (ImageView) findViewById(R.id.default3);
         ImageView default4 = (ImageView) findViewById(R.id.default4);
         ImageView default5 = (ImageView) findViewById(R.id.default5);
-        ImageView select_image = (ImageView) findViewById(R.id.select_image);
+        ImageView default6 = (ImageView) findViewById(R.id.default6);
+        ImageView default7 = (ImageView) findViewById(R.id.default7);
+        ImageView default8 = (ImageView) findViewById(R.id.default8);
+        ImageView default9 = (ImageView) findViewById(R.id.default9);
+        Button select_image = (Button) findViewById(R.id.select_button);
 
         default1.setOnClickListener(new setBackgroundlistener());
         default2.setOnClickListener(new setBackgroundlistener());
         default3.setOnClickListener(new setBackgroundlistener());
         default4.setOnClickListener(new setBackgroundlistener());
         default5.setOnClickListener(new setBackgroundlistener());
+        default6.setOnClickListener(new setBackgroundlistener());
+        default7.setOnClickListener(new setBackgroundlistener());
+        default8.setOnClickListener(new setBackgroundlistener());
+        default9.setOnClickListener(new setBackgroundlistener());
+
         select_image.setOnClickListener(new setBackgroundlistener());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
@@ -102,7 +112,23 @@ public class PhotoSettingActivity extends AppCompatActivity implements select.Te
                     select.set(R.id.default5);
                     select.show(fm, "select_image");
                     break;
-                case R.id.select_image:
+                case R.id.default6:
+                    select.set(R.id.default6);
+                    select.show(fm, "select_image");
+                    break;
+                case R.id.default7:
+                    select.set(R.id.default7);
+                    select.show(fm, "select_image");
+                    break;
+                case R.id.default8:
+                    select.set(R.id.default8);
+                    select.show(fm, "select_image");
+                    break;
+                case R.id.default9:
+                    select.set(R.id.default9);
+                    select.show(fm, "select_image");
+                    break;
+                case R.id.select_button:
 
                     PhotoPickerIntent = new Intent(Intent.ACTION_PICK);
                     PhotoPickerIntent.setType("image/*");
@@ -175,9 +201,10 @@ public class PhotoSettingActivity extends AppCompatActivity implements select.Te
                     if (yourSelectedImage == null)
                         Toast.makeText(this, "null image", Toast.LENGTH_SHORT).show();
 
-
+                    /*
                     ImageView x = (ImageView) findViewById(R.id.select_image);
                     x.setImageBitmap(yourSelectedImage);
+                    */
                     select select = new select();
                     select.set(yourSelectedImage);
                     android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
