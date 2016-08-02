@@ -60,8 +60,10 @@ public class MemoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        /*
         final Drawable upArrow = getResources().getDrawable(R.drawable.arrow_back);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
+        */
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
 
@@ -21,6 +22,7 @@ import com.mujogun.hyk.lockscreenchanger.R;
 public class ScreenService extends Service {
 
     private BootReiceiver mReceiver = null;
+    private Notification.Builder builder;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -46,11 +48,7 @@ public class ScreenService extends Service {
         PendingIntent contentIntent = PendingIntent.getActivity(this, 1, pendingintent, 0);
 
 
-        Notification.Builder builder = new Notification.Builder(getApplicationContext()).setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.app_icon))
-                .setSmallIcon(R.drawable.small_icon)
-                .setContentTitle("무조건 기억")
-                .setContentText(ShowFirstMemo())
-                .setContentIntent(contentIntent);
+       updateFirstMemo();
        Notification notification = builder.getNotification();
         notification.priority = Notification.PRIORITY_MIN;
         startForeground(1, notification);
@@ -109,10 +107,34 @@ public class ScreenService extends Service {
         else
             thememo = cursor.getString(1);
         helper.close();
+        /*
+       final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+
+                ShowFirstMemo();
+                handler.postDelayed(this, 3000);
+            }
+        });
+*/
+
 
 
 
         return thememo;
+
+    }
+
+    public void updateFirstMemo() {
+        Intent pendingintent = new Intent(this, ConfigActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 1, pendingintent, 0);
+        builder = new Notification.Builder(getApplicationContext()).setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.app_icon))
+                .setSmallIcon(R.drawable.small_icon)
+                .setContentTitle("무조건 기억")
+                .setContentText(ShowFirstMemo())
+                .setContentIntent(contentIntent);
 
     }
 

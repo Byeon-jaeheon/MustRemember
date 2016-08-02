@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * Created by hyk on 2016-07-19.
@@ -50,12 +52,19 @@ public class listAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         final int pos = position;
         final Context context = parent.getContext();
+        ViewHolder holder = null;
 
         // 리스트가 길어지면서 현재 화면에 보이지 않는 아이템은 converView가 null인 상태로 들어 옴
         if ( convertView == null ) {
             // view가 null일 경우 커스텀 레이아웃을 얻어 옴
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.memo_list_item, parent, false);
+
+            holder = new ViewHolder();
+            holder.textView1 = (TextView) convertView.findViewById(R.id.textView1);
+            holder.textView2 = (TextView) convertView.findViewById(R.id.textView2);
+            holder.textView3 = (TextView) convertView.findViewById(R.id.textView3);
+            convertView.setTag(holder);
 
             // TextView에 현재 position의 문자열 추가
             TextView text1 = (TextView) convertView.findViewById(R.id.textView1);
@@ -92,6 +101,8 @@ public class listAdapter extends BaseAdapter{
                     text3.setText(String.valueOf(fday) + "일\n" + "지남");
                 }
             }
+
+
 
 
 
@@ -133,6 +144,8 @@ public class listAdapter extends BaseAdapter{
                 text3.setText(String.valueOf(fday) + "\n" + "지남");
             }
         }
+
+        holder = (ViewHolder) convertView.getTag();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         int fontsize = Integer.parseInt(prefs.getString("memo_font_size", "17"));
         text1.setTextSize(fontsize);
@@ -226,6 +239,37 @@ public class listAdapter extends BaseAdapter{
     public void remove(int _position) {
         m_list.remove(_position);
         notifyDataSetChanged();
+    }
+
+    public int find(String msg) {
+        int i = 0;
+        for (int j = 0; j < m_list.size(); j++) {
+            if (m_list.get(j).getData2().compareTo(msg) == 0)
+                return j;
+        }
+
+        return -1;
+
+    }
+
+    public View getViewByPosition(int pos, ListView listView) {
+        final int firstListItemPosition = listView.getFirstVisiblePosition();
+        final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
+
+        if (pos < firstListItemPosition || pos > lastListItemPosition ) {
+            return listView.getAdapter().getView(pos, null, listView);
+        } else {
+            final int childIndex = pos - firstListItemPosition;
+            return listView.getChildAt(childIndex);
+        }
+    }
+
+
+    private static class ViewHolder {
+        private TextView textView1 = null;
+        private TextView textView2 = null;
+        private TextView textView3 = null;
+
     }
 
 }

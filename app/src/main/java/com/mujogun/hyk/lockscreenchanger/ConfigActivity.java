@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.shapes.Shape;
@@ -40,6 +42,7 @@ import android.view.DragEvent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -190,9 +193,8 @@ public class ConfigActivity extends FragmentActivity {
         onBtn.setTextSize((float)18);
 
         watch = (TextView)findViewById(R.id.clock);
+        updateService();
 
-        Intent intent = new Intent(this, ScreenService.class);
-        startService(intent);
 
 
         onBtn.setOnClickListener(new View.OnClickListener() {
@@ -336,6 +338,10 @@ public class ConfigActivity extends FragmentActivity {
 
     }
 
+    public void updateService() {
+        Intent intent = new Intent(this, ScreenService.class);
+        startService(intent);
+    }
     public void getInstanceIdToken() {
         Intent intent = new Intent(this, RegistrationIntentService.class);
         startService(intent);
@@ -677,10 +683,12 @@ public class ConfigActivity extends FragmentActivity {
 
         date.setText(currenttime);
         unlocked = 1;
+        ListView listView = (ListView) findViewById(R.id.listView);
+        drawlist();
 
-
-
+/*
         Cursor cursor = helper.selectAll();
+
         cursor.moveToFirst();
         ListView listView = (ListView) findViewById(R.id.listView);
         listAdapter customadapter = new listAdapter();
@@ -694,6 +702,7 @@ public class ConfigActivity extends FragmentActivity {
           customadapter.add(new memo_item(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
            cursor.moveToNext();
        }
+       */
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -708,6 +717,7 @@ public class ConfigActivity extends FragmentActivity {
 
             }
         });
+
 
         listView.setOnItemLongClickListener(new DragandDrop());
         listView.setOnDragListener(new Droplistener());
@@ -793,19 +803,42 @@ public class ConfigActivity extends FragmentActivity {
 
     }
 
+
+    public void drawlist() {
+        Cursor cursor = helper.selectAll();
+
+        cursor.moveToFirst();
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listAdapter customadapter = new listAdapter();
+        listView.setAdapter(customadapter);
+
+
+
+        while(!cursor.isAfterLast()) {
+
+            customadapter.add(new memo_item(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+            cursor.moveToNext();
+        }
+
+    }
+
     public class DragandDrop implements ListView.OnItemLongClickListener {
 
 
         @Override
         public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
             View.DragShadowBuilder dragShadow = new View.DragShadowBuilder(view);
+            Intent intent;
+            TextView x = (TextView)view.findViewById(R.id.textView1);
+            ClipData.Item item = new ClipData.Item((CharSequence) x.getText());
+            ClipData dragData = new ClipData((CharSequence)  x.getText(),
+                    new String[]{ ClipDescription.MIMETYPE_TEXT_PLAIN }, item);
 
-            ClipData data = ClipData.newPlainText("", "");
 
-           view.startDrag(data, dragShadow, view, 0);
-            RelativeLayout x = (RelativeLayout) findViewById(view.getId());
-            TextView k = (TextView)x.findViewById(R.id.textView2);
-            Toast.makeText(getApplicationContext(), k.toString(), Toast.LENGTH_SHORT).show();
+
+
+           view.startDrag(dragData, dragShadow, null, 0);
+
 
 
 
@@ -835,9 +868,65 @@ public class ConfigActivity extends FragmentActivity {
 
 
            if (dragEvent.getAction() == DragEvent.ACTION_DROP) {
+               ClipData.Item item = dragEvent.getClipData().getItemAt(0);
+               CharSequence dragData = item.getText();
+
+
+               int num = Integer.parseInt((String)dragData);
 
 
 
+
+
+               TextView x = (TextView) listView.getChildAt(0).findViewById(R.id.textView2);
+               CharSequence y = x.getText();
+
+
+
+               int location[] = new int[2];
+               listView.getChildAt(0).getLocationOnScreen(location);
+               Cursor cursor1= helper.selectAll();
+               cursor1.moveToFirst();
+               while(!cursor1.isAfterLast()) {
+                   if (cursor1.getString(0).compareTo((String)dragData) == 0) {
+                       break;
+                   }
+                   cursor1.moveToNext();
+               }
+
+
+
+
+
+               for (int i = 0; i < listView.getCount(); i++) {
+                   if (isInsideView(listView.getChildAt(i), dragEvent.getX(), dragEvent.getY() + location[1]))
+                   {
+/*
+                       helper.delete(String.valueOf(i));
+                    */
+                       TextView targetview = (TextView) listView.getChildAt(i).findViewById(R.id.textView1);
+                       CharSequence target = targetview.getText();
+                       int j = 0;
+                       Cursor cursor2 = helper.selectAll();
+                       cursor2.moveToFirst();
+                       while(!cursor2.isAfterLast()) {
+                           if (cursor2.getString(0).compareTo(target.toString()) == 0) {
+                               j = Integer.parseInt(cursor2.getString(0));
+                               break;
+                           }
+                           cursor2.moveToNext();
+                       }
+                       cursor2.moveToPosition(i);
+
+                        helper.update(cursor1.getString(0), cursor2.getString(1), cursor2.getString(2));
+                        helper.update(cursor2.getString(0), cursor1.getString(1), cursor1.getString(2));
+
+
+
+                   }
+               }
+                drawlist();
+               updateService();
 
 
 
@@ -847,8 +936,34 @@ public class ConfigActivity extends FragmentActivity {
             return true;
         }
     }
+    public boolean isInsideView( View view,float x, float y){
+        int location[] = new int[2];
+        view.getLocationOnScreen(location);
+        int viewX = location[0];
+        int viewY = location[1];
 
+        if((y > viewY) && (y < viewY + view.getHeight() )){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    private View findViewAt(ViewGroup viewGroup, float x, float y) {
+        for(int i = 0; i < viewGroup.getChildCount(); i++) {
+            View child = viewGroup.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                View foundView = findViewAt((ViewGroup) child, x, y);
+                if (foundView != null) {
+                    return foundView;
+                }
+            } else {
+                return null;
+            }
+        }
+
+        return null;
+    }
 
     protected void onPause() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
