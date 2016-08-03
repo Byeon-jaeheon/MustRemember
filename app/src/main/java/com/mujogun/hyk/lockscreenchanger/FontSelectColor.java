@@ -25,13 +25,14 @@ public class FontSelectColor extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("글자색을 이 색으로 바꾸시겠습니까?")
+        builder.setMessage("이 세트로 바꾸시겠습니까?")
                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("FontColor", fontcolor);
+                        editor.putString("MemoColor", fontcolor);
                         editor.commit();
 
 

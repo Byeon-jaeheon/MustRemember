@@ -217,7 +217,7 @@ public class ConfigActivity extends FragmentActivity {
         fontBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent settingIntent = new Intent(ConfigActivity.this, SettingActivity.class);
+                Intent settingIntent = new Intent(ConfigActivity.this, FontAndColorActivity.class);
                 startActivity(settingIntent);
             }
         });
@@ -226,11 +226,15 @@ public class ConfigActivity extends FragmentActivity {
             public void onClick(View view) {
 
 
+                Intent helpIntent = new Intent(ConfigActivity.this, HelpActivity.class);
+                startActivity(helpIntent);
+
+/*
                 Help help = new Help();
 
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
                 help.show(fm, "aa");
-
+*/
 
 
             }
@@ -808,29 +812,41 @@ public class ConfigActivity extends FragmentActivity {
         buttonBack[3] = (GradientDrawable) helpBtn.getBackground();
 
 
-        if (prefs.getString("ButtonColor", "Color.BLUE").compareTo("Color.GREEN") == 0) {
+        if (prefs.getString("FontColor", "Set1").compareTo("Set1") == 0) {
             for (int i = 0; i < 4; i++)
-                buttonBack[i].setColor(Color.GREEN);
+                buttonBack[i].setColor(getResources().getColor(R.color.colorSet1Button));
         }
-        else if (prefs.getString("ButtonColor", "Color.BLUE").compareTo("Color.BLUE") == 0) {
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set2") == 0) {
             for (int i = 0; i < 4; i++)
-                buttonBack[i].setColor(Color.parseColor("#B0E0E6"));
+                buttonBack[i].setColor(getResources().getColor(R.color.colorSet2Button));
         }
-        else if (prefs.getString("ButtonColor", "Color.BLUE").compareTo("Color.WHITE") == 0) {
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set3") == 0) {
             for (int i = 0; i < 4; i++)
-                buttonBack[i].setColor(Color.WHITE);
+                buttonBack[i].setColor(getResources().getColor(R.color.colorSet3Button));
         }
-        else if (prefs.getString("ButtonColor", "Color.BLUE").compareTo("Color.PURPLE") == 0) {
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set4") == 0) {
             for (int i = 0; i < 4; i++)
-                buttonBack[i].setColor(Color.parseColor("#aa66cc"));
+                buttonBack[i].setColor(getResources().getColor(R.color.colorSet4Button));
         }
-        else if (prefs.getString("ButtonColor", "Color.BLUE").compareTo("Color.ORANGE") == 0) {
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set5") == 0) {
             for (int i = 0; i < 4; i++)
-                buttonBack[i].setColor(Color.parseColor("#ffbb33"));
+                buttonBack[i].setColor(getResources().getColor(R.color.colorSet5Button));
         }
-        else if (prefs.getString("ButtonColor", "Color.BLUE").compareTo("Color.GRAY") == 0) {
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set6") == 0) {
             for (int i = 0; i < 4; i++)
-                buttonBack[i].setColor(Color.GRAY);
+                buttonBack[i].setColor(getResources().getColor(R.color.colorSet6Button));
+        }
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set7") == 0) {
+            for (int i = 0; i < 4; i++)
+                buttonBack[i].setColor(getResources().getColor(R.color.colorSet7Button));
+        }
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set8") == 0) {
+            for (int i = 0; i < 4; i++)
+                buttonBack[i].setColor(getResources().getColor(R.color.colorSet8Button));
+        }
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set9") == 0) {
+            for (int i = 0; i < 4; i++)
+                buttonBack[i].setColor(getResources().getColor(R.color.colorSet9Button));
         }
 
 
@@ -937,9 +953,10 @@ public class ConfigActivity extends FragmentActivity {
 
         @Override
         public boolean onDrag(View view, DragEvent dragEvent) {
-            ListView listView = (ListView) findViewById(view.getId());
+            ListView listView = (ListView) findViewById(R.id.listView);
             listAdapter customadapter = (listAdapter) listView.getAdapter();
-
+            int location[] = new int[2];
+            listView.getChildAt(0).getLocationOnScreen(location);
 
 
            if (dragEvent.getAction() == DragEvent.ACTION_DROP) {
@@ -958,8 +975,7 @@ public class ConfigActivity extends FragmentActivity {
 
 
 
-               int location[] = new int[2];
-               listView.getChildAt(0).getLocationOnScreen(location);
+
                Cursor cursor1= helper.selectAll();
                cursor1.moveToFirst();
                while(!cursor1.isAfterLast()) {
@@ -974,6 +990,9 @@ public class ConfigActivity extends FragmentActivity {
 
 
                for (int i = 0; i < listView.getCount(); i++) {
+
+
+
                    if (isInsideView(listView.getChildAt(i), dragEvent.getX(), dragEvent.getY() + location[1]))
                    {
 /*
@@ -998,6 +1017,7 @@ public class ConfigActivity extends FragmentActivity {
 
 
 
+
                    }
                }
                 drawlist();
@@ -1012,16 +1032,22 @@ public class ConfigActivity extends FragmentActivity {
         }
     }
     public boolean isInsideView( View view,float x, float y){
-        int location[] = new int[2];
-        view.getLocationInWindow(location);
-        int viewX = location[0];
-        int viewY = location[1];
 
-        if((y > viewY) && (y < viewY + view.getHeight() )){
-            return true;
-        } else {
-            return false;
+        if (view != null) {
+            int location[] = new int[2];
+            view.getLocationInWindow(location);
+            int viewX = location[0];
+            int viewY = location[1];
+
+            if ((y > viewY) && (y < viewY + view.getHeight())) {
+                return true;
+            } else {
+                return false;
+            }
         }
+        else
+            return false;
+
     }
 
 
@@ -1389,7 +1415,8 @@ public class ConfigActivity extends FragmentActivity {
 
 
                     jline = jline.replace("<br>", "\n");
-                    Toast.makeText(getApplicationContext(), jline, Toast.LENGTH_SHORT).show();
+                    jline = jline.replace("&quot;", "\"");
+
                    if (jlink.compareTo("") != 0 && jlink.compareTo("null") != 0) {
 
                        x.setText(Html.fromHtml( jline ));

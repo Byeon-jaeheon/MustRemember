@@ -3,6 +3,7 @@ package com.mujogun.hyk.lockscreenchanger;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -101,7 +102,12 @@ public class listAdapter extends BaseAdapter{
                     text3.setText(String.valueOf(fday) + "일\n" + "지남");
                 }
             }
-
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            int fontsize = Integer.parseInt(prefs.getString("memo_font_size", "17"));
+            text1.setTextSize(fontsize);
+            text2.setTextSize(fontsize);
+            text3.setTextSize(16);
+            setColor(context, convertView);
 
 
 
@@ -152,30 +158,105 @@ public class listAdapter extends BaseAdapter{
         text2.setTextSize(fontsize);
         text3.setTextSize(16);
         setColor(context, convertView);
+
         return convertView;
+    }
+    public void setMemoColor(Context context, View convertView) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        TextView text2 = (TextView) convertView.findViewById(R.id.textView2);
+
+
     }
 
 
     public void setColor(Context context, View convertView) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         TextView text2 = (TextView) convertView.findViewById(R.id.textView2);
-        if (prefs.getString("FontColor", "Color.BLACK").compareTo("Color.RED") == 0) {
-            text2.setTextColor(Color.RED);
+        TextView text3 = (TextView) convertView.findViewById(R.id.textView3);
+
+        if (prefs.getString("MemoColor", "Set1").compareTo("Set1") == 0) {
+            text2.setTextColor(context.getResources().getColor(R.color.colorSet1Memo));
         }
-        else if (prefs.getString("FontColor", "Color.BLACK").compareTo("Color.BLUE") == 0) {
-            text2.setTextColor(Color.BLUE);
+        else if (prefs.getString("MemoColor", "Set1").compareTo("Set2") == 0) {
+            text2.setTextColor(context.getResources().getColor(R.color.colorSet2Memo));
         }
-        else if (prefs.getString("FontColor", "Color.BLACK").compareTo("Color.WHITE") == 0) {
-            text2.setTextColor(Color.WHITE);
+        else if (prefs.getString("MemoColor", "Set1").compareTo("Set3") == 0) {
+            text2.setTextColor(context.getResources().getColor(R.color.colorSet3Memo));
         }
-        else if (prefs.getString("FontColor", "Color.BLACK").compareTo("Color.GRAY") == 0) {
-            text2.setTextColor(Color.GRAY);
+        else if (prefs.getString("MemoColor", "Set1").compareTo("Set4") == 0) {
+            text2.setTextColor(context.getResources().getColor(R.color.colorSet4Memo));
         }
-        else if (prefs.getString("FontColor", "Color.BLACK").compareTo("Color.ORANGE") == 0) {
-            text2.setTextColor(Color.parseColor("#ff8800"));
+        else if (prefs.getString("MemoColor", "Set1").compareTo("Set5") == 0) {
+            text2.setTextColor(context.getResources().getColor(R.color.colorSet5Memo));
         }
-        else if (prefs.getString("FontColor", "Color.BLACK").compareTo("Color.BLACK") == 0) {
-            text2.setTextColor(Color.BLACK);
+        else if (prefs.getString("MemoColor", "Set1").compareTo("Set6") == 0) {
+            text2.setTextColor(context.getResources().getColor(R.color.colorSet6Memo));
+        }
+        else if (prefs.getString("MemoColor", "Set1").compareTo("Set7") == 0) {
+            text2.setTextColor(context.getResources().getColor(R.color.colorSet7Memo));
+        }
+        else if (prefs.getString("MemoColor", "Set1").compareTo("Set8") == 0) {
+            text2.setTextColor(context.getResources().getColor(R.color.colorSet8Memo));
+        }
+        else if (prefs.getString("MemoColor", "Set1").compareTo("Set9") == 0) {
+            text2.setTextColor(context.getResources().getColor(R.color.colorSet9Memo));
+        }
+
+        if (prefs.getString("FontColor", "Set1").compareTo("Set1") == 0) {
+
+            GradientDrawable bgShape = (GradientDrawable)text3.getBackground();
+            bgShape.setColor(context.getResources().getColor(R.color.colorMint));
+            bgShape.setStroke(2, context.getResources().getColor(R.color.colorMint));
+
+
+        }
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set2") == 0) {
+
+            GradientDrawable bgShape = (GradientDrawable)text3.getBackground();
+            bgShape.setColor(context.getResources().getColor(R.color.colorSet2dday));
+            bgShape.setStroke(2, context.getResources().getColor(R.color.colorSet2dday));
+
+        }
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set3") == 0) {
+
+            GradientDrawable bgShape = (GradientDrawable)text3.getBackground();
+            bgShape.setColor(context.getResources().getColor(R.color.colorSet3dday));
+            bgShape.setStroke(2, context.getResources().getColor(R.color.colorSet3dday));
+        }
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set4") == 0) {
+
+            GradientDrawable bgShape = (GradientDrawable)text3.getBackground();
+            bgShape.setColor(context.getResources().getColor(R.color.colorSet4dday));
+            bgShape.setStroke(2, context.getResources().getColor(R.color.colorSet4dday));
+        }
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set5") == 0) {
+
+            GradientDrawable bgShape = (GradientDrawable)text3.getBackground();
+            bgShape.setColor(context.getResources().getColor(R.color.colorSet5dday));
+            bgShape.setStroke(2, context.getResources().getColor(R.color.colorSet5dday));
+        }
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set6") == 0) {
+           GradientDrawable bgShape = (GradientDrawable)text3.getBackground();
+            bgShape.setColor(context.getResources().getColor(R.color.colorSet6dday));
+            bgShape.setStroke(2, context.getResources().getColor(R.color.colorSet6dday));
+        }
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set7") == 0) {
+
+            GradientDrawable bgShape = (GradientDrawable)text3.getBackground();
+            bgShape.setColor(context.getResources().getColor(R.color.colorSet7dday));
+            bgShape.setStroke(2, context.getResources().getColor(R.color.colorSet7dday));
+        }
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set8") == 0) {
+
+            GradientDrawable bgShape = (GradientDrawable)text3.getBackground();
+            bgShape.setColor(context.getResources().getColor(R.color.colorSet8dday));
+            bgShape.setStroke(2, context.getResources().getColor(R.color.colorSet8dday));
+        }
+        else if (prefs.getString("FontColor", "Set1").compareTo("Set9") == 0) {
+
+            GradientDrawable bgShape = (GradientDrawable)text3.getBackground();
+            bgShape.setColor(context.getResources().getColor(R.color.colorSet9dday));
+            bgShape.setStroke(2,context.getResources().getColor(R.color.colorSet9dday));
         }
     }
 

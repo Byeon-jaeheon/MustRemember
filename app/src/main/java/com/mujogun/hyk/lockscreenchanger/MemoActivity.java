@@ -76,7 +76,7 @@ public class MemoActivity extends AppCompatActivity {
 
         Memo = (EditText) findViewById(R.id.editText);
         TextView DatePick = (TextView) findViewById(R.id.datepick);
-
+        TextView ColorPick = (TextView) findViewById(R.id.colorpick);
         theIntent = getIntent();
         String curmemo = theIntent.getStringExtra("memos");
         String targetdate = theIntent.getStringExtra("time");
@@ -85,6 +85,17 @@ public class MemoActivity extends AppCompatActivity {
             DatePick.setText(targetdate);
         if (curmemo != null)
             Memo.setText(curmemo);
+
+
+        ColorPick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               SelectMemoColor selectMemoColor = new SelectMemoColor();
+
+                android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+               selectMemoColor.show(fm, "ss");
+            }
+        });
 
         Button btn1 = (Button) findViewById(R.id.save);
         btn1.setOnClickListener(new View.OnClickListener() {

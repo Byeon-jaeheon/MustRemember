@@ -36,5 +36,17 @@
         <item>Color.YELLOW</item>
     </string-array>
 
+    <integer-array name="color_imgs">
+        <item>@id/default1</item>
+        <item>@id/default2</item>
+        <item>@id/default3</item>
+        <item>@id/default4</item>
+        <item>@id/default5</item>
+        <item>@id/default6</item>
+        <item>@id/default7</item>
+        <item>@id/default8</item>
+        <item>@id/default9</item>
+    </integer-array>
+
 
 </resources>

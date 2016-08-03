@@ -146,12 +146,15 @@
        android:layout_height="wrap_content"
        android:paddingTop = "20dp"
        android:paddingBottom="20dp"
+       android:paddingRight="20dp"
+       android:paddingLeft="20dp"
        android:textAlignment="center"
        android:gravity="center"
        android:text = "성공은 영원하지 않고, 실패는 치명적이지 않다. - 마이크 다트카"
        android:background="#ffffff"
        android:layout_above="@id/relative1"
        android:overScrollFooter="@android:color/transparent"
+       android:textSize = "14sp"
        />
    <ListView
        android:layout_marginTop="120dp"

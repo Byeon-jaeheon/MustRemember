@@ -37,7 +37,7 @@
             android:layout_marginBottom = "10dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:background="@android:color/darker_gray"
+            android:background="@color/colorSet1Background"
             />
             <TextView
                 android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
             android:layout_marginBottom = "10dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:background="#ff90be"
+            android:background="@color/colorSet2Background"
             />
             <TextView
                 android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
                 android:layout_marginBottom = "10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:background="#660099"
+                android:background="@color/colorSet3Background"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
                 android:layout_marginBottom = "10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:background="#000000"
+                android:background="@color/colorSet4Background"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
                 android:layout_marginBottom = "10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:background="#4b0082"
+                android:background="@color/colorSet5Background"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
                 android:layout_marginBottom = "10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:background="#0000ff"
+                android:background="@color/colorSet6Background"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -205,7 +205,7 @@
                 android:layout_marginBottom = "10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:background="#87cefa"
+                android:background="@color/colorSet7Background"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -231,7 +231,7 @@
                 android:layout_marginBottom = "10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:background="#66cdaa"
+                android:background="@color/colorSet8Background"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -257,7 +257,7 @@
                 android:layout_marginBottom = "10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:background="#006400"
+                android:background="@color/colorSet9Background"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -280,7 +280,7 @@
         android:layout_height="wrap_content"
         android:layout_weight = "1"
         android:textAlignment="center"
-        android:text = "다른 사진 선택"
+        android:text = "배경사진 직접 선택"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft = "20dp"

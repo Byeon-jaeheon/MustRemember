@@ -3,4 +3,70 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGray">#aaaaaa</color>
+    <color name="colorOrange">#ff8800</color>
+    <color name="colorBlue">#0000ff</color>
+    <color name="colorPink">#ff90be</color>
+    <color name="colorDeepred">#660099</color>
+    <color name="colorPurple">#4b0082</color>
+    <color name="colorSky">#87cefa</color>
+    <color name="colorSkygreen">#66cdaa</color>
+    <color name="colorDeepGreen">#006400</color>
+    <color name="colorMint">#00ff00</color>
+
+    <color name="colorSet1dday">#00ff00</color>
+    <color name="colorSet1Background">#aaaaaa</color>
+    <color name="colorSet1Memo">#000000</color>
+    <color name="colorSet1Button">#ddc7c3</color>
+
+    <color name="colorSet2dday">#c88d16</color>
+    <color name="colorSet2Background">#ff90be</color>
+    <color name="colorSet2Memo">#ffffff</color>
+    <color name="colorSet2Button">#aaaaaa</color>
+
+    <color name="colorSet3dday">#ff8063</color>
+    <color name="colorSet3Background">#660099</color>
+    <color name="colorSet3Memo">#ffffff</color>
+    <color name="colorSet3Button">#0099cc</color>
+
+
+    <color name="colorSet4dday">#ff8800</color>
+    <color name="colorSet4Background">#000000</color>
+    <color name="colorSet4Memo">#ffffff</color>
+    <color name="colorSet4Button">#ffffff</color>
+
+
+    <color name="colorSet5dday">#ff8063</color>
+    <color name="colorSet5Background">#4b0082</color>
+    <color name="colorSet5Memo">#ffffff</color>
+    <color name="colorSet5Button">#669900</color>
+
+
+    <color name="colorSet6dday">#9cffe9</color>
+    <color name="colorSet6Background">#0000ff</color>
+    <color name="colorSet6Memo">#ffffff</color>
+    <color name="colorSet6Button">#ff90be</color>
+
+
+    <color name="colorSet7dday">#ff756b</color>
+    <color name="colorSet7Background">#87cefa</color>
+    <color name="colorSet7Memo">#000000</color>
+    <color name="colorSet7Button">#aaaaaa</color>
+
+
+    <color name="colorSet8dday">#add5ff</color>
+    <color name="colorSet8Background">#66cdaa</color>
+    <color name="colorSet8Memo">#000000</color>
+    <color name="colorSet8Button">#aaaaaa</color>
+
+
+    <color name="colorSet9dday">#ff8800</color>
+    <color name="colorSet9Background">#006400</color>
+    <color name="colorSet9Memo">#ffffff</color>
+    <color name="colorSet9Button">#aaaaaa</color>
+
+
+
 </resources>
