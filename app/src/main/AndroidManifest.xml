@@ -79,7 +79,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".ScreenReceiver" />
         <receiver
             android:name=".BootReiceiver"
             android:enabled="true"
@@ -114,5 +113,6 @@
 
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
 </manifest>

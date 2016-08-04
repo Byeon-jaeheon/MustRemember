@@ -35,7 +35,6 @@ public class ScreenService extends Service {
 
         mReceiver = new BootReiceiver();
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
-
         registerReceiver(mReceiver, filter);
 
     }
@@ -132,7 +131,7 @@ public class ScreenService extends Service {
         PendingIntent contentIntent = PendingIntent.getActivity(this, 1, pendingintent, 0);
         builder = new Notification.Builder(getApplicationContext()).setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.app_icon))
                 .setSmallIcon(R.drawable.small_icon)
-                .setContentTitle("무조건 기억")
+                .setContentTitle(getResources().getString(R.string.app_name))
                 .setContentText(ShowFirstMemo())
                 .setContentIntent(contentIntent);
 
