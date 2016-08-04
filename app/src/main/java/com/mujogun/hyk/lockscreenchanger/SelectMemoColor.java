@@ -19,6 +19,12 @@ import android.widget.TextView;
  */
 public class SelectMemoColor extends DialogFragment {
 
+    public boolean setted = false;
+    public String sid;
+
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
 
     public int StringtoID (String str) {
         if (str.compareTo("R.id.color1") == 0)
@@ -44,6 +50,13 @@ public class SelectMemoColor extends DialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
+
+/*
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("MemoColor", "NotSet");
+        editor.commit();
+        */
 
 
         AlertDialog.Builder builder;
@@ -75,7 +88,7 @@ public class SelectMemoColor extends DialogFragment {
         for (int i= 0; i < 9; i++) {
             color[i] = (ImageView) layout.findViewById(StringtoID("R.id.color" + String.valueOf(i+1)));
             listener[i] = new imageClickListener();
-            listener[i].set("Set" + String.valueOf(i));
+            listener[i].set("Set" + String.valueOf(i+1));
             color[i].setOnClickListener(listener[i]);
         }
 
@@ -132,11 +145,21 @@ public class SelectMemoColor extends DialogFragment {
         }
         @Override
         public void onClick(View view) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("MemoColor", putColor);
-            editor.commit();
+            // sid가 null이면 그냥 추가, 아니면 수정
+            if (sid == null || (sid.compareTo("") == 0)) {
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("MemoColor", putColor);
+                editor.commit();
+            }
+            else {
+                DBHelper helper = new DBHelper(getContext(), "memo.db", null, 1);
+                helper.open();
+                helper.updateColor(sid, putColor);
+                helper.close();
+            }
             dismiss();
+
         }
     }
 }

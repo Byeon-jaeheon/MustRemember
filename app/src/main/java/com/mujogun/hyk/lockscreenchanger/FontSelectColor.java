@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -32,7 +33,10 @@ public class FontSelectColor extends DialogFragment {
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("FontColor", fontcolor);
-                        editor.putString("MemoColor", fontcolor);
+                        DBHelper helper = new DBHelper(getContext(), "memo.db", null, 1);
+                        helper.open();
+                        helper.updateColorOnly(fontcolor);
+                        helper.close();
                         editor.commit();
 
 

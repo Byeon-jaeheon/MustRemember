@@ -47,8 +47,8 @@ public class FontAndColorActivity extends AppCompatActivity {
 
         for(int i = 0; i < 9; i++) {
             test[i] = new FontColorListener();
-            FontAndColorSet[i] = (ImageView) findViewById(StringtoID("R.id.set" + String.valueOf(i)));
-            test[i].set("Set" + String.valueOf(i));
+            FontAndColorSet[i] = (ImageView) findViewById(StringtoID("R.id.set" + String.valueOf(i+1)));
+            test[i].set("Set" + String.valueOf(i+1));
             FontAndColorSet[i].setOnClickListener(test[i]);
 
         }

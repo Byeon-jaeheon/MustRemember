@@ -721,7 +721,7 @@ public class ConfigActivity extends FragmentActivity {
         alpha3.setAlpha(150);
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("h:mm");
         String currentdate = sdf.format(Calendar.getInstance().getTime());
         watch.setText(currentdate);
         RelativeLayout relativeParent = (RelativeLayout) findViewById(R.id.relativep);
@@ -786,13 +786,16 @@ public class ConfigActivity extends FragmentActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                helper.open();
                 Cursor mycursor = helper.selectAll();
                 mycursor.move(i+1);
                 Intent memoIntent = new Intent(ConfigActivity.this, MemoActivity.class);
                 memoIntent.putExtra("id", mycursor.getString(0));
                 memoIntent.putExtra("memos", mycursor.getString(1));
                 memoIntent.putExtra("time", mycursor.getString(2));
+                memoIntent.putExtra("color", mycursor.getString(3));
                 startActivity(memoIntent);
+                helper.close();
 
             }
         });
@@ -896,6 +899,7 @@ public class ConfigActivity extends FragmentActivity {
 
 
     public void drawlist() {
+        helper.open();
         Cursor cursor = helper.selectAll();
 
         cursor.moveToFirst();
@@ -911,6 +915,10 @@ public class ConfigActivity extends FragmentActivity {
             cursor.moveToNext();
         }
 
+        helper.close();
+
+
+
     }
 
     public class DragandDrop implements ListView.OnItemLongClickListener {
@@ -918,6 +926,9 @@ public class ConfigActivity extends FragmentActivity {
 
         @Override
         public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+            // 여기서 view는 딱 클릭한 그 item view.
             View.DragShadowBuilder dragShadow = new View.DragShadowBuilder(view);
             Intent intent;
             TextView x = (TextView)view.findViewById(R.id.textView1);
@@ -953,9 +964,12 @@ public class ConfigActivity extends FragmentActivity {
 
         @Override
         public boolean onDrag(View view, DragEvent dragEvent) {
+
+            // 여기서 view는 전체 리스트
             ListView listView = (ListView) findViewById(R.id.listView);
             listAdapter customadapter = (listAdapter) listView.getAdapter();
             int location[] = new int[2];
+
             listView.getChildAt(0).getLocationOnScreen(location);
 
 
@@ -972,10 +986,11 @@ public class ConfigActivity extends FragmentActivity {
 
                TextView x = (TextView) listView.getChildAt(0).findViewById(R.id.textView2);
                CharSequence y = x.getText();
+               Toast.makeText(getApplicationContext(), String.valueOf(dragEvent.getY()), Toast.LENGTH_SHORT).show();
 
 
 
-
+                helper.open();
                Cursor cursor1= helper.selectAll();
                cursor1.moveToFirst();
                while(!cursor1.isAfterLast()) {
@@ -993,7 +1008,7 @@ public class ConfigActivity extends FragmentActivity {
 
 
 
-                   if (isInsideView(listView.getChildAt(i), dragEvent.getX(), dragEvent.getY() + location[1]))
+                   if (isInsideView(listView.getChildAt(i), dragEvent.getX(), dragEvent.getY() ))
                    {
 /*
                        helper.delete(String.valueOf(i));
@@ -1010,18 +1025,25 @@ public class ConfigActivity extends FragmentActivity {
                            }
                            cursor2.moveToNext();
                        }
+                                         /*
                        cursor2.moveToPosition(i);
-
-                        helper.update(cursor1.getString(0), cursor2.getString(1), cursor2.getString(2));
-                        helper.update(cursor2.getString(0), cursor1.getString(1), cursor1.getString(2));
+*/
+                       cursor2 = helper.select(j);
+                       cursor2.moveToFirst();
+                        helper.update(cursor1.getString(0), cursor2.getString(1), cursor2.getString(2), cursor2.getString(3));
+                        helper.update(cursor2.getString(0), cursor1.getString(1), cursor1.getString(2), cursor1.getString(3));
 
 
 
 
                    }
                }
+
                 drawlist();
+
                updateService();
+               helper.close();
+
 
 
 
@@ -1035,11 +1057,15 @@ public class ConfigActivity extends FragmentActivity {
 
         if (view != null) {
             int location[] = new int[2];
-            view.getLocationInWindow(location);
+            view.getLocationOnScreen(location);
             int viewX = location[0];
-            int viewY = location[1];
+            int viewY = location[1]; //
 
-            if ((y > viewY) && (y < viewY + view.getHeight())) {
+
+
+            if ((y > viewY - view.getHeight()) && (y < viewY )) {
+
+
                 return true;
             } else {
                 return false;

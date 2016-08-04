@@ -2,6 +2,7 @@ package com.mujogun.hyk.lockscreenchanger;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.preference.PreferenceManager;
@@ -171,36 +172,40 @@ public class listAdapter extends BaseAdapter{
 
     public void setColor(Context context, View convertView) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        DBHelper helper = new DBHelper(context, "memo.db", null, 1);
+        helper.open();
+
+        TextView text1 = (TextView) convertView.findViewById(R.id.textView1);
         TextView text2 = (TextView) convertView.findViewById(R.id.textView2);
         TextView text3 = (TextView) convertView.findViewById(R.id.textView3);
+        // 그 텍스트만 되야함
+        Cursor cursor = helper.select(Integer.parseInt((String)text1.getText()));
+        cursor.moveToFirst();
+        Log.d("color", cursor.getString(3));
+        if (cursor.getString(0).compareTo((String)text1.getText())== 0)
+        {
+            if (cursor.getString(3).compareTo("Set1") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet1Memo));
+            else if (cursor.getString(3).compareTo("Set2") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet2Memo));
+            else if (cursor.getString(3).compareTo("Set3") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet3Memo));
+            else if (cursor.getString(3).compareTo("Set4") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet4Memo));
+            else if (cursor.getString(3).compareTo("Set5") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet5Memo));
+            else if (cursor.getString(3).compareTo("Set6") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet6Memo));
+            else if (cursor.getString(3).compareTo("Set7") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet7Memo));
+            else if (cursor.getString(3).compareTo("Set8") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet8Memo));
+            else if (cursor.getString(3).compareTo("Set9") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet9Memo));
+        }
+        helper.close();
 
-        if (prefs.getString("MemoColor", "Set1").compareTo("Set1") == 0) {
-            text2.setTextColor(context.getResources().getColor(R.color.colorSet1Memo));
-        }
-        else if (prefs.getString("MemoColor", "Set1").compareTo("Set2") == 0) {
-            text2.setTextColor(context.getResources().getColor(R.color.colorSet2Memo));
-        }
-        else if (prefs.getString("MemoColor", "Set1").compareTo("Set3") == 0) {
-            text2.setTextColor(context.getResources().getColor(R.color.colorSet3Memo));
-        }
-        else if (prefs.getString("MemoColor", "Set1").compareTo("Set4") == 0) {
-            text2.setTextColor(context.getResources().getColor(R.color.colorSet4Memo));
-        }
-        else if (prefs.getString("MemoColor", "Set1").compareTo("Set5") == 0) {
-            text2.setTextColor(context.getResources().getColor(R.color.colorSet5Memo));
-        }
-        else if (prefs.getString("MemoColor", "Set1").compareTo("Set6") == 0) {
-            text2.setTextColor(context.getResources().getColor(R.color.colorSet6Memo));
-        }
-        else if (prefs.getString("MemoColor", "Set1").compareTo("Set7") == 0) {
-            text2.setTextColor(context.getResources().getColor(R.color.colorSet7Memo));
-        }
-        else if (prefs.getString("MemoColor", "Set1").compareTo("Set8") == 0) {
-            text2.setTextColor(context.getResources().getColor(R.color.colorSet8Memo));
-        }
-        else if (prefs.getString("MemoColor", "Set1").compareTo("Set9") == 0) {
-            text2.setTextColor(context.getResources().getColor(R.color.colorSet9Memo));
-        }
 
         if (prefs.getString("FontColor", "Set1").compareTo("Set1") == 0) {
 

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by hyk on 2016-07-19.
@@ -20,7 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String sql =
-                "CREATE TABLE memo (_id INTEGER PRIMARY KEY AUTOINCREMENT, memos TEXT, time TEXT); ";
+                "CREATE TABLE memo (_id INTEGER PRIMARY KEY AUTOINCREMENT, memos TEXT, time TEXT, color TEXT); ";
         sqLiteDatabase.execSQL(sql);
     }
 
@@ -31,10 +33,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public void open() {
         myDb = this.getWritableDatabase();
     }
-    public void insert(String memo, String time) {
+    public void insert(String memo, String time, String color) {
 
-        String sql = "INSERT INTO memo (memos, time) values (?, ?);";
-        Object[] bindArgs = {memo, time };
+        String sql = "INSERT INTO memo (memos, time, color) values (?, ?, ?);";
+        Object[] bindArgs = {memo, time, color};
         myDb.execSQL(sql, bindArgs);
 
 
@@ -47,13 +49,26 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = myDb.query("memo", null, null, null, null, null, null);
         return cursor;
     }
-    public void update(String id, String newMemo, String time) {
+    public void update(String id, String newMemo, String time, String color) {
         ContentValues values = new ContentValues();
         values.put("memos", newMemo);
         values.put("time", time);
+        values.put("color", color);
         String[] whereArgs={id};
         int update = myDb.update("memo", values, "_id=?", whereArgs);
 
+    }
+
+    public void updateColorOnly(String color) {
+        String sql = "UPDATE memo SET color=?";
+        String[] Args = {color};
+        Log.d("updateColor only", color);
+        myDb.execSQL(sql, Args);
+    }
+    public void updateColor(String id, String color) {
+        String sql = "UPDATE memo SET color=? where _id=?";
+        String [] Args = {color, id};
+        myDb.execSQL(sql, Args);
     }
 
     public void delete(String id) {

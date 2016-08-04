@@ -7,9 +7,12 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -45,7 +48,8 @@ public class MemoActivity extends AppCompatActivity {
     Calendar mainCalendar;
     public static int isCalendarSet;
     static Calendar myCalendar = Calendar.getInstance();
-
+    String colorset;
+    String colorindividual;
 
 
 
@@ -55,7 +59,6 @@ public class MemoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.relative);
         helper = new DBHelper(getApplicationContext(), "memo.db", null, 1);
-        helper.open();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -80,77 +83,25 @@ public class MemoActivity extends AppCompatActivity {
         theIntent = getIntent();
         String curmemo = theIntent.getStringExtra("memos");
         String targetdate = theIntent.getStringExtra("time");
-
+        String color = theIntent.getStringExtra("color");
         if (targetdate != null)
             DatePick.setText(targetdate);
         if (curmemo != null)
             Memo.setText(curmemo);
 
 
-        ColorPick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               SelectMemoColor selectMemoColor = new SelectMemoColor();
-
-                android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-               selectMemoColor.show(fm, "ss");
-            }
-        });
+        ColorPick.setOnClickListener(new colorListener());
 
         Button btn1 = (Button) findViewById(R.id.save);
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                EditText Memo = (EditText) findViewById(R.id.editText);
-
-                TextView realdate = (TextView) findViewById(R.id.datepick);
-                String from = (String) realdate.getText();
-                SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 M월 d일 H시 mm분");
-                Date to = Calendar.getInstance().getTime();
-                try {
-                    to = transFormat.parse(from);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+        btn1.setOnClickListener(new MemoInsertListener());
 
 
-                String sid = theIntent.getStringExtra("id");
-                String curmemo = Memo.getText().toString().trim();
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 d일 H시 mm분");
-
-                String currentdate = sdf.format(Calendar.getInstance().getTime());
-
-                Date realcurrentDate = Calendar.getInstance().getTime();
-                /*
-                String ddate = formatedDate;
-                */
-                String ddate = sdf.format(to);
-
-                if (from.compareTo("") == 0)
-                    ddate = "";
-
-
-                if (sid == null) {
-                    helper.insert(curmemo, ddate);
-                }
-                else {
-                    helper.update(sid, curmemo, ddate);
-                }
-                helper.close();
-
-
-                //db에 저장
-                Intent prevactivity = new Intent(MemoActivity.this, ConfigActivity.class);
-
-                startActivity(prevactivity);
-            }
-        });
         Button btn2 = (Button) findViewById(R.id.delete);
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                helper.open();
                 String sid = theIntent.getStringExtra("id");
                 helper.delete(sid);
                 helper.close();
@@ -203,6 +154,93 @@ public class MemoActivity extends AppCompatActivity {
         }
 
     }
+    public class colorListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            String sid = theIntent.getStringExtra("id");
+            SelectMemoColor selectMemoColor = new SelectMemoColor();
+            if (sid != null) {
+                selectMemoColor.setSid(sid);
+                helper.open();
+                Cursor cursor = helper.select(Integer.parseInt(sid));
+                cursor.moveToFirst();
+                colorindividual = cursor.getString(3);
+                helper.close();
+            }
+
+                        /*
+
+           */
+            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+            selectMemoColor.show(fm, "ss");
+            // 추가할 때
+            if (sid == null) {
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                colorindividual = prefs.getString("MemoColor", "NotSet");
+            }
+
+        }
+
+    }
+    public class MemoInsertListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            EditText Memo = (EditText) findViewById(R.id.editText);
+
+            TextView realdate = (TextView) findViewById(R.id.datepick);
+            String from = (String) realdate.getText();
+            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 M월 d일 H시 mm분");
+            Date to = Calendar.getInstance().getTime();
+            try {
+                to = transFormat.parse(from);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+            String sid = theIntent.getStringExtra("id");
+            String curmemo = Memo.getText().toString().trim();
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 d일 H시 mm분");
+
+            String currentdate = sdf.format(Calendar.getInstance().getTime());
+
+            Date realcurrentDate = Calendar.getInstance().getTime();
+                /*
+                String ddate = formatedDate;
+                */
+            String ddate = sdf.format(to);
+
+            if (from.compareTo("") == 0)
+                ddate = "";
+
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            colorindividual = prefs.getString("MemoColor", "Set1");
+
+            helper.open();
+
+            if (sid == null) {
+
+                helper.insert(curmemo, ddate, colorindividual);
+            }
+            else {
+                helper.update(sid, curmemo, ddate, colorindividual);
+            }
+            helper.close();
+
+
+            //db에 저장
+            Intent prevactivity = new Intent(MemoActivity.this, ConfigActivity.class);
+
+            startActivity(prevactivity);
+
+
+
+        }
+
+    }
 
 
 
@@ -213,76 +251,7 @@ public class MemoActivity extends AppCompatActivity {
         TextView datepick = (TextView) findViewById(R.id.datepick);
         datepick.setText(sdf.format(myCalendar.getTime()));
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
 
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        switch(id) {
-            case R.id.menu_add:
-
-
-                EditText Memo = (EditText) findViewById(R.id.editText);
-
-                TextView realdate = (TextView) findViewById(R.id.datepick);
-                String from = (String) realdate.getText();
-                SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 M월 d일 H시 mm분");
-                Date to = Calendar.getInstance().getTime();
-                try {
-                    to = transFormat.parse(from);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-
-                String sid = theIntent.getStringExtra("id");
-                String curmemo = Memo.getText().toString().trim();
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 d일 H시 mm분");
-
-                String currentdate = sdf.format(Calendar.getInstance().getTime());
-
-                Date realcurrentDate = Calendar.getInstance().getTime();
-                /*
-                String ddate = formatedDate;
-                */
-                String ddate = sdf.format(to);
-
-                if (from.compareTo("") == 0)
-                    ddate = "";
-
-
-                if (sid == null) {
-                    helper.insert(curmemo, ddate);
-                }
-                else {
-                    helper.update(sid, curmemo, ddate);
-                }
-                helper.close();
-
-
-                //db에 저장
-                Intent prevactivity = new Intent(this, ConfigActivity.class);
-
-                startActivity(prevactivity);
-                return true;
-            case R.id.menu_add2:
-                sid = theIntent.getStringExtra("id");
-                helper.delete(sid);
-                helper.close();
-                Intent prevactivity2 = new Intent(this, ConfigActivity.class);
-                startActivity(prevactivity2);
-                return true;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     public static Calendar getDatePart(Date date){
         Calendar cal = Calendar.getInstance();       // get calendar instance
