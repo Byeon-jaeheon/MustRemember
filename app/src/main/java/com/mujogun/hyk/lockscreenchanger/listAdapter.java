@@ -309,8 +309,12 @@ public class listAdapter extends BaseAdapter{
 
             return String.valueOf(minutesBetween) + "분";
         }
-        if (hoursBetween > 24)
+        if (hoursBetween > 24 && daysBetween < 30)
             return String.valueOf(daysBetween) + "일";
+        if (daysBetween > 30) {
+            long MonthsBetween = daysBetween / 30;
+            return String.valueOf(MonthsBetween) + "개월";
+        }
 
 
         return String.valueOf("오류");

@@ -70,6 +70,7 @@ public class PhotoSettingActivity extends AppCompatActivity implements select.Te
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         /*
         final Drawable upArrow = getResources().getDrawable(R.drawable.arrow_back);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);

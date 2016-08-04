@@ -15,8 +15,8 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
-        android:label="@string/app_name"
         android:theme="@style/AppTheme"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         >
 
@@ -41,7 +41,6 @@
 
         <service android:name=".ScreenService" />
         <activity android:name=".MemoActivity"
-            android:label="메모쓰기"
             android:theme="@style/AppTheme.NoActionBar"
             android:excludeFromRecents="true"
             />
@@ -51,22 +50,21 @@
             android:excludeFromRecents="true"
             />
         <activity android:name=".FontSettingActivity"
-            android:label="글 및 버튼 색 설정"
+
             android:theme="@style/AppTheme.NoActionBar"
             android:excludeFromRecents="true"
             />
         <activity android:name=".FontAndColorActivity"
-            android:label="글자설정"
+
             android:theme="@style/AppTheme.NoActionBar"
             android:excludeFromRecents="true"
             />
         <activity android:name=".HelpActivity"
-            android:label="이용방법"
             android:theme="@style/AppTheme.NoActionBar"
             android:excludeFromRecents="true"
             />
         <activity android:name=".PhotoSettingActivity"
-            android:label="배경설정"
+
             android:theme="@style/AppTheme.NoActionBar"
             android:excludeFromRecents="true"
             />
@@ -88,6 +86,8 @@
             android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.PHONE_STATE" />
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
         </receiver>
         <service
