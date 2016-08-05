@@ -16,56 +16,81 @@
     <color name="colorDeepGreen">#006400</color>
     <color name="colorMint">#00ff00</color>
 
-    <color name="colorSet1dday">#00ff00</color>
-    <color name="colorSet1Background">#aaaaaa</color>
-    <color name="colorSet1Memo">#000000</color>
-    <color name="colorSet1Button">#ddc7c3</color>
-
-    <color name="colorSet2dday">#c88d16</color>
-    <color name="colorSet2Background">#ff90be</color>
-    <color name="colorSet2Memo">#ffffff</color>
-    <color name="colorSet2Button">#aaaaaa</color>
-
-    <color name="colorSet3dday">#ff8063</color>
-    <color name="colorSet3Background">#660099</color>
-    <color name="colorSet3Memo">#ffffff</color>
-    <color name="colorSet3Button">#0099cc</color>
+    <color name="colorSet1dday">#006400</color>
+    <color name="colorSet1Background">#f34235</color>
+    <color name="colorSet1Memo">#ffffff</color>
+    <color name="colorSet1Button">#fec006</color>
+    <color name="colorSet1Buttonword">#000000</color>
+    <color name="colorSet1time">#ffffff</color>
 
 
-    <color name="colorSet4dday">#ff8800</color>
-    <color name="colorSet4Background">#000000</color>
-    <color name="colorSet4Memo">#ffffff</color>
-    <color name="colorSet4Button">#ffffff</color>
+    <color name="colorSet2dday">#009f06</color>
+    <color name="colorSet2Background">#ff8200</color>
+    <color name="colorSet2Memo">#000000</color>
+    <color name="colorSet2Button">#fec006</color>
+    <color name="colorSet2Buttonword">#000000</color>
+    <color name="colorSet2time">#ffffff</color>
 
 
-    <color name="colorSet5dday">#ff8063</color>
-    <color name="colorSet5Background">#4b0082</color>
-    <color name="colorSet5Memo">#ffffff</color>
-    <color name="colorSet5Button">#669900</color>
+    <color name="colorSet3dday">#3e50b4</color>
+    <color name="colorSet3Background">#ff93f1</color>
+    <color name="colorSet3Memo">#000000</color>
+    <color name="colorSet3Button">#fe9700</color>
+    <color name="colorSet3Buttonword">#000000</color>
+    <color name="colorSet3time">#ffffff</color>
 
 
-    <color name="colorSet6dday">#9cffe9</color>
-    <color name="colorSet6Background">#0000ff</color>
+
+    <color name="colorSet4dday">#fe5621</color>
+    <color name="colorSet4Background"> #87cefa</color>
+    <color name="colorSet4Memo">#000000</color>
+    <color name="colorSet4Button">#00bbd3</color>
+    <color name="colorSet4Buttonword">#000000</color>
+    <color name="colorSet4time">#ffffff</color>
+
+
+
+    <color name="colorSet5dday">#009f06</color>
+    <color name="colorSet5Background">#feea3a</color>
+    <color name="colorSet5Memo">#000000</color>
+    <color name="colorSet5Button">#fe9700</color>
+    <color name="colorSet5Buttonword">#6f4200</color>
+    <color name="colorSet5time">#000000</color>
+
+
+
+    <color name="colorSet6dday">#ff8200</color>
+    <color name="colorSet6Background">#8ac249</color>
     <color name="colorSet6Memo">#ffffff</color>
-    <color name="colorSet6Button">#ff90be</color>
+    <color name="colorSet6Button">#8ac249</color>
+    <color name="colorSet6Buttonword">#ffffff</color>
+    <color name="colorSet6time">#ffffff</color>
 
 
-    <color name="colorSet7dday">#ff756b</color>
-    <color name="colorSet7Background">#87cefa</color>
+    <color name="colorSet7dday">#8ac249</color>
+    <color name="colorSet7Background">#785447</color>
     <color name="colorSet7Memo">#000000</color>
-    <color name="colorSet7Button">#aaaaaa</color>
+    <color name="colorSet7Button">#fe9700</color>
+    <color name="colorSet7Buttonword">#000000</color>
+    <color name="colorSet7time">#ffffff</color>
 
 
-    <color name="colorSet8dday">#add5ff</color>
-    <color name="colorSet8Background">#66cdaa</color>
+    <color name="colorSet8dday">#f34235</color>
+    <color name="colorSet8Background">#9d9d9d</color>
     <color name="colorSet8Memo">#000000</color>
-    <color name="colorSet8Button">#aaaaaa</color>
+    <color name="colorSet8Button">#41a245</color>
+    <color name="colorSet8Buttonword">#ffffff</color>
+    <color name="colorSet8time">#ffffff</color>
 
 
-    <color name="colorSet9dday">#ff8800</color>
-    <color name="colorSet9Background">#006400</color>
+
+    <color name="colorSet9dday">#f34235</color>
+    <color name="colorSet9Background">#000000</color>
     <color name="colorSet9Memo">#ffffff</color>
-    <color name="colorSet9Button">#aaaaaa</color>
+    <color name="colorSet9Button">#785447</color>
+    <color name="colorSet9Buttonword">#ffffff</color>
+    <color name="colorSet9time">#ffffff</color>
+
 
 
 

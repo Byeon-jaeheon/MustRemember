@@ -31,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginTop = "10dp"
         >
         <LinearLayout
             android:orientation="vertical"
@@ -41,9 +42,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="16dp"
                 >
                 <ImageView
                     android:layout_width="match_parent"
@@ -55,12 +57,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text= "샘플메모글씨"
+                    android:text= "메모글씨색"
                     android:textColor="@color/colorSet1Memo"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "17dp"
 
                     />
                 <TextView
@@ -70,16 +72,16 @@
                     android:textColor="@color/colorSet1dday"
                     android:textAlignment="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "12dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text= "\n\n메뉴버튼색"
+                    android:text= "\n\n하단메뉴색"
                     android:textColor="@color/colorSet1Button"
                     android:textAlignment="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "17dp"
                     />
 
 
@@ -92,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:text = "회색배경세트"
+                android:text = "빨강배경세트"
                 />
         </LinearLayout>
 
@@ -105,9 +107,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
 
                 >
                 <ImageView
@@ -119,12 +122,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text= "샘플메모글씨"
+                    android:text= "메모글씨색"
                     android:textColor="@color/colorSet2Memo"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "17dp"
 
                     />
                 <TextView
@@ -134,16 +137,16 @@
                     android:textColor="@color/colorSet2dday"
                     android:textAlignment="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "12dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text= "\n\n메뉴버튼색"
+                    android:text= "\n\n하단메뉴색"
                     android:textColor="@color/colorSet2Button"
                     android:textAlignment="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "17dp"
                     />
 
 
@@ -156,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:text = "분홍배경세트"
+                android:text = "주황배경세트"
                 />
         </LinearLayout>
         <LinearLayout
@@ -168,9 +171,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="8dp"
                 >
                 <ImageView
                     android:layout_width="match_parent"
@@ -181,12 +185,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text= "샘플메모글씨"
+                    android:text= "메모글씨색"
                     android:textColor="@color/colorSet3Memo"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "17dp"
 
                     />
                 <TextView
@@ -194,18 +198,18 @@
                     android:layout_height="wrap_content"
                     android:text= "\n일정아이콘색"
                     android:textColor="@color/colorSet3dday"
-                    android:textAlignment="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "12dp"
+                    android:gravity="center"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text= "\n\n메뉴버튼색"
+                    android:text= "\n\n하단메뉴색"
                     android:textColor="@color/colorSet3Button"
                     android:textAlignment="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "17dp"
                     />
 
 
@@ -218,7 +222,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:text = "자주색배경세트"
+                android:text = "분홍색배경세트"
                 />
         </LinearLayout>
 
@@ -229,6 +233,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginTop = "-20dp"
         >
         <LinearLayout
             android:orientation="vertical"
@@ -239,9 +244,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="16dp"
                 >
                 <ImageView
                     android:layout_width="match_parent"
@@ -252,12 +258,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text= "샘플메모글씨"
+                    android:text= "메모글씨색"
                     android:textColor="@color/colorSet4Memo"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "17dp"
 
                     />
                 <TextView
@@ -267,213 +273,16 @@
                     android:textColor="@color/colorSet4dday"
                     android:textAlignment="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "12dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text= "\n\n메뉴버튼색"
+                    android:text= "\n\n하단메뉴색"
                     android:textColor="@color/colorSet4Button"
                     android:textAlignment="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
-                    />
-
-
-
-            </RelativeLayout>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:text = "검정배경세트"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-
-                >
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@color/colorSet5Background"
-                    android:id="@+id/set5"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text= "샘플메모글씨"
-                    android:textColor="@color/colorSet5Memo"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
-
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text= "\n일정아이콘색"
-                    android:textColor="@color/colorSet5dday"
-                    android:textAlignment="center"
-                    android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text= "\n\n메뉴버튼색"
-                    android:textColor="@color/colorSet5Button"
-                    android:textAlignment="center"
-                    android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
-                    />
-
-
-
-            </RelativeLayout>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:text = "남색배경세트"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                >
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@color/colorSet6Background"
-                    android:id="@+id/set6"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text= "샘플메모글씨"
-                    android:textColor="@color/colorSet6Memo"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
-
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text= "\n일정아이콘색"
-                    android:textColor="@color/colorSet6dday"
-                    android:textAlignment="center"
-                    android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text= "\n\n메뉴버튼색"
-                    android:textColor="@color/colorSet6Button"
-                    android:textAlignment="center"
-                    android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
-                    />
-
-
-
-            </RelativeLayout>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:text = "파랑배경세트"
-                />
-        </LinearLayout>
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        >
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                >
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@color/colorSet7Background"
-                    android:id="@+id/set7"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text= "샘플메모글씨"
-                    android:textColor="@color/colorSet7Memo"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
-
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text= "\n일정아이콘색"
-                    android:textColor="@color/colorSet7dday"
-                    android:textAlignment="center"
-                    android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text= "\n\n메뉴버튼색"
-                    android:textColor="@color/colorSet7Button"
-                    android:textAlignment="center"
-                    android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "17dp"
                     />
 
 
@@ -499,45 +308,46 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
 
                 >
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@color/colorSet8Background"
-                    android:id="@+id/set8"
+                    android:background="@color/colorSet5Background"
+                    android:id="@+id/set5"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text= "샘플메모글씨"
-                    android:textColor="@color/colorSet8Memo"
+                    android:text= "메모글씨색"
+                    android:textColor="@color/colorSet5Memo"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "17dp"
 
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text= "\n일정아이콘색"
-                    android:textColor="@color/colorSet8dday"
+                    android:textColor="@color/colorSet5dday"
                     android:textAlignment="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "12dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text= "\n\n메뉴버튼색"
-                    android:textColor="@color/colorSet8Button"
+                    android:text= "\n\n하단메뉴색"
+                    android:textColor="@color/colorSet5Button"
                     android:textAlignment="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "17dp"
                     />
 
 
@@ -550,7 +360,207 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:text = "청록색배경세트"
+                android:text = "노랑배경세트"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="8dp"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/colorSet6Background"
+                    android:id="@+id/set6"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text= "메모글씨색"
+                    android:textColor="@color/colorSet6Memo"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:paddingTop = "20dp"
+                    android:paddingLeft = "17dp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text= "\n일정아이콘색"
+                    android:textColor="@color/colorSet6dday"
+                    android:textAlignment="center"
+                    android:paddingTop = "20dp"
+                    android:paddingLeft = "12dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text= "\n\n하단메뉴색"
+                    android:textColor="@color/colorSet6Button"
+                    android:textAlignment="center"
+                    android:paddingTop = "20dp"
+                    android:paddingLeft = "17dp"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text = "연녹색배경세트"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop = "-20dp"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="16dp"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/colorSet7Background"
+                    android:id="@+id/set7"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text= "메모글씨색"
+                    android:textColor="@color/colorSet7Memo"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:paddingTop = "20dp"
+                    android:paddingLeft = "17dp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text= "\n일정아이콘색"
+                    android:textColor="@color/colorSet7dday"
+                    android:textAlignment="center"
+                    android:paddingTop = "20dp"
+                    android:paddingLeft = "12dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text= "\n\n하단메뉴색"
+                    android:textColor="@color/colorSet7Button"
+                    android:textAlignment="center"
+                    android:paddingTop = "20dp"
+                    android:paddingLeft = "17dp"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text = "갈색배경세트"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/colorSet8Background"
+                    android:id="@+id/set8"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text= "메모글씨색"
+                    android:textColor="@color/colorSet8Memo"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:paddingTop = "20dp"
+                    android:paddingLeft = "17dp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text= "\n일정아이콘색"
+                    android:textColor="@color/colorSet8dday"
+                    android:textAlignment="center"
+                    android:paddingTop = "20dp"
+                    android:paddingLeft = "12dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text= "\n\n하단메뉴색"
+                    android:textColor="@color/colorSet8Button"
+                    android:textAlignment="center"
+                    android:paddingTop = "20dp"
+                    android:paddingLeft = "17dp"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text = "회색배경세트"
                 />
         </LinearLayout>
         <LinearLayout
@@ -562,9 +572,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="8dp"
                 >
                 <ImageView
                     android:layout_width="match_parent"
@@ -575,12 +586,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text= "샘플메모글씨"
+                    android:text= "메모글씨색"
                     android:textColor="@color/colorSet9Memo"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "17dp"
 
                     />
                 <TextView
@@ -590,16 +601,16 @@
                     android:textColor="@color/colorSet9dday"
                     android:textAlignment="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "12dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text= "\n\n메뉴버튼색"
+                    android:text= "\n\n하단메뉴색"
                     android:textColor="@color/colorSet9Button"
                     android:textAlignment="center"
                     android:paddingTop = "20dp"
-                    android:paddingLeft = "5dp"
+                    android:paddingLeft = "17dp"
                     />
 
 
@@ -612,7 +623,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:text = "암록색배경세트"
+                android:text = "검정배경세트"
                 />
         </LinearLayout>
 

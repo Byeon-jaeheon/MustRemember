@@ -46,7 +46,8 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:textColor="@android:color/white"
-             android:layout_marginLeft="60dp"
+             android:layout_marginLeft="80dp"
+             android:textSize = "18sp"
              android:textAlignment="center"
              />
       </LinearLayout>
@@ -78,11 +79,11 @@
 
          <Button
              android:id="@+id/btn2"
-             android:text = "메모추가"
+             android:text = "@string/memoadd"
              android:layout_gravity="center_horizontal"
              android:background="@drawable/circler"
              android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
+             android:layout_height="45dp"
              android:layout_weight="1"
              android:layout_marginRight="-10dp"
              />
@@ -92,7 +93,7 @@
              android:layout_gravity="center_horizontal"
              android:background="@drawable/circler"
              android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
+             android:layout_height="45dp"
              android:layout_weight="1"
              android:layout_marginRight="-10dp"
              />
@@ -102,7 +103,7 @@
              android:gravity="center"
              android:background="@drawable/circler"
              android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
+             android:layout_height="45dp"
              android:layout_weight="1"
              android:layout_marginRight="-10dp"
 
@@ -113,7 +114,7 @@
              android:gravity="center"
              android:background="@drawable/circler"
              android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
+             android:layout_height="45dp"
              android:layout_weight="1"
              />
       </LinearLayout>
@@ -144,8 +145,8 @@
        android:id="@+id/line"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:paddingTop = "20dp"
-       android:paddingBottom="20dp"
+       android:paddingTop = "13dp"
+       android:paddingBottom="13dp"
        android:paddingRight="20dp"
        android:paddingLeft="20dp"
        android:textAlignment="center"
@@ -154,7 +155,7 @@
        android:background="#ffffff"
        android:layout_above="@id/relative1"
        android:overScrollFooter="@android:color/transparent"
-       android:textSize = "14sp"
+       android:textSize = "15sp"
        />
    <ListView
        android:layout_marginTop="120dp"
@@ -168,9 +169,14 @@
        android:footerDividersEnabled="false"
 
        android:overScrollFooter="@android:color/transparent"
-       android:divider = "#ffffff"
-       android:dividerHeight="1dp"
+       android:divider ="#d6d6d6"
+       android:dividerHeight="0.01dp"
        />
-
+   <View
+       android:layout_width="match_parent"
+       android:layout_height="0.1dp"
+       android:background="#d6d6d6"
+       android:layout_above="@id/line"
+       />
 
 </RelativeLayout>

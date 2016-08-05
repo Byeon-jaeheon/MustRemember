@@ -22,6 +22,7 @@ public class SelectMemoColor extends DialogFragment {
     public boolean setted = false;
     public String sid;
 
+
     public void setSid(String sid) {
         this.sid = sid;
     }
@@ -145,12 +146,15 @@ public class SelectMemoColor extends DialogFragment {
         }
         @Override
         public void onClick(View view) {
-            // sid가 null이면 그냥 추가, 아니면 수정
+            // sid가 null이면 그냥 추가, 기존에 없으니// 아니면 수정
             if (sid == null || (sid.compareTo("") == 0)) {
+
+            // sid가 null이니까 db 업데이트 불가능, 따라서 preference 이용
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("MemoColor", putColor);
                 editor.commit();
+
             }
             else {
                 DBHelper helper = new DBHelper(getContext(), "memo.db", null, 1);

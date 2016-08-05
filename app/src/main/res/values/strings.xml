@@ -37,4 +37,8 @@
         설정에서 잠금화면을 해제해주세요.
 
     </string>
+    <string name="memoadd"><b>메모추가</b></string>
+    <string name="fontsetting"><b>글자설정</b></string>
+    <string name="backgroundsetting"><b>배경설정</b></string>
+    <string name="helpmethod"><b>이용방법</b></string>
 </resources>

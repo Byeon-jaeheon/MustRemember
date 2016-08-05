@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
@@ -18,6 +20,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -129,21 +132,80 @@ public class MemoActivity extends AppCompatActivity {
         TextView datepick = (TextView) findViewById(R.id.datepick);
 
 
+        Button btn1 = (Button) findViewById(R.id.save);
+        Button btn2 = (Button) findViewById(R.id.delete);
 
         datepick.setOnClickListener(new datepickListener());
 
-    }
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String backgroundcolor = prefs.getString("Background", "Set8");
 
-    public class cancellistener implements DialogInterface.OnCancelListener {
+        GradientDrawable bgShape1 = (GradientDrawable)btn1.getBackground();
+        GradientDrawable bgShape2 = (GradientDrawable)btn2.getBackground();
 
-
-        @Override
-        public void onCancel(DialogInterface dialogInterface) {
-
-            Toast.makeText(getApplicationContext(), "cancel detected", Toast.LENGTH_SHORT).show();
+        Log.i("memobutton", backgroundcolor);
+        if (backgroundcolor.compareTo("Set1")==0) {
+            bgShape1.setColor(getResources().getColor(R.color.colorSet1Background));
+            bgShape1.setStroke(0, Color.parseColor("#0d1825"));
+            bgShape2.setColor(getResources().getColor(R.color.colorSet1Background));
+            bgShape2.setStroke(0, Color.parseColor("#0d1825"));
 
         }
+        else if (prefs.getString("Background", "Set8").compareTo("Set2")==0) {
+            bgShape1.setColor(getResources().getColor(R.color.colorSet2Background));
+            bgShape1.setStroke(0, Color.parseColor("#0d1825"));
+            bgShape2.setColor(getResources().getColor(R.color.colorSet2Background));
+            bgShape2.setStroke(0, Color.parseColor("#0d1825"));
+        }
+        else if (prefs.getString("Background", "Set8").compareTo("Set3")==0) {
+            bgShape1.setColor(getResources().getColor(R.color.colorSet3Background));
+            bgShape1.setStroke(0, Color.parseColor("#0d1825"));
+            bgShape2.setColor(getResources().getColor(R.color.colorSet3Background));
+            bgShape2.setStroke(0, Color.parseColor("#0d1825"));
+        }
+        else if (prefs.getString("Background", "Set8").compareTo("Set4")==0) {
+            bgShape1.setColor(getResources().getColor(R.color.colorSet4Background));
+            bgShape1.setStroke(0, Color.parseColor("#0d1825"));
+            bgShape2.setColor(getResources().getColor(R.color.colorSet4Background));
+            bgShape2.setStroke(0, Color.parseColor("#0d1825"));
+        }
+        else if (prefs.getString("Background", "Set8").compareTo("Set5")==0) {
+            bgShape1.setColor(getResources().getColor(R.color.colorSet5Background));
+            bgShape1.setStroke(0, Color.parseColor("#0d1825"));
+            bgShape2.setColor(getResources().getColor(R.color.colorSet5Background));
+            bgShape2.setStroke(0, Color.parseColor("#0d1825"));
+        }
+        else if (prefs.getString("Background", "Set8").compareTo("Set6")==0) {
+            bgShape1.setColor(getResources().getColor(R.color.colorSet6Background));
+            bgShape1.setStroke(0, Color.parseColor("#0d1825"));
+            bgShape2.setColor(getResources().getColor(R.color.colorSet6Background));
+            bgShape2.setStroke(0, Color.parseColor("#0d1825"));
+        }
+        else if (prefs.getString("Background", "Set8").compareTo("Set7")==0) {
+            bgShape1.setColor(getResources().getColor(R.color.colorSet7Background));
+            bgShape1.setStroke(0, Color.parseColor("#0d1825"));
+            bgShape2.setColor(getResources().getColor(R.color.colorSet7Background));
+            bgShape2.setStroke(0, Color.parseColor("#0d1825"));
+        }
+        else if (prefs.getString("Background", "Set8").compareTo("Set8")==0) {
+            bgShape1.setColor(getResources().getColor(R.color.colorSet8Background));
+            bgShape1.setStroke(0, Color.parseColor("#0d1825"));
+            bgShape2.setColor(getResources().getColor(R.color.colorSet8Background));
+            bgShape2.setStroke(0, Color.parseColor("#0d1825"));
+        }
+        else if (prefs.getString("Background", "Set8").compareTo("Set9")==0) {
+            bgShape1.setColor(getResources().getColor(R.color.colorSet9Background));
+            bgShape1.setStroke(0, Color.parseColor("#0d1825"));
+            bgShape2.setColor(getResources().getColor(R.color.colorSet9Background));
+            bgShape2.setStroke(0, Color.parseColor("#0d1825"));
+        }
+
+
+
+
     }
+
+
     public class datepickListener implements View.OnClickListener {
 
         @Override
@@ -151,9 +213,6 @@ public class MemoActivity extends AppCompatActivity {
             DialogFragment newFragment = new DatePickerFragment();
 
             newFragment.show(getSupportFragmentManager(), "dateSpinner");
-
-
-
         }
 
     }
@@ -163,20 +222,24 @@ public class MemoActivity extends AppCompatActivity {
         public void onClick(View view) {
             String sid = theIntent.getStringExtra("id");
             SelectMemoColor selectMemoColor = new SelectMemoColor();
+            selectMemoColor.setSid(sid);
+            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+            selectMemoColor.show(fm, "ss");
+            // 변경할 때
             if (sid != null) {
-                selectMemoColor.setSid(sid);
+                Log.i("change", "Change color with exist memo");
                 helper.open();
                 Cursor cursor = helper.select(Integer.parseInt(sid));
                 cursor.moveToFirst();
                 colorindividual = cursor.getString(3);
                 helper.close();
+                // 검->흰은 되는데 흰->검은 안됨?
             }
 
                         /*
 
            */
-            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-            selectMemoColor.show(fm, "ss");
+
             // 추가할 때
             if (sid == null) {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -216,19 +279,28 @@ public class MemoActivity extends AppCompatActivity {
                 */
             String ddate = sdf.format(to);
 
-            if (from.compareTo("") == 0)
-                ddate = "";
+            if (from.compareTo("일정설정") == 0)
+                ddate = "일정설정";
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            colorindividual = prefs.getString("MemoColor", "Set1");
 
             helper.open();
 
             if (sid == null) {
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                // color 선택한 경우 먼저 체크
+                colorindividual = prefs.getString("MemoColor", "NotSet");
 
+                if (colorindividual.compareTo("NotSet") == 0) {
+                    colorindividual = prefs.getString("FontColor", "Set1");
+                    Log.i("Individual", colorindividual);
+                }
+                // 이렇게 되면 기존의 메모세트 컬러 고른 거가 디폴트로 안됨;;
                 helper.insert(curmemo, ddate, colorindividual);
             }
             else {
+                Cursor cursor = helper.select(Integer.parseInt(sid));
+                cursor.moveToFirst();
+                colorindividual = cursor.getString(3);
                 helper.update(sid, curmemo, ddate, colorindividual);
             }
             helper.close();
@@ -309,7 +381,7 @@ public class MemoActivity extends AppCompatActivity {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // do stuff
-                            textView.setText("");
+                            textView.setText("일정설정");
                         }
                     });
 
@@ -354,7 +426,7 @@ public class MemoActivity extends AppCompatActivity {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // do stuff
-                            textView.setText("");
+                            textView.setText("일정설정");
                         }
                     });
 

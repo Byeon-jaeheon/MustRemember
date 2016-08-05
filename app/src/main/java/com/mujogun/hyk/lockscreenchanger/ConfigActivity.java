@@ -161,7 +161,7 @@ public class ConfigActivity extends FragmentActivity {
 
         TextView line = (TextView) findViewById(R.id.line);
         Drawable alpha = line.getBackground();
-        alpha.setAlpha(100);
+        alpha.setAlpha(0);
 
         TextView touchspace = (TextView) findViewById(R.id.touchspace);
         touchspace.setTextColor(Color.WHITE);
@@ -664,25 +664,69 @@ public class ConfigActivity extends FragmentActivity {
                 x.setImageBitmap(yourSelectedImage);
 
                 if (ret.compareTo(String.valueOf(R.id.default1)) == 0) {
-
-                    x.setBackgroundColor(Color.parseColor("#aaaaaa"));
+                    //sharedpreference setting
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("Background", "Set1");
+                    editor.commit();
+                    x.setBackgroundColor(getResources().getColor(R.color.colorSet1Background));
                 }
-                if (ret.compareTo(String.valueOf(R.id.default2)) == 0)
-                    x.setBackgroundColor(Color.parseColor("#ff90be"));
-                if (ret.compareTo(String.valueOf(R.id.default3)) == 0)
-                    x.setBackgroundColor(Color.parseColor("#660099"));
-                if (ret.compareTo(String.valueOf(R.id.default4)) == 0)
-                    x.setBackgroundColor(Color.parseColor("#000000"));
-                if (ret.compareTo(String.valueOf(R.id.default5)) == 0)
-                    x.setBackgroundColor(Color.parseColor("#4b0082"));
-                if (ret.compareTo(String.valueOf(R.id.default6)) == 0)
-                    x.setBackgroundColor(Color.parseColor("#0000ff"));
-                if (ret.compareTo(String.valueOf(R.id.default7)) == 0)
-                    x.setBackgroundColor(Color.parseColor("#87cefa"));
-                if (ret.compareTo(String.valueOf(R.id.default8)) == 0)
-                    x.setBackgroundColor(Color.parseColor("#66cdaa"));
-                if (ret.compareTo(String.valueOf(R.id.default9)) == 0)
-                    x.setBackgroundColor(Color.parseColor("#006400"));
+                if (ret.compareTo(String.valueOf(R.id.default2)) == 0) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("Background", "Set2");
+                    editor.commit();
+                    x.setBackgroundColor(getResources().getColor(R.color.colorSet2Background));
+                }
+                if (ret.compareTo(String.valueOf(R.id.default3)) == 0) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("Background", "Set3");
+                    editor.commit();
+                    x.setBackgroundColor(getResources().getColor(R.color.colorSet3Background));
+                }
+                if (ret.compareTo(String.valueOf(R.id.default4)) == 0) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("Background", "Set4");
+                    editor.commit();
+                    x.setBackgroundColor(getResources().getColor(R.color.colorSet4Background));
+                }
+                if (ret.compareTo(String.valueOf(R.id.default5)) == 0) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("Background", "Set5");
+                    editor.commit();
+                    x.setBackgroundColor(getResources().getColor(R.color.colorSet5Background));
+                }
+                if (ret.compareTo(String.valueOf(R.id.default6)) == 0) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("Background", "Set6");
+                    editor.commit();
+                    x.setBackgroundColor(getResources().getColor(R.color.colorSet6Background));
+                }
+                if (ret.compareTo(String.valueOf(R.id.default7)) == 0) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("Background", "Set7");
+                    editor.commit();
+                    x.setBackgroundColor(getResources().getColor(R.color.colorSet7Background));
+                }
+                if (ret.compareTo(String.valueOf(R.id.default8)) == 0) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("Background", "Set8");
+                    editor.commit();
+                    x.setBackgroundColor(getResources().getColor(R.color.colorSet8Background));
+                }
+                if (ret.compareTo(String.valueOf(R.id.default9)) == 0) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("Background", "Set9");
+                    editor.commit();
+                    x.setBackgroundColor(getResources().getColor(R.color.colorSet9Background));
+                }
             }
 
         }
@@ -815,41 +859,107 @@ public class ConfigActivity extends FragmentActivity {
         buttonBack[3] = (GradientDrawable) helpBtn.getBackground();
 
 
+
         if (prefs.getString("FontColor", "Set1").compareTo("Set1") == 0) {
             for (int i = 0; i < 4; i++)
                 buttonBack[i].setColor(getResources().getColor(R.color.colorSet1Button));
+            memoBtn.setTextColor(getResources().getColor(R.color.colorSet1Buttonword));
+            fontBtn.setTextColor(getResources().getColor(R.color.colorSet1Buttonword));
+            helpBtn.setTextColor(getResources().getColor(R.color.colorSet1Buttonword));
+            onBtn.setTextColor(getResources().getColor(R.color.colorSet1Buttonword));
+            watch.setTextColor(getResources().getColor(R.color.colorSet1time));
+            date.setTextColor(getResources().getColor(R.color.colorSet1time));
+            line.setTextColor(getResources().getColor(R.color.colorSet1Memo));
         }
         else if (prefs.getString("FontColor", "Set1").compareTo("Set2") == 0) {
             for (int i = 0; i < 4; i++)
                 buttonBack[i].setColor(getResources().getColor(R.color.colorSet2Button));
+            memoBtn.setTextColor(getResources().getColor(R.color.colorSet2Buttonword));
+            fontBtn.setTextColor(getResources().getColor(R.color.colorSet2Buttonword));
+            helpBtn.setTextColor(getResources().getColor(R.color.colorSet2Buttonword));
+            onBtn.setTextColor(getResources().getColor(R.color.colorSet2Buttonword));
+            watch.setTextColor(getResources().getColor(R.color.colorSet2time));
+            date.setTextColor(getResources().getColor(R.color.colorSet2time));
+            line.setTextColor(getResources().getColor(R.color.colorSet2Memo));
         }
         else if (prefs.getString("FontColor", "Set1").compareTo("Set3") == 0) {
             for (int i = 0; i < 4; i++)
                 buttonBack[i].setColor(getResources().getColor(R.color.colorSet3Button));
+            memoBtn.setTextColor(getResources().getColor(R.color.colorSet3Buttonword));
+            fontBtn.setTextColor(getResources().getColor(R.color.colorSet3Buttonword));
+            helpBtn.setTextColor(getResources().getColor(R.color.colorSet3Buttonword));
+            onBtn.setTextColor(getResources().getColor(R.color.colorSet3Buttonword));
+            watch.setTextColor(getResources().getColor(R.color.colorSet3time));
+            date.setTextColor(getResources().getColor(R.color.colorSet3time));
+            line.setTextColor(getResources().getColor(R.color.colorSet3Memo));
         }
         else if (prefs.getString("FontColor", "Set1").compareTo("Set4") == 0) {
             for (int i = 0; i < 4; i++)
                 buttonBack[i].setColor(getResources().getColor(R.color.colorSet4Button));
+            memoBtn.setTextColor(getResources().getColor(R.color.colorSet4Buttonword));
+            fontBtn.setTextColor(getResources().getColor(R.color.colorSet4Buttonword));
+            helpBtn.setTextColor(getResources().getColor(R.color.colorSet4Buttonword));
+            onBtn.setTextColor(getResources().getColor(R.color.colorSet4Buttonword));
+            watch.setTextColor(getResources().getColor(R.color.colorSet4time));
+            date.setTextColor(getResources().getColor(R.color.colorSet4time));
+            line.setTextColor(getResources().getColor(R.color.colorSet4Memo));
+
         }
         else if (prefs.getString("FontColor", "Set1").compareTo("Set5") == 0) {
             for (int i = 0; i < 4; i++)
                 buttonBack[i].setColor(getResources().getColor(R.color.colorSet5Button));
+            memoBtn.setTextColor(getResources().getColor(R.color.colorSet5Buttonword));
+            fontBtn.setTextColor(getResources().getColor(R.color.colorSet5Buttonword));
+            helpBtn.setTextColor(getResources().getColor(R.color.colorSet5Buttonword));
+            onBtn.setTextColor(getResources().getColor(R.color.colorSet5Buttonword));
+            watch.setTextColor(getResources().getColor(R.color.colorSet5time));
+            date.setTextColor(getResources().getColor(R.color.colorSet5time));
+            line.setTextColor(getResources().getColor(R.color.colorSet5Memo));
+
         }
         else if (prefs.getString("FontColor", "Set1").compareTo("Set6") == 0) {
             for (int i = 0; i < 4; i++)
                 buttonBack[i].setColor(getResources().getColor(R.color.colorSet6Button));
+            memoBtn.setTextColor(getResources().getColor(R.color.colorSet6Buttonword));
+            fontBtn.setTextColor(getResources().getColor(R.color.colorSet6Buttonword));
+            helpBtn.setTextColor(getResources().getColor(R.color.colorSet6Buttonword));
+            onBtn.setTextColor(getResources().getColor(R.color.colorSet6Buttonword));
+            watch.setTextColor(getResources().getColor(R.color.colorSet6time));
+            date.setTextColor(getResources().getColor(R.color.colorSet6time));
+            line.setTextColor(getResources().getColor(R.color.colorSet6Memo));
         }
         else if (prefs.getString("FontColor", "Set1").compareTo("Set7") == 0) {
             for (int i = 0; i < 4; i++)
                 buttonBack[i].setColor(getResources().getColor(R.color.colorSet7Button));
+            memoBtn.setTextColor(getResources().getColor(R.color.colorSet7Buttonword));
+            fontBtn.setTextColor(getResources().getColor(R.color.colorSet7Buttonword));
+            helpBtn.setTextColor(getResources().getColor(R.color.colorSet7Buttonword));
+            onBtn.setTextColor(getResources().getColor(R.color.colorSet7Buttonword));
+            watch.setTextColor(getResources().getColor(R.color.colorSet7time));
+            date.setTextColor(getResources().getColor(R.color.colorSet7time));
+            line.setTextColor(getResources().getColor(R.color.colorSet7Memo));
         }
         else if (prefs.getString("FontColor", "Set1").compareTo("Set8") == 0) {
             for (int i = 0; i < 4; i++)
                 buttonBack[i].setColor(getResources().getColor(R.color.colorSet8Button));
+            memoBtn.setTextColor(getResources().getColor(R.color.colorSet8Buttonword));
+            fontBtn.setTextColor(getResources().getColor(R.color.colorSet8Buttonword));
+            helpBtn.setTextColor(getResources().getColor(R.color.colorSet8Buttonword));
+            onBtn.setTextColor(getResources().getColor(R.color.colorSet8Buttonword));
+            watch.setTextColor(getResources().getColor(R.color.colorSet8time));
+            date.setTextColor(getResources().getColor(R.color.colorSet8time));
+            line.setTextColor(getResources().getColor(R.color.colorSet8Memo));
         }
         else if (prefs.getString("FontColor", "Set1").compareTo("Set9") == 0) {
             for (int i = 0; i < 4; i++)
                 buttonBack[i].setColor(getResources().getColor(R.color.colorSet9Button));
+            memoBtn.setTextColor(getResources().getColor(R.color.colorSet9Buttonword));
+            fontBtn.setTextColor(getResources().getColor(R.color.colorSet9Buttonword));
+            helpBtn.setTextColor(getResources().getColor(R.color.colorSet9Buttonword));
+            onBtn.setTextColor(getResources().getColor(R.color.colorSet9Buttonword));
+            watch.setTextColor(getResources().getColor(R.color.colorSet9time));
+            date.setTextColor(getResources().getColor(R.color.colorSet9time));
+            line.setTextColor(getResources().getColor(R.color.colorSet9Memo));
         }
 
 
@@ -986,7 +1096,6 @@ public class ConfigActivity extends FragmentActivity {
 
                TextView x = (TextView) listView.getChildAt(0).findViewById(R.id.textView2);
                CharSequence y = x.getText();
-               Toast.makeText(getApplicationContext(), String.valueOf(dragEvent.getY()), Toast.LENGTH_SHORT).show();
 
 
 
@@ -1447,7 +1556,7 @@ public class ConfigActivity extends FragmentActivity {
 
                        x.setText(Html.fromHtml( jline ));
 
-                       x.setTextColor(Color.BLACK);
+
                        x.setClickable(true);
                        x.setOnClickListener(new View.OnClickListener() {
                            @Override
@@ -1460,7 +1569,6 @@ public class ConfigActivity extends FragmentActivity {
 
                     else {
                        x.setText(jline);
-                       x.setTextColor(Color.BLACK);
                        x.setClickable(false);
                    }
 

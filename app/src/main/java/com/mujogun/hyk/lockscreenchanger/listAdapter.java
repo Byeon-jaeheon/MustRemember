@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +82,7 @@ public class listAdapter extends BaseAdapter{
             String currentdate = sdf.format(Calendar.getInstance().getTime());
             Date realformatedDate = null;
 
-            if (m_list.get(position).getData3().compareTo("") == 0) {
+            if (m_list.get(position).getData3().compareTo("일정설정") == 0) {
                 text3.setVisibility(View.GONE);
 
             }
@@ -128,11 +129,15 @@ public class listAdapter extends BaseAdapter{
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 d일 H시 mm분");
         String currentdate = sdf.format(Calendar.getInstance().getTime());
         Date realformatedDate = null;
-        if (m_list.get(position).getData3().compareTo("") == 0) {
+        if (m_list.get(position).getData3().compareTo("일정설정") == 0) {
             text3.setVisibility(View.GONE);
+            float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 37, context.getResources().getDisplayMetrics());
+            text2.setHeight((int)pixels);
 
         }
         else {
+            float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, context.getResources().getDisplayMetrics());
+            text2.setHeight((int)pixels);
             try {
                 realformatedDate = sdf.parse(m_list.get(position).getData3());
             } catch (ParseException e) {
@@ -179,6 +184,7 @@ public class listAdapter extends BaseAdapter{
         TextView text1 = (TextView) convertView.findViewById(R.id.textView1);
         TextView text2 = (TextView) convertView.findViewById(R.id.textView2);
         TextView text3 = (TextView) convertView.findViewById(R.id.textView3);
+        text3.setTextSize((float)14);
         // 그 텍스트만 되야함
         Cursor cursor = helper.select(Integer.parseInt((String)text1.getText()));
         cursor.moveToFirst();
@@ -210,8 +216,8 @@ public class listAdapter extends BaseAdapter{
         if (prefs.getString("FontColor", "Set1").compareTo("Set1") == 0) {
 
             GradientDrawable bgShape = (GradientDrawable)text3.getBackground();
-            bgShape.setColor(context.getResources().getColor(R.color.colorMint));
-            bgShape.setStroke(2, context.getResources().getColor(R.color.colorMint));
+            bgShape.setColor(context.getResources().getColor(R.color.colorSet1dday));
+            bgShape.setStroke(2, context.getResources().getColor(R.color.colorSet1dday));
 
 
         }
