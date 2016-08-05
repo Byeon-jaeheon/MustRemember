@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context = "com.mujogun.hyk.lockscreenchanger.MemoActivity"
+    tools:context = "kr.co.mujogun.app.MemoActivity"
     android:background="@android:color/white"
     >
 

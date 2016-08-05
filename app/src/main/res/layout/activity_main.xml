@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#99c2c2"
     android:id = "@+id/relativep"
-    tools:context="com.mujogun.hyk.lockscreenchanger.ConfigActivity">
+    tools:context="kr.co.mujogun.app.ConfigActivity">
 
 
 

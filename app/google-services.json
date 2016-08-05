@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "543047184506",
-    "project_id": "lockscreen-changer"
+    "project_number": "786637158523",
+    "project_id": "firebase-mugi"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:543047184506:android:be20961bb42c7332",
+        "mobilesdk_app_id": "1:786637158523:android:932c114258cb0b70",
         "android_client_info": {
-          "package_name": "com.mujogun.hyk.lockscreenchanger"
+          "package_name": "kr.co.mujogun.app"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBHe7xFJVgr6huvx00HjNWl1NIMcPVzUb8"
+          "current_key": "AIzaSyCM2-t8iaukXcsrp8WsLS4yC-kCu68OPmk"
         }
       ],
       "services": {

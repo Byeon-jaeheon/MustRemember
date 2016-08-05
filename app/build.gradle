@@ -6,7 +6,7 @@ android {
     buildToolsVersion "24.0.0"
 
     defaultConfig {
-        applicationId "com.mujogun.hyk.lockscreenchanger"
+        applicationId "kr.co.mujogun.app"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
@@ -24,8 +24,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     /*
-        compile 'com.android.support:appcompat-v7:24.0.0'
-    */
+                    compile 'com.android.support:appcompat-v7:24.0.0'
+                */
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.3.0'
     compile files('C:/Users/leehk/AndroidStudioProjects/lockscreenchanger/httpConn_141017.jar')
