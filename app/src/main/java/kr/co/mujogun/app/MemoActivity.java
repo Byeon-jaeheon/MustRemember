@@ -24,6 +24,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -99,6 +100,7 @@ public class MemoActivity extends AppCompatActivity {
                 String sid = theIntent.getStringExtra("id");
                 helper.delete(sid);
                 helper.close();
+                Toast.makeText(getApplicationContext(), "메모가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
                 Intent prevactivity2 = new Intent(MemoActivity.this, ConfigActivity.class);
                 startActivity(prevactivity2);
             }
@@ -292,6 +294,8 @@ public class MemoActivity extends AppCompatActivity {
                 helper.update(sid, curmemo, ddate, colorindividual);
             }
             helper.close();
+            Toast.makeText(getApplicationContext(), "메모가 추가되었습니다.", Toast.LENGTH_SHORT).show();
+
 
 
             //db에 저장

@@ -52,6 +52,7 @@
         android:layout_marginBottom="120dp"
         android:textAlignment="gravity"
         android:gravity="top"
+        android:textCursorDrawable="@null"
         />
 
 

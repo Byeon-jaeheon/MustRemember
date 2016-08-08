@@ -800,7 +800,7 @@ public class ConfigActivity extends FragmentActivity {
 
         date.setText(currenttime);
         unlocked = 1;
-        ListView listView = (ListView) findViewById(R.id.listView);
+        final ListView listView = (ListView) findViewById(R.id.listView);
         drawlist();
 
 /*
@@ -826,7 +826,10 @@ public class ConfigActivity extends FragmentActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 helper.open();
                 Cursor mycursor = helper.selectAll();
-                mycursor.move(i+1);
+                TextView sid = (TextView)listView.getChildAt(i).findViewById(R.id.textView1);
+                mycursor = helper.select(Integer.parseInt((String)sid.getText()));
+                mycursor.moveToFirst();
+
                 Intent memoIntent = new Intent(ConfigActivity.this, MemoActivity.class);
                 memoIntent.putExtra("id", mycursor.getString(0));
                 memoIntent.putExtra("memos", mycursor.getString(1));
@@ -1006,17 +1009,17 @@ public class ConfigActivity extends FragmentActivity {
         helper.open();
         Cursor cursor = helper.selectAll();
 
-        cursor.moveToFirst();
+        cursor.moveToLast();
         ListView listView = (ListView) findViewById(R.id.listView);
         listAdapter customadapter = new listAdapter();
         listView.setAdapter(customadapter);
 
 
 
-        while(!cursor.isAfterLast()) {
+        while(!cursor.isBeforeFirst()) {
 
             customadapter.add(new memo_item(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
-            cursor.moveToNext();
+            cursor.moveToPrevious();
         }
 
         helper.close();
@@ -1133,8 +1136,11 @@ public class ConfigActivity extends FragmentActivity {
 */
                        cursor2 = helper.select(j);
                        cursor2.moveToFirst();
+                       String willmoveMemo = cursor1.getString(1);
+                       String willmoveDate = cursor1.getString(2);
+                       String willmoveColor = cursor1.getString(3);
                         helper.update(cursor1.getString(0), cursor2.getString(1), cursor2.getString(2), cursor2.getString(3));
-                        helper.update(cursor2.getString(0), cursor1.getString(1), cursor1.getString(2), cursor1.getString(3));
+                        helper.update(cursor2.getString(0), willmoveMemo, willmoveDate, willmoveColor);
 
 
 

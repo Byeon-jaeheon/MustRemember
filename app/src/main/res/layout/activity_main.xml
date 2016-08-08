@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#99c2c2"
+    android:background="@color/colorSet4Background"
     android:id = "@+id/relativep"
     tools:context="kr.co.mujogun.app.ConfigActivity">
 

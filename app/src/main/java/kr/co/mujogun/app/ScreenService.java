@@ -96,7 +96,7 @@ public class ScreenService extends Service {
         DBHelper helper = new DBHelper(getApplicationContext(), "memo.db", null, 1);
         helper.open();
         Cursor cursor = helper.selectAll();
-        cursor.moveToFirst();
+        cursor.moveToLast();
         String thememo = "";
         if (cursor.getCount() < 1)
             thememo = "메모를 등록해주세요";

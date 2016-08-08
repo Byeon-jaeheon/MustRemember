@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.GradientDrawable;
 import android.preference.PreferenceManager;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -139,6 +141,7 @@ public class listAdapter extends BaseAdapter{
         else {
             float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, context.getResources().getDisplayMetrics());
             text2.setHeight((int)pixels);
+            text2.setMaxLines(3);
             try {
                 realformatedDate = sdf.parse(m_list.get(position).getData3());
             } catch (ParseException e) {
