@@ -1168,12 +1168,14 @@ public class ConfigActivity extends FragmentActivity {
             int location[] = new int[2];
             view.getLocationOnScreen(location);
             int viewX = location[0];
-            int viewY = location[1]; //
+            int viewY = location[1]; //top
+            Log.d("viewY", String.valueOf(viewY));
+            Log.d("getheight", String.valueOf(view.getHeight()));
+            Log.d("y", String.valueOf(y));
 
 
 
-            if ((y > viewY - view.getHeight()) && (y < viewY )) {
-
+            if ((y < (view.getTop() + view.getHeight())) && (y > view.getTop())) {
 
                 return true;
             } else {
