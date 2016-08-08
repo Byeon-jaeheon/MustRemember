@@ -482,7 +482,9 @@ public class ConfigActivity extends FragmentActivity {
             }
             RelativeLayout relativep = (RelativeLayout) findViewById(R.id.relativep);
 
-           if (event.getY() > (0.75 * height))
+            float ratio = (((float)event.getY()) / ((float)height));
+
+            if (event.getY() > (0.8 * height))
                 moveTaskToBack(true);
 
 

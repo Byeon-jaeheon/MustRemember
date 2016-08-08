@@ -92,7 +92,7 @@ public class SelectMemoColor extends DialogFragment {
 // Custom Dialog Display
 //
         alertDialog = builder.create();
-
+        alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_box);
 
 
 
