@@ -1114,9 +1114,9 @@ public class ConfigActivity extends FragmentActivity {
 
 
 
+               Cursor cursor2 = helper.selectAll();
+
                for (int i = 0; i < listView.getCount(); i++) {
-
-
 
                    if (isInsideView(listView.getChildAt(i), dragEvent.getX(), dragEvent.getY() ))
                    {
@@ -1126,7 +1126,7 @@ public class ConfigActivity extends FragmentActivity {
                        TextView targetview = (TextView) listView.getChildAt(i).findViewById(R.id.textView1);
                        CharSequence target = targetview.getText();
                        int j = 0;
-                       Cursor cursor2 = helper.selectAll();
+
                        cursor2.moveToFirst();
                        while(!cursor2.isAfterLast()) {
                            if (cursor2.getString(0).compareTo(target.toString()) == 0) {
@@ -1140,11 +1140,6 @@ public class ConfigActivity extends FragmentActivity {
 */
                        cursor2 = helper.select(j);
                        cursor2.moveToFirst();
-                       String willmoveMemo = cursor1.getString(1);
-                       String willmoveDate = cursor1.getString(2);
-                       String willmoveColor = cursor1.getString(3);
-                        helper.update(cursor1.getString(0), cursor2.getString(1), cursor2.getString(2), cursor2.getString(3));
-                        helper.update(cursor2.getString(0), willmoveMemo, willmoveDate, willmoveColor);
 
 
 
@@ -1152,7 +1147,13 @@ public class ConfigActivity extends FragmentActivity {
                    }
                }
 
-                drawlist();
+               String willmoveMemo = cursor1.getString(1);
+               String willmoveDate = cursor1.getString(2);
+               String willmoveColor = cursor1.getString(3);
+               helper.update(cursor1.getString(0), cursor2.getString(1), cursor2.getString(2), cursor2.getString(3));
+               helper.update(cursor2.getString(0), willmoveMemo, willmoveDate, willmoveColor);
+
+               drawlist();
 
                updateService();
                helper.close();
