@@ -12,11 +12,12 @@ import android.util.Log;
  */
 public class DBHelper extends SQLiteOpenHelper {
 
+    private static final int DATABASE_VERSION = 1;
     SQLiteDatabase myDb;
     String table = "memo";
 
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+        super(context, name, factory, DATABASE_VERSION);
     }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -26,8 +27,23 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+       /*
+        switch (oldVersion) {
+            case 1:
+                try {
+                    myDb.beginTransaction();
+                    myDb.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + KEY_IMPORTANT + " Integer DEFAULT 0");
+                    myDb.setTransactionSuccessful();
+                } catch (IllegalStateException e) {
+                    Log.e(TAG, CLASS, e);
+                } finally {
+                    myDb.endTransaction();
+                }
+                ;
+                break;
+        }
+        */
     }
     public void open() {
         myDb = this.getWritableDatabase();
