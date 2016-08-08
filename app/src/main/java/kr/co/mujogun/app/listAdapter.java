@@ -119,7 +119,7 @@ public class listAdapter extends BaseAdapter{
         TextView text1 = (TextView) convertView.findViewById(R.id.textView1);
         text1.setText(m_list.get(position).getData1());
 
-        TextView text2 = (TextView) convertView.findViewById(R.id.textView2);
+        final TextView text2 = (TextView) convertView.findViewById(R.id.textView2);
         text2.setText(m_list.get(position).getData2());
 
         TextView text3 = (TextView) convertView.findViewById(R.id.textView3);
@@ -129,13 +129,39 @@ public class listAdapter extends BaseAdapter{
         if (m_list.get(position).getData3().compareTo("일정설정") == 0) {
             text3.setVisibility(View.GONE);
 
+            float pixels;
+            /*
                 float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, context.getResources().getDisplayMetrics());
                 text2.setHeight((int) pixels);
-           if (text2.getText().length() >40) {
-               pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, context.getResources().getDisplayMetrics());
-               text2.setHeight((int) pixels);
-               text2.setMaxLines(3);
-           }
+                */
+
+            text2.post(new Runnable() {
+                @Override
+                public void run() {
+                    int lc = text2.getLineCount();
+
+                    if ( lc >= 3) {
+                        float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, context.getResources().getDisplayMetrics());
+                        text2.setHeight((int) pixels);
+                        text2.setMaxLines(3);
+                    }
+
+                    else if (lc == 2) {
+                        float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, context.getResources().getDisplayMetrics());
+                        Log.i("linecount 2", String.valueOf(2));
+                        text2.setHeight((int) pixels);
+                        text2.setMaxLines(3);
+                    }
+                    else if (lc <= 1) {
+                        float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 37, context.getResources().getDisplayMetrics());
+                        text2.setHeight((int) pixels);
+                        text2.setMaxLines(3);
+                    }
+                }
+            });
+
+
+
 
         }
         else {
@@ -328,6 +354,21 @@ public class listAdapter extends BaseAdapter{
 
 
         return String.valueOf("오류");
+    }
+
+    public class linecount implements Runnable {
+
+        Integer linecount;
+        TextView textView;
+
+        public void set(Integer lc, TextView tx) {
+            this.linecount = lc;
+            this.textView = tx;
+        }
+        @Override
+        public void run() {
+            this.linecount = (Integer) this.textView.getLineCount();
+        }
     }
 
 

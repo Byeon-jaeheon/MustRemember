@@ -157,6 +157,10 @@ public class ConfigActivity extends FragmentActivity {
 
         TextView touchspace = (TextView) findViewById(R.id.touchspace);
         touchspace.setTextColor(Color.WHITE);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("FontColor", "Set4");
+        editor.commit();
 
         LinearLayout relate1 = (LinearLayout) findViewById(R.id.relative1);
         relate1.setBackgroundColor(Color.BLACK);

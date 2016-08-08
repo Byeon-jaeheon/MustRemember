@@ -82,11 +82,12 @@
         <receiver
             android:name="kr.co.mujogun.app.BootReiceiver"
             android:enabled="true"
-            android:exported="false" >
-            <intent-filter>
+           >
+            <intent-filter android:enabled="true" >
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.PHONE_STATE" />
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+                <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
         <service
