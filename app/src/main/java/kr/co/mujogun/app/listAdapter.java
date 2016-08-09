@@ -30,6 +30,12 @@ public class listAdapter extends BaseAdapter{
 
     private ArrayList<memo_item> m_list;
 
+    public void updateList(ArrayList<memo_item> newlist) {
+        m_list.clear();
+        m_list.addAll(newlist);
+        this.notifyDataSetChanged();
+    }
+
     public listAdapter() {
         m_list = new ArrayList<memo_item>();
     }
@@ -84,6 +90,9 @@ public class listAdapter extends BaseAdapter{
 
             }
             else {
+                float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, context.getResources().getDisplayMetrics());
+                text2.setHeight((int)pixels);
+                text2.setMaxLines(3);
                 try {
                     realformatedDate = sdf.parse(m_list.get(position).getData3());
                 } catch (ParseException e) {
@@ -134,7 +143,7 @@ public class listAdapter extends BaseAdapter{
                 float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, context.getResources().getDisplayMetrics());
                 text2.setHeight((int) pixels);
                 */
-
+/*
             text2.post(new Runnable() {
                 @Override
                 public void run() {
@@ -160,7 +169,7 @@ public class listAdapter extends BaseAdapter{
                 }
             });
 
-
+*/
 
 
         }
@@ -193,6 +202,7 @@ public class listAdapter extends BaseAdapter{
         text1.setTextSize(fontsize);
         text2.setTextSize(fontsize);
         text3.setTextSize(16);
+
         setColor(context, convertView);
 
         return convertView;
@@ -381,6 +391,7 @@ public class listAdapter extends BaseAdapter{
         m_list.remove(_position);
         notifyDataSetChanged();
     }
+
 
     public int find(String msg) {
         int i = 0;

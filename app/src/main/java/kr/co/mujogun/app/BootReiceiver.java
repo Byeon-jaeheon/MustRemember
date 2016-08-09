@@ -37,7 +37,7 @@ public class BootReiceiver extends BroadcastReceiver {
 
         if (keyLock == null)
             keyLock = km.newKeyguardLock(Context.KEYGUARD_SERVICE);
-
+/*
         if (km.isKeyguardSecure()) {
             if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
                 if (km == null)
@@ -65,7 +65,7 @@ public class BootReiceiver extends BroadcastReceiver {
 
         }
         else {
-
+*/
 
             if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                 if (km == null)
@@ -90,7 +90,7 @@ public class BootReiceiver extends BroadcastReceiver {
                 }
 
             }
-        }
+
     }
     public void reenableKeyguard() {
         keyLock.reenableKeyguard();

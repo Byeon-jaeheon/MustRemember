@@ -73,6 +73,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -100,6 +101,7 @@ public class ConfigActivity extends FragmentActivity {
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private static String regId;
     Bitmap b;
+    listAdapter customadapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -150,6 +152,7 @@ public class ConfigActivity extends FragmentActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+
 
         TextView line = (TextView) findViewById(R.id.line);
         Drawable alpha = line.getBackground();
@@ -236,7 +239,7 @@ public class ConfigActivity extends FragmentActivity {
             }
         });
 
-
+        drawlist();
 
 
 
@@ -398,6 +401,7 @@ public class ConfigActivity extends FragmentActivity {
 
             }
         }
+
 
 
 
@@ -805,7 +809,7 @@ public class ConfigActivity extends FragmentActivity {
         date.setText(currenttime);
         unlocked = 1;
         final ListView listView = (ListView) findViewById(R.id.listView);
-        drawlist();
+
 
 /*
         Cursor cursor = helper.selectAll();
@@ -830,8 +834,8 @@ public class ConfigActivity extends FragmentActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 helper.open();
                 Cursor mycursor = helper.selectAll();
-                TextView sid = (TextView)listView.getChildAt(i).findViewById(R.id.textView1);
-                mycursor = helper.select(Integer.parseInt((String)sid.getText()));
+                memo_item sid = (memo_item) adapterView.getAdapter().getItem(i);
+                mycursor = helper.select(Integer.parseInt(sid.getData1()));
                 mycursor.moveToFirst();
 
                 Intent memoIntent = new Intent(ConfigActivity.this, MemoActivity.class);
@@ -1015,7 +1019,7 @@ public class ConfigActivity extends FragmentActivity {
 
         cursor.moveToLast();
         ListView listView = (ListView) findViewById(R.id.listView);
-        listAdapter customadapter = new listAdapter();
+        customadapter = new listAdapter();
         listView.setAdapter(customadapter);
 
 
@@ -1030,6 +1034,23 @@ public class ConfigActivity extends FragmentActivity {
 
 
 
+    }
+
+
+    public void update() {
+        helper.open();
+        Cursor cursor = helper.selectAll();
+
+        cursor.moveToLast();
+
+        ArrayList<memo_item> t = new ArrayList<>();
+        while(!cursor.isBeforeFirst()) {
+
+            t.add(new memo_item(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+            cursor.moveToPrevious();
+        }
+        helper.close();
+        customadapter.updateList(t);
     }
 
     public class DragandDrop implements ListView.OnItemLongClickListener {
@@ -1150,11 +1171,15 @@ public class ConfigActivity extends FragmentActivity {
                String willmoveMemo = cursor1.getString(1);
                String willmoveDate = cursor1.getString(2);
                String willmoveColor = cursor1.getString(3);
-               helper.update(cursor1.getString(0), cursor2.getString(1), cursor2.getString(2), cursor2.getString(3));
-               helper.update(cursor2.getString(0), willmoveMemo, willmoveDate, willmoveColor);
-
+               cursor2.moveToFirst();
+               if (cursor2.getString(1) != null) {
+                   helper.update(cursor1.getString(0), cursor2.getString(1), cursor2.getString(2), cursor2.getString(3));
+                   helper.update(cursor2.getString(0), willmoveMemo, willmoveDate, willmoveColor);
+               }
+/*
                drawlist();
-
+*/
+               update();
                updateService();
                helper.close();
 
@@ -1162,7 +1187,6 @@ public class ConfigActivity extends FragmentActivity {
 
 
 
-               Log.i("dragevent getY", String.valueOf(dragEvent.getY()));
            }
             return true;
         }
@@ -1174,9 +1198,6 @@ public class ConfigActivity extends FragmentActivity {
             view.getLocationOnScreen(location);
             int viewX = location[0];
             int viewY = location[1]; //top
-            Log.d("viewY", String.valueOf(viewY));
-            Log.d("getheight", String.valueOf(view.getHeight()));
-            Log.d("y", String.valueOf(y));
 
 
 
@@ -1279,12 +1300,12 @@ public class ConfigActivity extends FragmentActivity {
                 conn.setDebuggable(true);
 
                 conn.addPost("v", value);
-                Log.i("value값", value);
+
                 conn.addPost("registId", regId);
 
                 conn.run();
 
-                Log.i("결과", "실행됐나?");
+
                 return conn.getResultHtml();
 
 
@@ -1351,7 +1372,7 @@ public class ConfigActivity extends FragmentActivity {
         @Override
         protected void onPostExecute(String str) {
 
-            Log.e("resultHtml", "resultHtml: " + str);
+
 
         }
     }
@@ -1499,7 +1520,7 @@ public class ConfigActivity extends FragmentActivity {
             {
                 e.printStackTrace();
 
-                Toast.makeText(context, "접속 중 오류가 발생하였습니다.", Toast.LENGTH_SHORT).show();
+                Log.e("Internet", "not connected");
             }
 
             register rl2 = new register();
