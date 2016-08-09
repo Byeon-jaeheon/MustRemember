@@ -26,7 +26,7 @@ public class GcmListenerService extends com.google.android.gms.gcm.GcmListenerSe
         Log.d(TAG, "Title: " + title);
         Log.d(TAG, "Message: " + message);
 
-        sendNotification("무조건 기억", message);
+        sendNotification(getApplicationContext().getResources().getString(R.string.app_name), message);
     }
 
     //메세지를 알림으로 보여주는 함수입니다.

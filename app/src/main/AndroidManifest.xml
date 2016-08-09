@@ -24,7 +24,7 @@
         <activity
             android:name="kr.co.mujogun.app.ConfigActivity"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            android:excludeFromRecents="true"
+
             android:launchMode="singleTop"
             >
             <intent-filter>
@@ -42,7 +42,6 @@
         <service android:name="kr.co.mujogun.app.ScreenService" />
         <activity android:name="kr.co.mujogun.app.MemoActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:excludeFromRecents="true"
             />
         <activity android:name="kr.co.mujogun.app.SettingActivity"
             android:label = "Setting"
