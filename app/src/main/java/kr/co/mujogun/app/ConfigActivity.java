@@ -162,8 +162,13 @@ public class ConfigActivity extends FragmentActivity {
         touchspace.setTextColor(Color.WHITE);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("FontColor", "Set4");
-        editor.commit();
+        if (prefs.getBoolean("FirstInstall", true)) {
+            editor.putString("FontColor", "Set4");
+            editor.putBoolean("FirstInstall", false);
+            editor.commit();
+        }
+
+
 
         LinearLayout relate1 = (LinearLayout) findViewById(R.id.relative1);
         relate1.setBackgroundColor(Color.BLACK);
@@ -252,6 +257,7 @@ public class ConfigActivity extends FragmentActivity {
 
 
         Intent settedintent = getIntent();
+
         if (settedintent.getAction() == "set_background") {
             ImageView imageView = (ImageView) findViewById(R.id.imageView);
             int id = (int) settedintent.getExtras().get("id");
@@ -402,6 +408,7 @@ public class ConfigActivity extends FragmentActivity {
             }
         }
 
+        Log.i("ConfigActivity", "onCreate");
 
 
 
@@ -617,6 +624,7 @@ public class ConfigActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         COUNTER_FOR_SCREEN = 0;
+        Log.i("ConfigActivity", "onResume");
 /*
             ImageView x = (ImageView) findViewById(R.id.imageView);
             x.setImageBitmap(yourSelectedImage);
@@ -769,7 +777,7 @@ public class ConfigActivity extends FragmentActivity {
 
         SimpleDateFormat sdf = new SimpleDateFormat("h:mm");
         String currentdate = sdf.format(Calendar.getInstance().getTime());
-        watch.setText(currentdate);
+        watch.setText("12:08");
         RelativeLayout relativeParent = (RelativeLayout) findViewById(R.id.relativep);
         relativeParent.bringChildToFront(linear1);
 
@@ -966,8 +974,8 @@ public class ConfigActivity extends FragmentActivity {
             date.setTextColor(getResources().getColor(R.color.colorSet9time));
             line.setTextColor(getResources().getColor(R.color.colorSet9Memo));
         }
-
-
+        line.bringToFront();
+        customadapter.notifyDataSetChanged();
 
 
         /*

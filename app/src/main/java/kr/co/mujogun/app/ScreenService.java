@@ -128,8 +128,8 @@ public class ScreenService extends Service {
     public void updateFirstMemo() {
         Intent pendingintent = new Intent(this, ConfigActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 1, pendingintent, 0);
-        builder = new Notification.Builder(getApplicationContext()).setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.app_icon))
-                .setSmallIcon(R.drawable.small_icon)
+        builder = new Notification.Builder(getApplicationContext()).setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setSmallIcon(R.drawable.app_icon72_w)
                 .setContentTitle(getResources().getString(R.string.app_name))
                 .setContentText(ShowFirstMemo())
                 .setContentIntent(contentIntent);

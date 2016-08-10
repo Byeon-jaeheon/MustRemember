@@ -128,7 +128,7 @@ public class MemoActivity extends AppCompatActivity {
         datepick.setOnClickListener(new datepickListener());
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String backgroundcolor = prefs.getString("Background", "Set8");
+        String backgroundcolor = prefs.getString("Background", "Set4");
 
         GradientDrawable bgShape1 = (GradientDrawable)btn1.getBackground();
         GradientDrawable bgShape2 = (GradientDrawable)btn2.getBackground();
