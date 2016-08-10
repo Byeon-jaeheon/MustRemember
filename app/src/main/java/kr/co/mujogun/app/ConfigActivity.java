@@ -777,7 +777,7 @@ public class ConfigActivity extends FragmentActivity {
 
         SimpleDateFormat sdf = new SimpleDateFormat("h:mm");
         String currentdate = sdf.format(Calendar.getInstance().getTime());
-        watch.setText("12:08");
+        watch.setText(currentdate);
         RelativeLayout relativeParent = (RelativeLayout) findViewById(R.id.relativep);
         relativeParent.bringChildToFront(linear1);
 
