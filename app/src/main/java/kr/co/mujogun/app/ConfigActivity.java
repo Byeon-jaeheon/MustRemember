@@ -1250,19 +1250,40 @@ public class ConfigActivity extends FragmentActivity {
     }
 
     public String makeJsonData() throws JSONException {
-        TelephonyManager telephony = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
-        JSONObject jsonObject1 = new JSONObject();
-        jsonObject1.put("action", "login");
-        jsonObject1.put("deviceId", telephony.getDeviceId());
-        jsonObject1.put("carrier", telephony.getNetworkOperatorName());
-        jsonObject1.put("mobile", telephony.getLine1Number());
-        jsonObject1.put("device", telephony.getPhoneType());
-        jsonObject1.put("version", telephony.getDeviceSoftwareVersion());
+        String str = "";
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission("android.permission.READ_PHONE_STATE") == PackageManager.PERMISSION_GRANTED) {
+                TelephonyManager telephony = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("action", "login");
+                jsonObject1.put("deviceId", telephony.getDeviceId());
+                jsonObject1.put("carrier", telephony.getNetworkOperatorName());
+                jsonObject1.put("mobile", telephony.getLine1Number());
+                jsonObject1.put("device", telephony.getPhoneType());
+                jsonObject1.put("version", telephony.getDeviceSoftwareVersion());
 
-        String str = jsonObject1.toString();
-        System.out.println(str);
+                str = jsonObject1.toString();
 
 
+            }
+            else {
+
+            }
+        }
+        else {
+            TelephonyManager telephony = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+            JSONObject jsonObject1 = new JSONObject();
+            jsonObject1.put("action", "login");
+            jsonObject1.put("deviceId", telephony.getDeviceId());
+            jsonObject1.put("carrier", telephony.getNetworkOperatorName());
+            jsonObject1.put("mobile", telephony.getLine1Number());
+            jsonObject1.put("device", telephony.getPhoneType());
+            jsonObject1.put("version", telephony.getDeviceSoftwareVersion());
+
+            str = jsonObject1.toString();
+
+
+        }
         return str;
     }
 
@@ -1580,6 +1601,7 @@ public class ConfigActivity extends FragmentActivity {
                 JSONObject root = new JSONObject(str);
                 String connection = root.getString("result");
                 if (connection.compareTo("success") == 0) {
+                    String category = root.getString("category");
                     String jline = root.getString("content");
                     if (jline.compareTo("null") == 0)
                         jline = "성공은 영원하지 않고, 실패는 치명적이지 않다. - 마이크 다트카";
@@ -1589,6 +1611,13 @@ public class ConfigActivity extends FragmentActivity {
 
                     jline = jline.replace("<br>", "\n");
                     jline = jline.replace("&quot;", "\"");
+
+                    if (category.compareTo("famous_saying") == 0) {
+                        x.setText(jline);
+                        x.setClickable(false);
+                    }
+
+                    /*
 
                    if (jlink.compareTo("") != 0 && jlink.compareTo("null") != 0) {
 
@@ -1609,6 +1638,7 @@ public class ConfigActivity extends FragmentActivity {
                        x.setText(jline);
                        x.setClickable(false);
                    }
+                   */
 
                 }
 

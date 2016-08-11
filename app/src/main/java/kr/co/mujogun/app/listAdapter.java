@@ -175,8 +175,11 @@ public class listAdapter extends BaseAdapter{
         }
         else {
             float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, context.getResources().getDisplayMetrics());
+            float toppadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, context.getResources().getDisplayMetrics());
+            float bottompadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, context.getResources().getDisplayMetrics());
             text2.setHeight((int)pixels);
             text2.setMaxLines(3);
+            text2.setPadding(0, (int)toppadding, 0, (int)bottompadding);
             try {
                 realformatedDate = sdf.parse(m_list.get(position).getData3());
             } catch (ParseException e) {
@@ -249,6 +252,25 @@ public class listAdapter extends BaseAdapter{
                 text2.setTextColor(context.getResources().getColor(R.color.colorSet8Memo));
             else if (cursor.getString(3).compareTo("Set9") == 0)
                 text2.setTextColor(context.getResources().getColor(R.color.colorSet9Memo));
+            else if (cursor.getString(3).compareTo("Color1") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet1Background));
+            else if (cursor.getString(3).compareTo("Color2") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet2Background));
+            else if (cursor.getString(3).compareTo("Color3") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet3Background));
+            else if (cursor.getString(3).compareTo("Color4") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet4Background));
+            else if (cursor.getString(3).compareTo("Color5") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet5Background));
+            else if (cursor.getString(3).compareTo("Color6") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet6Background));
+            else if (cursor.getString(3).compareTo("Color7") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet7Background));
+            else if (cursor.getString(3).compareTo("Color8") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorWhite));
+            else if (cursor.getString(3).compareTo("Color9") == 0)
+                text2.setTextColor(context.getResources().getColor(R.color.colorSet9Background));
+
         }
         helper.close();
 

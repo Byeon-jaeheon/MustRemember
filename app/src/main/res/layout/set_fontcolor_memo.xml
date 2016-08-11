@@ -7,34 +7,278 @@
     android:background="#d5d5d5"
     >
 
-    <ImageView
-        android:layout_marginTop="20dp"
-        android:layout_width="80dp"
-        android:layout_height="35dp"
-        android:background="#fefefe"
-        android:scaleType="centerInside"
-        android:id="@+id/color1"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="4dp"
-        android:layout_gravity="center_horizontal"
-        />
 
 
 
 
-    <ImageView
-        android:id="@+id/color2"
-        android:layout_marginTop="20dp"
-        android:layout_width="80dp"
-        android:layout_height="35dp"
-        android:background="@color/colorBlack"
-        android:scaleType="centerInside"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="4dp"
-        android:layout_gravity="center_horizontal"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop = "10dp"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <ImageView
+                android:id="@+id/color1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="15dp"
+                android:background="@color/colorSet1Background"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text = "빨강"
+                android:layout_marginTop = "-8dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/color2"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:background="@color/colorSet2Background"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text = "주황"
+                android:layout_marginTop = "-8dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/color3"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="8dp"
+                android:background="@color/colorSet3Background"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text = "분홍"
+                android:layout_marginTop = "-8dp"
+                />
+        </LinearLayout>
 
 
 
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop = "20dp"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/color4"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="15dp"
+                android:background="@color/colorSet4Background"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text = "하늘색"
+                android:layout_marginTop = "-8dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/color5"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:background="@color/colorSet5Background"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text = "노랑"
+                android:layout_marginTop = "-8dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/color6"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="8dp"
+                android:background="@color/colorSet6Background"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text = "연녹색"
+                android:layout_marginTop = "-8dp"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop = "20dp"
+        android:layout_marginBottom="20dp"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/color7"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="15dp"
+                android:background="@color/colorSet7Background"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text = "갈색"
+                android:layout_marginTop = "-8dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/color8"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:background="#fefefe"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text = "흰색"
+                android:layout_marginTop = "-8dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/color9"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="8dp"
+                android:background="@color/colorSet9Background"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text = "검정"
+                android:layout_marginTop = "-8dp"
+                />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
 
 
 </LinearLayout>
