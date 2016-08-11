@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -168,6 +170,51 @@ public class PhotoSettingActivity extends AppCompatActivity implements select.Te
                     Uri selectedImage = data.getData();
                     String filename = "imagepath.txt";
                     String filepath = getRealImagePath(selectedImage);
+
+
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = this.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    cursor.close();
+
+                    Bitmap loadedBitmap = BitmapFactory.decodeFile(picturePath);
+
+                    ExifInterface exif = null;
+                    try {
+                        File pictureFile = new File(picturePath);
+                        exif = new ExifInterface(pictureFile.getAbsolutePath());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    int orientation = ExifInterface.ORIENTATION_NORMAL;
+                    if (exif != null)
+                        orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+                    switch (orientation) {
+                        case ExifInterface.ORIENTATION_ROTATE_90:
+                            loadedBitmap = rotateBitmap(loadedBitmap, 90);
+                            break;
+                        case ExifInterface.ORIENTATION_ROTATE_180:
+                            loadedBitmap = rotateBitmap(loadedBitmap, 180);
+                            break;
+
+                        case ExifInterface.ORIENTATION_ROTATE_270:
+                            loadedBitmap = rotateBitmap(loadedBitmap, 270);
+                            break;
+                        case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
+                            loadedBitmap = flip(loadedBitmap, true, false);
+                            break;
+                        case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+                            loadedBitmap = flip(loadedBitmap, false, true);
+                            break;
+                    }
+                    Bitmap bMapScaled = Bitmap.createScaledBitmap(loadedBitmap, 480, 800, true);
+
+
                     File k = new File(filepath);
                     FileOutputStream output;
                     Toast.makeText(getApplicationContext(), "Image Selected", Toast.LENGTH_SHORT).show();
@@ -199,7 +246,7 @@ public class PhotoSettingActivity extends AppCompatActivity implements select.Te
                     x.setImageBitmap(yourSelectedImage);
                     */
                     select select = new select();
-                    select.set(yourSelectedImage);
+                    select.set(bMapScaled);
                     android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
                     select.show(fm, "select_image");
                 }
@@ -218,6 +265,16 @@ public class PhotoSettingActivity extends AppCompatActivity implements select.Te
         */
     }
 
+    public static Bitmap rotateBitmap(Bitmap bitmap, int degrees) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degrees);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+    public static Bitmap flip(Bitmap bitmap, boolean horizontal, boolean vertical) {
+        Matrix matrix = new Matrix();
+        matrix.preScale(horizontal ? -1 : 1, vertical ? -1 : 1);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
     public void onTestDialogClick(DialogFragment dialog, Bitmap b) {
         Intent intent = new Intent(this, ConfigActivity.class);
 

@@ -17,9 +17,11 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -102,6 +104,7 @@ public class ConfigActivity extends FragmentActivity {
     private static String regId;
     Bitmap b;
     listAdapter customadapter;
+    private ExifInterface ExifMedia;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -545,6 +548,10 @@ public class ConfigActivity extends FragmentActivity {
                     Uri selectedImage = imageReturnedIntent.getData();
                     String filename = "imagepath.txt";
                     String filepath = getRealImagePath(selectedImage);
+
+
+
+
                     File k = new File(filepath);
                     FileOutputStream output;
                     Toast.makeText(getApplicationContext(),"Image Selected", Toast.LENGTH_SHORT).show();
@@ -587,6 +594,9 @@ public class ConfigActivity extends FragmentActivity {
         }
     }
 
+
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -616,6 +626,53 @@ public class ConfigActivity extends FragmentActivity {
 
         return path;
 
+    }
+    public Bitmap imagerotate(Bitmap loadedBitmap, String picturePath) {
+        ExifInterface exif = null;
+        try {
+            File pictureFile = new File(picturePath);
+            exif = new ExifInterface(pictureFile.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int orientation = ExifInterface.ORIENTATION_NORMAL;
+        Log.i("sssss", String.valueOf(orientation));
+        if (exif != null)
+            orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                loadedBitmap = rotateBitmap(loadedBitmap, 90);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                loadedBitmap = rotateBitmap(loadedBitmap, 180);
+                break;
+
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                loadedBitmap = rotateBitmap(loadedBitmap, 270);
+                break;
+            case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
+                loadedBitmap = flip(loadedBitmap, true, false);
+                break;
+            case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+                loadedBitmap = flip(loadedBitmap, false, true);
+                break;
+        }
+        Bitmap bMapScaled = Bitmap.createScaledBitmap(loadedBitmap, 480, 800, true);
+
+        return bMapScaled;
+
+    }
+    public static Bitmap rotateBitmap(Bitmap bitmap, int degrees) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degrees);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+    public static Bitmap flip(Bitmap bitmap, boolean horizontal, boolean vertical) {
+        Matrix matrix = new Matrix();
+        matrix.preScale(horizontal ? -1 : 1, vertical ? -1 : 1);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
 
@@ -665,6 +722,7 @@ public class ConfigActivity extends FragmentActivity {
 
         yourSelectedImage = BitmapFactory.decodeFile(ret);
 
+        yourSelectedImage = imagerotate(yourSelectedImage, ret);
         if (yourSelectedImage == null) {
 
 
