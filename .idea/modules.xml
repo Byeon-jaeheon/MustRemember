@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MustRemember.iml" filepath="$PROJECT_DIR$/MustRemember.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/memoremember.iml" filepath="$PROJECT_DIR$/memoremember.iml" />
     </modules>
   </component>
 </project>

@@ -153,7 +153,9 @@ public class ConfigActivity extends FragmentActivity {
 
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        /*
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        */
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
 
@@ -722,7 +724,7 @@ public class ConfigActivity extends FragmentActivity {
 
         yourSelectedImage = BitmapFactory.decodeFile(ret);
 
-        yourSelectedImage = imagerotate(yourSelectedImage, ret);
+
         if (yourSelectedImage == null) {
 
 
@@ -801,7 +803,9 @@ public class ConfigActivity extends FragmentActivity {
 
         if (yourSelectedImage != null) {
             ImageView x = (ImageView) findViewById(R.id.imageView);
+            yourSelectedImage = imagerotate(yourSelectedImage, ret);
             x.setImageBitmap(yourSelectedImage);
+
         }
 
         onBtn= (Button)findViewById(R.id.btn1);
