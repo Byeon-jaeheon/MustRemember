@@ -3,6 +3,7 @@ package kr.co.mujogun.app;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -105,6 +106,8 @@ public class ConfigActivity extends FragmentActivity {
     Bitmap b;
     listAdapter customadapter;
     private ExifInterface ExifMedia;
+    private KeyguardManager km;
+    private KeyguardManager.KeyguardLock kl;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -216,9 +219,15 @@ public class ConfigActivity extends FragmentActivity {
         memoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent memoIntent = new Intent(ConfigActivity.this, MemoActivity.class);
-                startActivity(memoIntent);
+                if (km == null)
+                    km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+                if (km.isKeyguardLocked()) {
+                    moveTaskToBack(true);
+                }
+                else {
+                    Intent memoIntent = new Intent(ConfigActivity.this, MemoActivity.class);
+                    startActivity(memoIntent);
+                }
             }
         });
         fontBtn.setOnClickListener(new View.OnClickListener() {
@@ -722,7 +731,7 @@ public class ConfigActivity extends FragmentActivity {
 
         yourSelectedImage = BitmapFactory.decodeFile(ret);
 
-        yourSelectedImage = imagerotate(yourSelectedImage, ret);
+
         if (yourSelectedImage == null) {
 
 
@@ -801,6 +810,7 @@ public class ConfigActivity extends FragmentActivity {
 
         if (yourSelectedImage != null) {
             ImageView x = (ImageView) findViewById(R.id.imageView);
+            yourSelectedImage = imagerotate(yourSelectedImage, ret);
             x.setImageBitmap(yourSelectedImage);
         }
 

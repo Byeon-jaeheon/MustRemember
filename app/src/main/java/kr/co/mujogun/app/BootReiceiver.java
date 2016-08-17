@@ -19,6 +19,7 @@ public class BootReiceiver extends BroadcastReceiver {
     private TelephonyManager telephonyManager = null;
     private boolean isPhoneIdle = true;
     private Activity activity;
+    public static int abovepatterndetecter= 0;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -89,7 +90,29 @@ public class BootReiceiver extends BroadcastReceiver {
                     context.startActivity(i);
                 }
 
+
+
             }
+
+        if (km.isKeyguardSecure()) {
+
+
+            if (isPhoneIdle) {
+
+                Intent i = new Intent(context, ConfigActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_RETAIN_IN_RECENTS);
+                i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+
+                context.startActivity(i);
+            }
+
+        }
+
+
 
     }
     public void reenableKeyguard() {
