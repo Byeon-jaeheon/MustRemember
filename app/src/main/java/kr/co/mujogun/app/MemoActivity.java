@@ -16,6 +16,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -105,8 +107,8 @@ public class MemoActivity extends AppCompatActivity {
                 startActivity(prevactivity2);
             }
         });
-
-
+        Memo.invalidate(Memo.getLeft(),Memo.getTop(), Memo.getRight(),Memo.getBottom() );
+        Memo.setOnTouchListener(null);
 
 
 
