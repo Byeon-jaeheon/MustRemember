@@ -1,5 +1,6 @@
 package kr.co.mujogun.app;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -9,9 +10,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Binder;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.util.Log;
 
 /**
  * Created by mujogun on 2016-07-12.
@@ -20,6 +24,15 @@ public class ScreenService extends Service {
 
     private BootReiceiver mReceiver = null;
     private Notification.Builder builder;
+    public Activity activity;
+
+    public void set(Activity activity) {
+        this.activity = activity;
+    }
+    public Class getInstance() {
+
+        return this.getClass();
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -30,11 +43,13 @@ public class ScreenService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        /*
         mReceiver = new BootReiceiver();
+        mReceiver.setCallback((ConfigActivity)activity);
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_SCREEN_ON);
         registerReceiver(mReceiver, filter);
-
+*/
     }
 
     @Override
@@ -43,7 +58,9 @@ public class ScreenService extends Service {
         Resources res = getResources();
         Intent pendingintent = new Intent(this, ConfigActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 1, pendingintent, 0);
-
+        Activity x = (Activity)intent.getSerializableExtra("Activity");
+        if (x != null)
+            Log.i("ScreenService", "null");
 
        updateFirstMemo();
        Notification notification = builder.getNotification();
@@ -54,6 +71,7 @@ public class ScreenService extends Service {
                 if(mReceiver==null){
                     mReceiver = new BootReiceiver();
                     IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
+                    mReceiver.set(x);
                     filter.addAction(Intent.ACTION_SCREEN_ON);
                     registerReceiver(mReceiver, filter);
                 }

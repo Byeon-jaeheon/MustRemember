@@ -1,5 +1,5 @@
 package kr.co.mujogun.app;
-
+import kr.co.mujogun.app.BootReiceiver;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -27,6 +27,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -42,6 +43,7 @@ import android.view.DragEvent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -72,6 +74,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -82,10 +85,10 @@ import java.util.Calendar;
 /**
  * Created by mujogun on 2016-07-12.
  */
-public class ConfigActivity extends FragmentActivity {
+public class ConfigActivity extends FragmentActivity implements receiverCallback, Serializable {
 
-    private Button onBtn, memoBtn, fontBtn, helpBtn;
-    private TextView watch;
+    private transient Button onBtn, memoBtn, fontBtn, helpBtn;
+    private transient TextView watch;
     private static final int SELECT_PHOTO = 100;
     private static int COUNTER_FOR_SCREEN = 0;
 
@@ -95,19 +98,25 @@ public class ConfigActivity extends FragmentActivity {
     private static String TOKEN;
     private static String jlink;
 
-    private static Bitmap yourSelectedImage;
+    private static transient Bitmap yourSelectedImage;
     private static String ret;
     public static int unlocked = 0;
-    DBHelper helper;
-    phpDown task;
-    register rl;
-    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    transient DBHelper helper;
+    transient phpDown task;
+    transient register rl;
+    private transient BroadcastReceiver mRegistrationBroadcastReceiver;
     private static String regId;
-    Bitmap b;
-    listAdapter customadapter;
-    private ExifInterface ExifMedia;
-    private KeyguardManager km;
-    private KeyguardManager.KeyguardLock kl;
+    transient Bitmap b;
+    transient listAdapter customadapter;
+    private transient ExifInterface ExifMedia;
+    private transient KeyguardManager km;
+    private transient KeyguardManager.KeyguardLock kl;
+    public static int memoclickedwhilelocked = 0;
+
+
+    public void getActivity() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -222,7 +231,33 @@ public class ConfigActivity extends FragmentActivity {
                 if (km == null)
                     km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
                 if (km.isKeyguardLocked()) {
+                    memoclickedwhilelocked = 1;
                     moveTaskToBack(true);
+
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (km.isKeyguardSecure() && ConfigActivity.memoclickedwhilelocked == 1) {
+                                Intent i = new Intent(ConfigActivity.this, MemoActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.addFlags(Intent.FLAG_ACTIVITY_RETAIN_IN_RECENTS);
+                                i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+                                ConfigActivity.memoclickedwhilelocked = 0;
+                                startActivity(i);
+
+
+
+
+
+                            }
+
+                        }
+                    }, 500);
+
+
                 }
                 else {
                     Intent memoIntent = new Intent(ConfigActivity.this, MemoActivity.class);
@@ -429,7 +464,9 @@ public class ConfigActivity extends FragmentActivity {
     }
 
     public void updateService() {
-        Intent intent = new Intent(this, ScreenService.class);
+        ScreenService service = new ScreenService();
+        Intent intent = new Intent(this, service.getInstance());
+        intent.putExtra("Activity", this);
         startService(intent);
     }
     public void getInstanceIdToken() {
@@ -690,7 +727,25 @@ public class ConfigActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         COUNTER_FOR_SCREEN = 0;
-        Log.i("ConfigActivity", "onResume");
+        /*
+        km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (km.isKeyguardSecure() && ConfigActivity.memoclickedwhilelocked == 1) {
+
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+                    memoclickedwhilelocked = 0;
+
+                }
+                else {
+                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+                }
+
+            }
+        });
+        */
+
 /*
             ImageView x = (ImageView) findViewById(R.id.imageView);
             x.setImageBitmap(yourSelectedImage);
@@ -1128,6 +1183,7 @@ public class ConfigActivity extends FragmentActivity {
         helper.close();
         customadapter.updateList(t);
     }
+
 
 
 
