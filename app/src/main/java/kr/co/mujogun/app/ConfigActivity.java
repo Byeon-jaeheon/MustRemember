@@ -91,7 +91,7 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
     private transient TextView watch;
     private static final int SELECT_PHOTO = 100;
     private static int COUNTER_FOR_SCREEN = 0;
-
+    private static final int APP_VERSION = 7;
 
     private static final String DB_NAME = "memo.db";
     private static final String DB_TABLE = "memo";
@@ -1384,7 +1384,7 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
                 jsonObject1.put("carrier", telephony.getNetworkOperatorName());
                 jsonObject1.put("mobile", telephony.getLine1Number());
                 jsonObject1.put("device", telephony.getPhoneType());
-                jsonObject1.put("version", telephony.getDeviceSoftwareVersion());
+                jsonObject1.put("version", APP_VERSION);
 
                 str = jsonObject1.toString();
 
@@ -1402,7 +1402,7 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
             jsonObject1.put("carrier", telephony.getNetworkOperatorName());
             jsonObject1.put("mobile", telephony.getLine1Number());
             jsonObject1.put("device", telephony.getPhoneType());
-            jsonObject1.put("version", telephony.getDeviceSoftwareVersion());
+            jsonObject1.put("version", APP_VERSION);
 
             str = jsonObject1.toString();
 
