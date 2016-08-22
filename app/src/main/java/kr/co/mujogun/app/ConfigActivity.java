@@ -1,5 +1,7 @@
 package kr.co.mujogun.app;
 import kr.co.mujogun.app.BootReiceiver;
+import kr.kdon.adcast.AdCastSession;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -60,7 +62,7 @@ import com.njh89z.util.HttpConn;
 import com.njh89z.util.MCrypt;
 
 
-
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -81,20 +83,21 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 /**
  * Created by mujogun on 2016-07-12.
  */
 public class ConfigActivity extends FragmentActivity implements receiverCallback, Serializable {
 
+
+    private String [] linelist;
     private transient Button onBtn, memoBtn, fontBtn, helpBtn;
     private transient TextView watch;
     private static final int SELECT_PHOTO = 100;
     private static int COUNTER_FOR_SCREEN = 0;
-    private static final int APP_VERSION = 7;
+    private static final int APP_VERSION = 8;
 
-    private static final String DB_NAME = "memo.db";
-    private static final String DB_TABLE = "memo";
     private static String TOKEN;
     private static String jlink;
 
@@ -102,6 +105,7 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
     private static String ret;
     public static int unlocked = 0;
     transient DBHelper helper;
+    transient LineDBHelper lineDBHelper;
     transient phpDown task;
     transient register rl;
     private transient BroadcastReceiver mRegistrationBroadcastReceiver;
@@ -121,17 +125,16 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        lineupdate lu = new lineupdate();
+        lu.execute("http://app.mujogun.co.kr/?action=t");
+        updatedata();
         setContentView(R.layout.activity_main);
         String[] perms = {"android.permission.READ_EXTERNAL_STORAGE", "android.permission.READ_PHONE_STATE"};
         helper = new DBHelper(getApplicationContext(), "memo.db", null, 1);
         helper.open();
+
         int permsRequestCode = 200;
-/*
-        if (Build.VERSION.SDK_INT >= 23)
-            if (this.checkSelfPermission("android.permission.READ_EXTERNAL_STORAGE") == PackageManager.PERMISSION_DENIED)
-                requestPermissions(perms, permsRequestCode);
-*/
+
 
         if (ContextCompat.checkSelfPermission((this), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED  ) {
 
@@ -181,6 +184,7 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
             editor.putString("FontColor", "Set4");
             editor.putBoolean("FirstInstall", false);
             editor.commit();
+
         }
 
 
@@ -293,12 +297,12 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
 
         drawlist();
 
-
-
         registBroadcastReceiver();
 
         if (checkPlayServices())
             getInstanceIdToken();
+
+
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -455,7 +459,8 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
             }
         }
 
-        Log.i("ConfigActivity", "onCreate");
+        AdCastSession.actionCompleted(getApplicationContext(), "CyxOprRqMDy4LhdoTygaa1xybKlERGUz", false);
+
 
 
 
@@ -727,6 +732,8 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
     protected void onResume() {
         super.onResume();
         COUNTER_FOR_SCREEN = 0;
+        updateline();
+
         /*
         km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
         runOnUiThread(new Runnable() {
@@ -1127,9 +1134,20 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
 
         }
         */
-
+/*
         task = new phpDown();
         task.execute("http://app.mujogun.co.kr/?action=lockscreen");
+        */
+/*
+        lineDBHelper.open();
+        Cursor mcursor = lineDBHelper.selectAll();
+        Random rand = new Random();
+        mcursor = lineDBHelper.select(1 + rand.nextInt(5));
+        mcursor.moveToFirst();
+        line.setText(mcursor.getString(1));
+        lineDBHelper.close();
+*/
+
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter("registrationComplete"));
 
@@ -1772,6 +1790,77 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+        }
+    }
+    public void updateline() {
+        if (linelist != null) {
+            TextView x = (TextView) findViewById(R.id.line);
+            Random random = new Random();
+            int num = 1 + random.nextInt(linelist.length-1);
+            x.setText(linelist[num]);
+        }
+    }
+    public void updatedata() {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                lineupdate lu = new lineupdate();
+                lu.execute("http://app.mujogun.co.kr/?action=t");
+                handler.postDelayed(this, 10800000);
+            }
+
+        });
+    }
+
+
+    private class lineupdate extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            StringBuilder jsonHtml = new StringBuilder();
+            try {
+                URL url = new URL(strings[0]);
+                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                if(conn != null){
+                    conn.setConnectTimeout(10000);
+                    conn.setUseCaches(false);
+                    // 연결되었음 코드가 리턴되면.
+                    if(conn.getResponseCode() == HttpURLConnection.HTTP_OK){
+                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+                        for(;;){
+                            // 웹상에 보여지는 텍스트를 라인단위로 읽어 저장.
+                            String line = br.readLine();
+                            if(line == null) break;
+                            // 저장된 텍스트 라인을 jsonHtml에 붙여넣음
+                            jsonHtml.append(line + "\n");
+                        }
+                        br.close();
+                    }
+                    conn.disconnect();
+                }
+
+            } catch(Exception ex){
+                ex.printStackTrace();
+            }
+            return jsonHtml.toString();
+        }
+        @Override
+        protected void onPostExecute(String str) {
+
+            if (str.compareTo("") != 0) {
+                linelist = str.split("=>");
+
+                for (int i = 1; i < linelist.length; i++) {
+                    linelist[i] = linelist[i].replace("[" + String.valueOf(i) + "]", "");
+                    linelist[i] = linelist[i].replace(")", "");
+                    linelist[i] = linelist[i].trim();
+                }
+            }
+
+
+
 
         }
     }

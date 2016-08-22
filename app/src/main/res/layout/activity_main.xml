@@ -163,7 +163,7 @@
        android:background="#ffffff"
        android:layout_above="@id/relative1"
        android:overScrollFooter="@android:color/transparent"
-       android:textSize = "15sp"
+       android:textSize = "17sp"
        />
    <ListView
        android:layout_marginTop="120dp"
