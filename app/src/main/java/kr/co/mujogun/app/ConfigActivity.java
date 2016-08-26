@@ -90,13 +90,13 @@ import java.util.Random;
  */
 public class ConfigActivity extends FragmentActivity implements receiverCallback, Serializable {
 
-
+    private static ArrayList<lineorad> lineorads = new ArrayList<lineorad>();
     private String [] linelist;
     private transient Button onBtn, memoBtn, fontBtn, helpBtn;
     private transient TextView watch;
     private static final int SELECT_PHOTO = 100;
     private static int COUNTER_FOR_SCREEN = 0;
-    private static final int APP_VERSION = 8;
+    private static final int APP_VERSION = 9;
 
     private static String TOKEN;
     private static String jlink;
@@ -125,8 +125,8 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        lineupdate lu = new lineupdate();
-        lu.execute("http://app.mujogun.co.kr/?action=t");
+        phpDown pd = new phpDown();
+        pd.execute("http://app.mujogun.co.kr/?action=a");
         updatedata();
         setContentView(R.layout.activity_main);
         String[] perms = {"android.permission.READ_EXTERNAL_STORAGE", "android.permission.READ_PHONE_STATE"};
@@ -1703,6 +1703,32 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
         }
     }
 
+    private class lineorad {
+        String category;
+        String content;
+        String link;
+
+        public lineorad(String category, String content) {
+            this.category = category;
+            this.content = content;
+        }
+        public lineorad(String c, String a, String b) {
+            this.category = c;
+            this.content = a;
+            this.link = b;
+        }
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public void setLink(String link) {
+            this.link = link;
+        }
+        public void setCategory(String category) {
+            this.category = category;
+        }
+    }
+
 
 
     private class phpDown extends AsyncTask<String, Integer, String> {
@@ -1743,6 +1769,22 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
                 JSONObject root = new JSONObject(str);
                 String connection = root.getString("result");
                 if (connection.compareTo("success") == 0) {
+                    lineorads.clear();
+                    for (int i= 0; i < 10; i++) {
+                        String category = root.getString("category" + String.valueOf(i));
+                        String content = root.getString("content" + String.valueOf(i));
+                        content = content.replace("<br>", "\n");
+                        content = content.replace("&quot;", "\"");
+                        if (category.compareTo("advertisement") == 0) {
+                            String link = root.getString("link" + String.valueOf(i));
+                            lineorads.add(new lineorad(category, content, link));
+                        }
+                        else {
+                            lineorads.add(new lineorad(category, content));
+                        }
+
+                    }
+/*
                     String category = root.getString("category");
                     String jline = root.getString("content");
                     if (jline.compareTo("null") == 0)
@@ -1758,6 +1800,7 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
                         x.setText(jline);
                         x.setClickable(false);
                     }
+                    */
 
                     /*
 
@@ -1794,20 +1837,45 @@ public class ConfigActivity extends FragmentActivity implements receiverCallback
         }
     }
     public void updateline() {
+        if (lineorads.size() != 0) {
+            TextView x = (TextView) findViewById(R.id.line);
+            Random random = new Random();
+            int num = 1 + random.nextInt(lineorads.size()-1);
+            if (lineorads.get(num).category.compareTo("advertisement") == 0) {
+                x.setText(Html.fromHtml( lineorads.get(num).content ));
+                x.setClickable(true);
+                jlink = lineorads.get(num).link;
+                x.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(jlink));
+                        startActivity(browserIntent);
+                    }
+                });
+            }
+            else {
+                x.setText(lineorads.get(num).content);
+                x.setClickable(false);
+            }
+
+        }
+
+        /*
         if (linelist != null) {
             TextView x = (TextView) findViewById(R.id.line);
             Random random = new Random();
             int num = 1 + random.nextInt(linelist.length-1);
             x.setText(linelist[num]);
         }
+        */
     }
     public void updatedata() {
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
-                lineupdate lu = new lineupdate();
-                lu.execute("http://app.mujogun.co.kr/?action=t");
+                phpDown lu = new phpDown();
+                lu.execute("http://app.mujogun.co.kr/?action=a");
                 handler.postDelayed(this, 10800000);
             }
 

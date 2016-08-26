@@ -9,8 +9,8 @@ android {
         applicationId "kr.co.mujogun.app"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 8
-        versionName "1.1.6"
+        versionCode 9
+        versionName "1.1.7"
     }
     buildTypes {
         release {
